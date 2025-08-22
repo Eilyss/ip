@@ -4,8 +4,7 @@ import java.util.HashMap;
 public class Chatbot {
     private static final String lineSeparator = "____________________________________________________________";
     private String name;
-    private ArrayList<String> messages;
-    private TaskList tasks;
+    private ArrayList<String> messages = new ArrayList<>();
 
     public Chatbot(String name) {
         this.name = name;
