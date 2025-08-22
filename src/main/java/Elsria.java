@@ -64,7 +64,7 @@ public class Elsria {
                     if (taskList.isEmpty()) {
                         say("Hmm... there's nothing in your list right now.");
                     } else {
-                        say(taskList.toString());
+                        say("Here are the tasks on your list:\n" + taskList.toString());
                     }
                     break;
                 default:
@@ -72,6 +72,10 @@ public class Elsria {
                     switch (parsedPrompt[0]) {
                         case "mark":
                             int toMark = Integer.parseInt(parsedPrompt[1]);
+                            if (toMark < 0 || toMark >= taskList.size()) {
+                                say("Woah buddy that task does not exist!");
+                                break;
+                            }
                             taskList.markTask(toMark);
                             say(String.format(
                                     "Okay! I have marked that task as done.\n %s",
@@ -80,6 +84,10 @@ public class Elsria {
                             break;
                         case "unmark":
                             int toUnmark = Integer.parseInt(parsedPrompt[1]);
+                            if (toUnmark < 0 || toUnmark >= taskList.size()) {
+                                say("Woah buddy that task does not exist!");
+                                break;
+                            }
                             taskList.unmarkTask(toUnmark);
                             say(String.format(
                                     "Okay! That task is no longer marked as done\n %s",
