@@ -5,34 +5,46 @@ import java.util.Scanner;
 public class Elsria {
     private static final String lineSeparator = "____________________________________________________________";
     private static final String name = "Elsria";
+    private static final TaskList taskList = new TaskList();
+
+    public static void sayRaw(String message) {
+        System.out.println("\t" + lineSeparator);
+        System.out.println("\t" + message);
+        System.out.println("\t" + lineSeparator);
+    }
+
+    public static void say(String message) {
+        say(parseString(message));
+    }
 
     public static ArrayList<String> parseString(String input) {
         ArrayList<String> solution = new ArrayList<>();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
-            switch (c) {
-                case '\n':
-                    solution.add(sb.toString().strip());
-                    sb.setLength(0);
-                    break;
-                default:
-                    sb.append(c);
+            if (c == '\n') {
+                solution.add(sb.toString().strip());
+                sb.setLength(0);
+            } else {
+                sb.append(c);
             }
         }
-        if (sb.length() > 0) {
+        if (!sb.isEmpty()) {
             solution.add(sb.toString().strip());
         }
         return solution;
     }
 
-    public static void say(String message) {
-        ArrayList<String> parsedMessage = parseString(message);
+    public static void say(ArrayList<String> messages) {
         System.out.println("\t" + lineSeparator);
-        for (String s : parsedMessage) {
+        for (String s : messages) {
             System.out.println("\t" + s);
         }
         System.out.println("\t" + lineSeparator);
+    }
+
+    public static void addToList(Task task) {
+        taskList.add(task);
     }
 
     public static void main(String[] args) {
@@ -40,7 +52,7 @@ public class Elsria {
         say(String.format("Heya! It's me, %s!\nWhat do you wanna do today?", name));
 
         boolean running = true;
-        String prompt = "";
+        String prompt;
         while (running) {
             prompt = sc.nextLine();
             switch (prompt.toLowerCase(Locale.ROOT)) {
@@ -48,8 +60,36 @@ public class Elsria {
                     say("Okey dokey, see you soon!");
                     running = false;
                     break;
+                case "list":
+                    if (taskList.isEmpty()) {
+                        say("Hmm... there's nothing in your list right now.");
+                    } else {
+                        say(taskList.toString());
+                    }
+                    break;
                 default:
-                    say(prompt);
+                    String[] parsedPrompt = prompt.split(" ");
+                    switch (parsedPrompt[0]) {
+                        case "mark":
+                            int toMark = Integer.parseInt(parsedPrompt[1]);
+                            taskList.markTask(toMark);
+                            say(String.format(
+                                    "Okay! I have marked that task as done.\n %s",
+                                    taskList.getTaskDescription(toMark))
+                            );
+                            break;
+                        case "unmark":
+                            int toUnmark = Integer.parseInt(parsedPrompt[1]);
+                            taskList.unmarkTask(toUnmark);
+                            say(String.format(
+                                    "Okay! That task is no longer marked as done\n %s",
+                                    taskList.getTaskDescription(toUnmark))
+                            );
+                            break;
+                        default:
+                            say("added: " + prompt);
+                            addToList(new Task(prompt));
+                    }
             }
         }
 
