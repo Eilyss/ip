@@ -1,4 +1,4 @@
-public class Task {
+public abstract class Task {
     protected String task;
     protected boolean isDone;
 
@@ -23,12 +23,11 @@ public class Task {
         return this.task;
     }
 
-    public String getMark() {
-        return this.isDone ? "X" : " ";
-    }
+    public abstract char taskType();
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.getMark(), task);
+        char markStatus = this.isDone ? 'X' : ' ';
+        return String.format("[%c][%c] %s", this.taskType(), markStatus, task);
     }
 }
