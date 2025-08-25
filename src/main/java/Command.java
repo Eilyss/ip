@@ -1,7 +1,7 @@
 public abstract class Command {
-    private ChatbotUI ui;
+    private ChatbotContext chatbotContext;
 
-    public Command(ChatbotUI ui, String args) {
+    public Command(ChatbotContext chatbotContext, String args) {
         this.ui = ui;
     }
 
@@ -11,16 +11,17 @@ public abstract class Command {
     public class GreetCommand extends Command {
         private String name;
 
-        public GreetCommand(ChatbotUI ui, String name) {
-            super(ui, name);
-            parseArgs(name);
+        public GreetCommand(ChatbotContext chatbotContext, String args) {
+            super(chatbotContext, args);
+            parseArgs(args);
         }
 
         @Override
         public void execute() {
-            super.ui.queueMessage(String.format("Heya! It's me, %s!", this.name));
-            super.ui.queueMessage("What do you wanna do today?");
-            super.ui.sayMessages();
+            UIHandler uiHandler = super.chatbotContext.getUIHandler();
+            uiHandler.queueMessage(String.format("Heya! It's me, %s!", this.name));
+            uiHandler.queueMessage("What do you wanna do today?");
+            uiHandler.sayMessages();
         }
 
         @Override
@@ -32,19 +33,48 @@ public abstract class Command {
     public class EchoCommand extends Command {
         private String echo;
 
-        public EchoCommand(ChatbotUI ui, String args) {
-            super(ui, args);
+        public EchoCommand(ChatbotContext chatbotContext, String args) {
+            super(chatbotContext, args);
             parseArgs(args);
         }
 
         @Override
         public void execute() {
-            super.ui.say(this.echo);
+            super.chatbotContext.getUIHandler().say(this.echo);
         }
 
         @Override
         public void parseArgs(String args) {
             this.echo = args;
+        }
+    }
+
+    public class ListCommand extends Command {
+
+        public ListCommand(ChatbotContext chatbotContext, String args) {
+            super(chatbotContext, args);
+        }
+
+        @Override
+        public void execute() {
+            TaskList taskList = chatbotContext.getTaskList();
+            UIHandler uiHandler = chatbotContext.getUIHandler();
+
+            if (taskList.isEmpty()) {
+                uiHandler.say("Hmm... there's nothing in your list right now.");
+                return;
+            }
+
+            uiHandler.queueMessage("Here are the tasks on your list:");
+            for (int i = 0; i < taskList.size(); i++) {
+                uiHandler.queueMessage(String.format("%d. %s", i + 1, taskList.get(i).toString()));
+            }
+            uiHandler.sayMessages();
+        }
+
+        @Override
+        public void parseArgs(String args) {
+
         }
     }
 }

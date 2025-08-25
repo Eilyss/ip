@@ -1,13 +1,11 @@
-import java.util.Arrays;
-
 public class Chatbot {
     private final String name;
-    private final ChatbotUI ui;
+    private final UIHandler ui;
     private final TaskList taskList;
 
     public Chatbot(String name) {
         this.name = name;
-        this.ui = new ChatbotUI();
+        this.ui = new UIHandler();
         this.taskList = new TaskList();
     }
 

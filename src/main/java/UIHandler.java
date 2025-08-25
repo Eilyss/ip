@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-public class ChatbotUI {
+public class UIHandler {
     private static final String lineSeparator = "____________________________________________________________";
     private final ArrayList<String> messages = new ArrayList<>();
 
-    public ChatbotUI() {
+    public UIHandler() {
     }
 
     public void queueMessage(String message) {
