@@ -1,3 +1,5 @@
+package com.Elsria;
+
 public class Chatbot {
     private final String name;
     private final UIHandler ui;

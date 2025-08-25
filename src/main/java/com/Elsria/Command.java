@@ -1,5 +1,7 @@
+package com.Elsria;
+
 public abstract class Command {
-    private ChatbotContext chatbotContext;
+    protected ChatbotContext chatbotContext;
 
     public Command(ChatbotContext chatbotContext, String args) {
         this.ui = ui;
@@ -7,28 +9,6 @@ public abstract class Command {
 
     public abstract void execute();
     public abstract void parseArgs(String args);
-
-    public class GreetCommand extends Command {
-        private String name;
-
-        public GreetCommand(ChatbotContext chatbotContext, String args) {
-            super(chatbotContext, args);
-            parseArgs(args);
-        }
-
-        @Override
-        public void execute() {
-            UIHandler uiHandler = super.chatbotContext.getUIHandler();
-            uiHandler.queueMessage(String.format("Heya! It's me, %s!", this.name));
-            uiHandler.queueMessage("What do you wanna do today?");
-            uiHandler.sayMessages();
-        }
-
-        @Override
-        public void parseArgs(String args) {
-            this.name = args;
-        }
-    }
 
     public class EchoCommand extends Command {
         private String echo;

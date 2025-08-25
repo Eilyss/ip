@@ -1,7 +1,9 @@
+package com.Elsria;
+
 import java.util.Scanner;
 
 public class Elsria {
-    private static final String name = "Elsria";
+    private static final String name = "com.Elsria.Elsria";
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

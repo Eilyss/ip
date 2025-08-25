@@ -1,3 +1,5 @@
+package com.Elsria;
+
 public class ChatbotContext {
     private final UIHandler uiHandler;
     private final TaskList taskList;
