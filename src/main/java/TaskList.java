@@ -1,16 +1,20 @@
 import java.util.ArrayList;
 
 public class TaskList extends ArrayList<Task> {
-    public void markTask(int i) {
-        super.get(i).mark();
+    public boolean checkValidID(int id) {
+        return id >= 0 && id < super.size();
     }
 
-    public void unmarkTask(int i) {
-        super.get(i).unmark();
+    public void markTask(int id) {
+        super.get(id).mark();
     }
 
-    public String getTaskDescription(int i) {
-        return super.get(i).toString();
+    public void unmarkTask(int id) {
+        super.get(id).unmark();
+    }
+
+    public String getTaskDescription(int id) {
+        return super.get(id).toString();
     }
 
     @Override

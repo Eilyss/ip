@@ -12,7 +12,7 @@ public class Elsria {
         String prompt;
         while (running) {
             prompt = sc.nextLine();
-            running = Elsria.interpretCommand(prompt);
+            running = Elsria.parseUserInput(prompt);
         }
     }
 }

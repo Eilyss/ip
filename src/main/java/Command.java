@@ -2,19 +2,21 @@ import java.util.Arrays;
 import java.util.Set;
 
 public enum Command {
-    greet("hello"),
-    help("help"),
-    list("list"),
-    add("add"),
-    remove("remove"),
-    mark("mark"),
-    unmark("unmark"),
-    farewell("bye"),
-    invalid;
+    greet(0, "hello"),
+    help(1, "help"),
+    list(0, "list"),
+    add(1, "add"),
+    remove(1, "remove"),
+    mark(1, "mark"),
+    unmark(1, "unmark"),
+    farewell(0, "bye"),
+    invalid(0);
 
     private final Set<String> alias;
+    private int argCount;
 
-    Command(String... commands) {
+    Command(int argCount, String... commands) {
+        this.argCount = argCount;
         this.alias = Set.of(commands);
     }
 

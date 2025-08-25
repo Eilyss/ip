@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Chatbot {
     private final String name;
     private final ChatbotUI ui;
@@ -63,9 +65,11 @@ public class Chatbot {
     }
 
 
-    public boolean interpretCommand(String command) {
-        String[] args = command.split(" ", 3);
-        Command cmd = Command.interpretCommand(args[0]);
+    public boolean parseUserInput(String userInput) {
+        String[] tokens = userInput.split(" ");
+        String command = tokens[0];
+        String[] args = tokens.length > 1 ? Arrays.copyOfRange(tokens, 1, tokens.length) : new String[0];
+        Command cmd = Command.interpretCommand(command);
         boolean running = true;
 
         switch (cmd) {
