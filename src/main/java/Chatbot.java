@@ -22,7 +22,7 @@ public class Chatbot {
     }
 
     public void addTask(String task) {
-        Task newTask = new Task(task);
+        Task newTask = new ToDo(task);
         this.taskList.add(newTask);
         this.ui.say("added: " + task);
     }
@@ -66,22 +66,21 @@ public class Chatbot {
 
 
     public boolean parseUserInput(String userInput) {
-        String[] tokens = userInput.split(" ");
-        String command = tokens[0];
-        String[] args = tokens.length > 1 ? Arrays.copyOfRange(tokens, 1, tokens.length) : new String[0];
-        Command cmd = Command.interpretCommand(command);
+        String[] parts = userInput.split(" ", 2);
+        CommandType cmd = CommandType.interpretCommand(parts[0]);
+        String args = parts[1];
         boolean running = true;
 
         switch (cmd) {
             case greet -> this.greet();
             case list -> this.reciteList();
-            case mark -> this.markTaskAsDone(Integer.parseInt(args[1]) - 1);
-            case unmark -> this.unmarkTaskAsDone(Integer.parseInt(args[1]) - 1);
+            case mark -> this.markTaskAsDone(Integer.parseInt(args) - 1);
+            case unmark -> this.unmarkTaskAsDone(Integer.parseInt(args) - 1);
             case farewell -> {
                 this.farewell();
                 running = false;
             }
-            case invalid -> this.addTask(command);
+            case invalid -> this.addTask(userInput);
             default -> running = false;
         }
 
