@@ -36,6 +36,12 @@ public enum CommandType {
             return new EventCommand(context.getUIHandler(), context.getTaskList(), context.getRawArgs());
         }
     },
+    delete("delete", "remove") {
+        @Override
+        public DeleteCommand create(CommandContext context) {
+            return new DeleteCommand(context.getUIHandler(), context.getTaskList(), context.getArgs());
+        }
+    },
     list("list") {
         @Override
         public ListCommand create(CommandContext context) {
