@@ -18,10 +18,22 @@ public enum CommandType {
             return new EchoCommand(context.getUIHandler(), context.getRawArgs());
         }
     },
-    add("add") {
+    todo("todo") {
         @Override
-        public AddCommand create(CommandContext context) {
-            return new AddCommand(context.getUIHandler(), context.getTaskList(), new ToDo(context.getRawArgs()));
+        public ToDoCommand create(CommandContext context) {
+            return new ToDoCommand(context.getUIHandler(), context.getTaskList(), context.getRawArgs());
+        }
+    },
+    deadline("deadline") {
+        @Override
+        public DeadlineCommand create(CommandContext context) {
+            return new DeadlineCommand(context.getUIHandler(), context.getTaskList(), context.getRawArgs());
+        }
+    },
+    event("event") {
+        @Override
+        public EventCommand create(CommandContext context) {
+            return new EventCommand(context.getUIHandler(), context.getTaskList(), context.getRawArgs());
         }
     },
     list("list") {
@@ -30,7 +42,6 @@ public enum CommandType {
             return new ListCommand(context.getUIHandler(), context.getTaskList());
         }
     },
-//    todo("todo"),
     mark("mark") {
         @Override
         public Command create(CommandContext context) {
