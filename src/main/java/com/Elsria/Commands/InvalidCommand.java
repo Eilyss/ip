@@ -14,8 +14,4 @@ public class InvalidCommand extends Command {
     public void execute() {
         this.handler.say("Sorry wut??");
     }
-
-    @Override
-    public void parseArgs(String[] args) {
-    }
 }

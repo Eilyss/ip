@@ -7,12 +7,21 @@ public class CommandContext {
     private final UIHandler uiHandler;
     private final TaskList taskList;
     private final List<String> args;
+    private String rawArgs;
 
     public CommandContext(String name, UIHandler uiHandler, TaskList taskList, String[] args) {
         this.name = name;
         this.uiHandler = uiHandler;
         this.taskList = taskList;
         this.args = List.of(args);
+    }
+
+    public CommandContext(String name, UIHandler uiHandler, TaskList taskList, String[] args, String rawArgs) {
+        this.name = name;
+        this.uiHandler = uiHandler;
+        this.taskList = taskList;
+        this.args = List.of(args);
+        this.rawArgs = rawArgs;
     }
 
     public String getName() {
@@ -27,7 +36,15 @@ public class CommandContext {
         return this.taskList;
     }
 
+    public String[] getArgs() {
+        return this.args.toArray(new String[0]);
+    }
+
     public String getArg(int index) {
         return this.args.get(index);
+    }
+
+    public String getRawArgs() {
+        return this.rawArgs;
     }
 }

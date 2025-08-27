@@ -1,11 +1,11 @@
 package com.Elsria;
 
+import com.Elsria.Commands.EchoCommand;
 import com.Elsria.Commands.FarewellCommand;
 import com.Elsria.Commands.GreetCommand;
 import com.Elsria.Commands.InvalidCommand;
 
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.Set;
 
 public enum CommandType {
@@ -15,7 +15,12 @@ public enum CommandType {
             return new GreetCommand(context.getUIHandler(), context.getName());
         }
     },
-//    echo("echo"),
+    echo("echo") {
+        @Override
+        public EchoCommand create(CommandContext context) {
+            return new EchoCommand(context.getUIHandler(), context.getRawArgs());
+        }
+    },
 //    list("list"),
 //    todo("todo"),
 //    mark("mark"),

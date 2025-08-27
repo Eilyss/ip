@@ -20,8 +20,4 @@ public class GreetCommand extends Command {
         this.handler.queueMessage("What do you wanna do today?");
         this.handler.sayMessages();
     }
-
-    @Override
-    public void parseArgs(String[] args) {
-    }
 }

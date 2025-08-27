@@ -14,8 +14,4 @@ public class FarewellCommand extends Command {
     public void execute() {
         this.handler.say("Okey dokey, see you soon!");
     }
-
-    @Override
-    public void parseArgs(String[] args) {
-    }
 }

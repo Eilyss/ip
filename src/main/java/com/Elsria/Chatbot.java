@@ -73,7 +73,7 @@ public class Chatbot {
         Command command = this.commandParser.parse(userInput);
         command.execute();
 
-        return !(command instanceof FarewellCommand);
+        return !this.commandParser.endProgram();
     }
 
 }
