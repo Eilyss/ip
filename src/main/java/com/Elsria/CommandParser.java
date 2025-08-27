@@ -1,5 +1,6 @@
 package com.Elsria;
 
+import com.Elsria.Commands.AddCommand;
 import com.Elsria.Commands.EchoCommand;
 import com.Elsria.Commands.InvalidCommand;
 
@@ -44,7 +45,7 @@ public class CommandParser {
         }
 
         if (commandType == CommandType.invalid) {
-            return new EchoCommand(context.getUIHandler(), rawInput);
+            return new AddCommand(this.uiHandler, this.taskList, new ToDo(rawInput));
         }
         return commandType.create(context);
     }

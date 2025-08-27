@@ -1,9 +1,6 @@
 package com.Elsria;
 
-import com.Elsria.Commands.EchoCommand;
-import com.Elsria.Commands.FarewellCommand;
-import com.Elsria.Commands.GreetCommand;
-import com.Elsria.Commands.InvalidCommand;
+import com.Elsria.Commands.*;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -21,7 +18,18 @@ public enum CommandType {
             return new EchoCommand(context.getUIHandler(), context.getRawArgs());
         }
     },
-//    list("list"),
+    add("add") {
+        @Override
+        public AddCommand create(CommandContext context) {
+            return new AddCommand(context.getUIHandler(), context.getTaskList(), new ToDo(context.getRawArgs()));
+        }
+    },
+    list("list") {
+        @Override
+        public ListCommand create(CommandContext context) {
+            return new ListCommand(context.getUIHandler(), context.getTaskList());
+        }
+    },
 //    todo("todo"),
 //    mark("mark"),
 //    unmark("unmark"),

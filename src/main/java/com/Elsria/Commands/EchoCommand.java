@@ -3,14 +3,12 @@ package com.Elsria.Commands;
 import com.Elsria.Command;
 import com.Elsria.UIHandler;
 
-import java.util.Arrays;
-
 public class EchoCommand extends Command {
     private String echo;
-    private UIHandler handler;
+    private UIHandler uiHandler;
 
-    public EchoCommand(UIHandler handler, String input) {
-        this.handler = handler;
+    public EchoCommand(UIHandler uiHandler, String input) {
+        this.uiHandler = uiHandler;
         this.echo = stripQuotes(input);
     }
 
@@ -25,6 +23,6 @@ public class EchoCommand extends Command {
 
     @Override
     public void execute() {
-        this.handler.say(this.echo);
+        this.uiHandler.say(this.echo);
     }
 }

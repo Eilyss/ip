@@ -4,14 +4,14 @@ import com.Elsria.Command;
 import com.Elsria.UIHandler;
 
 public class InvalidCommand extends Command {
-    UIHandler handler;
+    UIHandler uiHandler;
 
-    public InvalidCommand(UIHandler handler) {
-        this.handler = handler;
+    public InvalidCommand(UIHandler uiHandler) {
+        this.uiHandler = uiHandler;
     }
 
     @Override
     public void execute() {
-        this.handler.say("Sorry wut??");
+        this.uiHandler.say("Sorry wut??");
     }
 }
