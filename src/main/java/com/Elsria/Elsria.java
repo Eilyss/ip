@@ -12,7 +12,7 @@ public class Elsria {
 
         boolean running = true;
         String prompt;
-        while (running) {
+        while (running && sc.hasNextLine()) {
             prompt = sc.nextLine();
             running = Elsria.parseUserInput(prompt);
         }
