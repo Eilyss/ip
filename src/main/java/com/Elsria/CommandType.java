@@ -31,8 +31,18 @@ public enum CommandType {
         }
     },
 //    todo("todo"),
-//    mark("mark"),
-//    unmark("unmark"),
+    mark("mark") {
+        @Override
+        public Command create(CommandContext context) {
+            return new MarkCommand(context.getUIHandler(), context.getTaskList(), context.getArgs());
+        }
+    },
+    unmark("unmark") {
+        @Override
+        public Command create(CommandContext context) {
+            return new UnmarkCommand(context.getUIHandler(), context.getTaskList(), context.getArgs());
+        }
+    },
     farewell("bye") {
     @Override
         public FarewellCommand create(CommandContext context) {
