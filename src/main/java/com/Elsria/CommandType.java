@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Set;
 
 public enum CommandType {
-    greet("hello") {
+    greet("hello", "hi") {
         @Override
         public GreetCommand create(CommandContext context) {
             return new GreetCommand(context.getUIHandler(), context.getName());
@@ -54,7 +54,7 @@ public enum CommandType {
             return new UnmarkCommand(context.getUIHandler(), context.getTaskList(), context.getArgs());
         }
     },
-    farewell("bye") {
+    farewell("bye", "farewell", "goodbye", "exit", "quit") {
     @Override
         public FarewellCommand create(CommandContext context) {
             return new FarewellCommand(context.getUIHandler());
