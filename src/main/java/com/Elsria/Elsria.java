@@ -3,7 +3,7 @@ package com.Elsria;
 import java.util.Scanner;
 
 public class Elsria {
-    private static final String name = "com.Elsria.Elsria";
+    private static final String name = "Elsria";
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

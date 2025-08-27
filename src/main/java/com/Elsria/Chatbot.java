@@ -1,14 +1,18 @@
 package com.Elsria;
 
+import com.Elsria.Commands.FarewellCommand;
+
 public class Chatbot {
     private final String name;
     private final UIHandler ui;
     private final TaskList taskList;
+    private final CommandParser commandParser;
 
     public Chatbot(String name) {
         this.name = name;
         this.ui = new UIHandler();
         this.taskList = new TaskList();
+        this.commandParser = new CommandParser(name, this.ui, this.taskList);
     }
 
     public void greet() {
@@ -66,25 +70,10 @@ public class Chatbot {
 
 
     public boolean parseUserInput(String userInput) {
-        String[] parts = userInput.split(" ", 2);
-        CommandType cmd = CommandType.interpretCommand(parts[0]);
-        String args = parts[1];
-        boolean running = true;
+        Command command = this.commandParser.parse(userInput);
+        command.execute();
 
-        switch (cmd) {
-            case greet -> this.greet();
-            case list -> this.reciteList();
-            case mark -> this.markTaskAsDone(Integer.parseInt(args) - 1);
-            case unmark -> this.unmarkTaskAsDone(Integer.parseInt(args) - 1);
-            case farewell -> {
-                this.farewell();
-                running = false;
-            }
-            case invalid -> this.addTask(userInput);
-            default -> running = false;
-        }
-
-        return running;
+        return !(command instanceof FarewellCommand);
     }
 
 }
