@@ -1,12 +1,12 @@
 package com.Elsria.Commands;
 
 import com.Elsria.Command;
-import com.Elsria.UIHandler;
+import com.Elsria.UiHandler;
 
 public class InvalidCommand extends Command {
-    UIHandler uiHandler;
+    UiHandler uiHandler;
 
-    public InvalidCommand(UIHandler uiHandler) {
+    public InvalidCommand(UiHandler uiHandler) {
         this.uiHandler = uiHandler;
     }
 

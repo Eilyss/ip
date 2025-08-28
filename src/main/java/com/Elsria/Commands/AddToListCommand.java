@@ -1,14 +1,22 @@
 package com.Elsria.Commands;
 
-import com.Elsria.*;
+import com.Elsria.Command;
+import com.Elsria.Task;
+import com.Elsria.TaskList;
+import com.Elsria.UiHandler;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public abstract class AddToListCommand extends Command {
-    private UIHandler ui;
+    private UiHandler ui;
     private TaskList taskList;
     private Task task;
     protected String errorMessage;
 
-    public AddToListCommand(UIHandler uiHandler, TaskList taskList, String rawArguments) {
+    public AddToListCommand(UiHandler uiHandler, TaskList taskList, String rawArguments) {
         this.taskList = taskList;
         this.ui = uiHandler;
         try {
@@ -26,7 +34,42 @@ public abstract class AddToListCommand extends Command {
             return;
         }
         this.taskList.add(this.task);
-        this.ui.say("added: " + this.task);
+        this.ui.queueMessage("added: " + this.task);
+        if (!this.writeToFile("ToDoList")) {
+            this.ui.queueMessage("Woah, hold on...");
+            this.ui.queueMessage("I seem to be unable to store this list on the drive");
+            this.ui.queueMessage("Could you run the Save command?");
+        }
+        this.ui.sayMessages();
+
+    }
+
+    public boolean writeToFile(String filename) {
+        System.out.println("Writing to file...");
+        try {
+            File dir = new File("data");
+            if (!dir.exists()) {
+                boolean created = dir.mkdirs();
+                if (!created) {
+                    return false;
+                }
+            }
+
+            File listFile = new File(dir, filename);
+            if (!listFile.exists()) {
+                listFile.createNewFile();
+            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter(listFile));
+            for (Task task : this.taskList) {
+                writer.write(task.toString());
+                writer.newLine();
+            }
+
+            writer.close();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     public abstract Task createTask(String args);

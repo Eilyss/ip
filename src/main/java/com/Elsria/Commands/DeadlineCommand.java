@@ -1,9 +1,12 @@
 package com.Elsria.Commands;
 
-import com.Elsria.*;
+import com.Elsria.Deadline;
+import com.Elsria.Task;
+import com.Elsria.TaskList;
+import com.Elsria.UiHandler;
 
 public class DeadlineCommand extends AddToListCommand{
-    public DeadlineCommand(UIHandler uiHandler, TaskList taskList, String rawArguments) {
+    public DeadlineCommand(UiHandler uiHandler, TaskList taskList, String rawArguments) {
         super(uiHandler, taskList, rawArguments);
     }
 

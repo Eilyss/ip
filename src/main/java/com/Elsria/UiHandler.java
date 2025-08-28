@@ -2,11 +2,11 @@ package com.Elsria;
 
 import java.util.ArrayList;
 
-public class UIHandler {
+public class UiHandler {
     private static final String lineSeparator = "____________________________________________________________";
     private final ArrayList<String> messages = new ArrayList<>();
 
-    public UIHandler() {
+    public UiHandler() {
     }
 
     public void queueMessage(String message) {

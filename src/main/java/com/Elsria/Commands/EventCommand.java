@@ -1,9 +1,12 @@
 package com.Elsria.Commands;
 
-import com.Elsria.*;
+import com.Elsria.Event;
+import com.Elsria.Task;
+import com.Elsria.TaskList;
+import com.Elsria.UiHandler;
 
 public class EventCommand extends AddToListCommand{
-    public EventCommand(UIHandler uiHandler, TaskList taskList, String rawArguments) {
+    public EventCommand(UiHandler uiHandler, TaskList taskList, String rawArguments) {
         super(uiHandler, taskList, rawArguments);
     }
 

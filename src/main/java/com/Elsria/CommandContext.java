@@ -4,19 +4,19 @@ import java.util.List;
 
 public class CommandContext {
     private final String name;
-    private final UIHandler uiHandler;
+    private final UiHandler uiHandler;
     private final TaskList taskList;
     private final List<String> args;
     private String rawArgs;
 
-    public CommandContext(String name, UIHandler uiHandler, TaskList taskList, String[] args) {
+    public CommandContext(String name, UiHandler uiHandler, TaskList taskList, String[] args) {
         this.name = name;
         this.uiHandler = uiHandler;
         this.taskList = taskList;
         this.args = List.of(args);
     }
 
-    public CommandContext(String name, UIHandler uiHandler, TaskList taskList, String[] args, String rawArgs) {
+    public CommandContext(String name, UiHandler uiHandler, TaskList taskList, String[] args, String rawArgs) {
         this.name = name;
         this.uiHandler = uiHandler;
         this.taskList = taskList;
@@ -28,7 +28,7 @@ public class CommandContext {
         return this.name;
     }
 
-    public UIHandler getUIHandler() {
+    public UiHandler getUIHandler() {
         return this.uiHandler;
     }
 

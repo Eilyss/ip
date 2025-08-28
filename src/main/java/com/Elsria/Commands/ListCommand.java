@@ -2,13 +2,13 @@ package com.Elsria.Commands;
 
 import com.Elsria.Command;
 import com.Elsria.TaskList;
-import com.Elsria.UIHandler;
+import com.Elsria.UiHandler;
 
 public class ListCommand extends Command {
-    private UIHandler uiHandler;
+    private UiHandler uiHandler;
     private TaskList taskList;
 
-    public ListCommand(UIHandler uiHandler, TaskList taskList) {
+    public ListCommand(UiHandler uiHandler, TaskList taskList) {
         this.uiHandler = uiHandler;
         this.taskList = taskList;
     }

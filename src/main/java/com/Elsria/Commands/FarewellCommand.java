@@ -1,12 +1,12 @@
 package com.Elsria.Commands;
 
 import com.Elsria.Command;
-import com.Elsria.UIHandler;
+import com.Elsria.UiHandler;
 
 public class FarewellCommand extends Command {
-    UIHandler handler;
+    UiHandler handler;
 
-    public FarewellCommand(UIHandler handler) {
+    public FarewellCommand(UiHandler handler) {
         this.handler = handler;
     }
 

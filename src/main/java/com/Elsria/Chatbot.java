@@ -1,16 +1,14 @@
 package com.Elsria;
 
-import com.Elsria.Commands.FarewellCommand;
-
 public class Chatbot {
     private final String name;
-    private final UIHandler ui;
+    private final UiHandler ui;
     private final TaskList taskList;
     private final CommandParser commandParser;
 
     public Chatbot(String name) {
         this.name = name;
-        this.ui = new UIHandler();
+        this.ui = new UiHandler();
         this.taskList = new TaskList();
         this.commandParser = new CommandParser(name, this.ui, this.taskList);
     }

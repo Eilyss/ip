@@ -1,16 +1,15 @@
 package com.Elsria.Commands;
 
 import com.Elsria.Command;
-import com.Elsria.Task;
 import com.Elsria.TaskList;
-import com.Elsria.UIHandler;
+import com.Elsria.UiHandler;
 
 public class DeleteCommand extends Command {
-    private UIHandler uiHandler;
+    private UiHandler uiHandler;
     private TaskList taskList;
     private String[] arguments;
 
-    public DeleteCommand(UIHandler uiHandler, TaskList taskList, String[] arguments) {
+    public DeleteCommand(UiHandler uiHandler, TaskList taskList, String[] arguments) {
         this.uiHandler = uiHandler;
         this.taskList = taskList;
         this.arguments = arguments;

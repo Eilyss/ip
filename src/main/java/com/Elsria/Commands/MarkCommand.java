@@ -2,14 +2,14 @@ package com.Elsria.Commands;
 
 import com.Elsria.Command;
 import com.Elsria.TaskList;
-import com.Elsria.UIHandler;
+import com.Elsria.UiHandler;
 
 public class MarkCommand extends Command {
-    private UIHandler uiHandler;
+    private UiHandler uiHandler;
     private TaskList taskList;
     private String[] arguments;
 
-    public MarkCommand(UIHandler uiHandler, TaskList taskList, String[] arguments) {
+    public MarkCommand(UiHandler uiHandler, TaskList taskList, String[] arguments) {
         this.uiHandler = uiHandler;
         this.taskList = taskList;
         this.arguments = arguments;
