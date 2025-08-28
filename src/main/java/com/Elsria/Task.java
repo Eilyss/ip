@@ -1,24 +1,26 @@
 package com.Elsria;
 
 public abstract class Task {
+    private static final char markedSymbol = 'X';
+    private static final char unmarkedSymbol = ' ';
     protected String task;
-    protected boolean isDone;
+    protected boolean isMarked;
 
     public Task(String description) {
         this.task = description;
-        this.isDone = false;
+        this.isMarked = false;
     }
 
     public void mark() {
-        this.isDone = true;
+        this.isMarked = true;
     }
 
     public void unmark() {
-        this.isDone = false;
+        this.isMarked = false;
     }
 
-    public boolean isDone() {
-        return this.isDone;
+    public boolean isMarked() {
+        return this.isMarked;
     }
 
     public String getTask() {
@@ -29,7 +31,13 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        char markStatus = this.isDone ? 'X' : ' ';
+        char markStatus = this.isMarked ? markedSymbol : unmarkedSymbol;
         return String.format("[%c][%c] %s", this.taskType(), markStatus, task);
+    }
+
+    public abstract String serialize();
+    
+    protected String baseSerialization() {
+        return String.format("%c|%b|%s", this.taskType(), isMarked, task);
     }
 }

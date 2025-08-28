@@ -61,7 +61,7 @@ public abstract class AddToListCommand extends Command {
             }
             BufferedWriter writer = new BufferedWriter(new FileWriter(listFile));
             for (Task task : this.taskList) {
-                writer.write(task.toString());
+                writer.write(task.serialize());
                 writer.newLine();
             }
 

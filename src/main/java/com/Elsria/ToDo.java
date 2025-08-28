@@ -10,4 +10,9 @@ public class ToDo extends Task{
     public char taskType() {
         return 'T';
     }
+
+    @Override
+    public String serialize() {
+        return super.baseSerialization();
+    }
 }

@@ -19,4 +19,9 @@ public class Event extends Task {
     public String toString() {
         return String.format("%s, from %s to %s", super.toString(), start, end);
     }
+
+    @Override
+    public String serialize() {
+        return String.format("%s|%s|%s", super.baseSerialization(), start, end);
+    }
 }

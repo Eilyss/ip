@@ -21,4 +21,9 @@ public class Deadline extends Task {
     public String toString() {
         return String.format("%s, by %s", super.toString(), deadline);
     }
+
+    @Override
+    public String serialize() {
+        return String.format("%s|%s", super.baseSerialization(), deadline);
+    }
 }
