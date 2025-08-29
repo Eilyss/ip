@@ -1,6 +1,6 @@
-package com.Elsria;
+package com.elsria;
 
-import com.Elsria.Commands.InvalidCommand;
+import com.elsria.commands.InvalidCommand;
 
 public class CommandParser {
     private final String name;

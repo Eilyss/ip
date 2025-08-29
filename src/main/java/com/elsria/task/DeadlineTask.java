@@ -1,10 +1,15 @@
-package com.Elsria;
+package com.elsria.task;
 
 public class Deadline extends Task {
     private String deadline;
 
     public Deadline(String description, String deadline) {
         super(description);
+        this.deadline = deadline;
+    }
+
+    public Deadline(String description, String deadline, boolean isMarked) {
+        super(description, isMarked);
         this.deadline = deadline;
     }
 

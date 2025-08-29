@@ -1,4 +1,4 @@
-package com.Elsria;
+package com.elsria.task;
 
 public class Event extends Task {
     private String start;
@@ -6,6 +6,12 @@ public class Event extends Task {
 
     public Event(String description, String start, String end) {
         super(description);
+        this.start = start;
+        this.end = end;
+    }
+
+    public Event(String description, String start, String end, boolean isMarked) {
+        super(description, isMarked);
         this.start = start;
         this.end = end;
     }

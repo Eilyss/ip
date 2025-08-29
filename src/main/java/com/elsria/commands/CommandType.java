@@ -1,6 +1,6 @@
-package com.Elsria;
+package com.elsria;
 
-import com.Elsria.Commands.*;
+import com.elsria.commands.*;
 
 import java.util.Arrays;
 import java.util.Set;
