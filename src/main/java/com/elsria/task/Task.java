@@ -52,8 +52,8 @@ public abstract class Task {
         return String.format("%c|%d|%s", this.taskType(), i, task);
     }
 
-    public Task deserialize(String serialization) throws InvalidTaskSerializationException {
-        String[] tokens = serialization.split("|");
+    public static Task deserialize(String serialization) throws InvalidTaskSerializationException {
+        String[] tokens = serialization.split("\\|");
 
         if (tokens.length == 0 || tokens[0].length() != 1 || !TaskType.isValidTaskType(tokens[0].charAt(0))) {
             throw new InvalidTaskSerializationException(serialization);

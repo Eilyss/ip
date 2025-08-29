@@ -8,7 +8,7 @@ public class Elsria {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Chatbot Elsria = new Chatbot(name);
-        Elsria.greet();
+        Elsria.startup();
 
         boolean running = true;
         String prompt;
