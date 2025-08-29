@@ -1,8 +1,7 @@
-package com.Elsria.Commands;
+package com.elsria.commands;
 
-import com.Elsria.Command;
-import com.Elsria.TaskList;
-import com.Elsria.UiHandler;
+import com.elsria.task.TaskList;
+import com.elsria.UiHandler;
 
 public class MarkCommand extends Command {
     private UiHandler uiHandler;

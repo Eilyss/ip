@@ -1,4 +1,4 @@
-package com.elsria;
+package com.elsria.task;
 
 import java.util.ArrayList;
 

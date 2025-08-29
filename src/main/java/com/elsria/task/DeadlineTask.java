@@ -1,14 +1,14 @@
 package com.elsria.task;
 
-public class Deadline extends Task {
+public class DeadlineTask extends Task {
     private String deadline;
 
-    public Deadline(String description, String deadline) {
+    public DeadlineTask(String description, String deadline) {
         super(description);
         this.deadline = deadline;
     }
 
-    public Deadline(String description, String deadline, boolean isMarked) {
+    public DeadlineTask(String description, String deadline, boolean isMarked) {
         super(description, isMarked);
         this.deadline = deadline;
     }
@@ -30,5 +30,9 @@ public class Deadline extends Task {
     @Override
     public String serialize() {
         return String.format("%s|%s", super.baseSerialization(), deadline);
+    }
+
+    public static Task createTask(String[] args) {
+        return new DeadlineTask(args[1], args[2], Integer.parseInt(args[0]) != 0);
     }
 }

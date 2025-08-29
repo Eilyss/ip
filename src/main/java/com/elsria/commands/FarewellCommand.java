@@ -1,7 +1,6 @@
-package com.Elsria.Commands;
+package com.elsria.commands;
 
-import com.Elsria.Command;
-import com.Elsria.UiHandler;
+import com.elsria.UiHandler;
 
 public class FarewellCommand extends Command {
     UiHandler handler;

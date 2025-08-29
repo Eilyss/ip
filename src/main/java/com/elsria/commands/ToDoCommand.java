@@ -1,9 +1,9 @@
-package com.Elsria.Commands;
+package com.elsria.commands;
 
-import com.Elsria.Task;
-import com.Elsria.TaskList;
-import com.Elsria.ToDo;
-import com.Elsria.UiHandler;
+import com.elsria.task.Task;
+import com.elsria.task.TaskList;
+import com.elsria.UiHandler;
+import com.elsria.task.ToDoTask;
 
 public class ToDoCommand extends AddToListCommand{
 
@@ -17,6 +17,6 @@ public class ToDoCommand extends AddToListCommand{
             super.errorMessage = "Erm... so what task?";
             return null;
         }
-        return new ToDo(args);
+        return new ToDoTask(args);
     }
 }

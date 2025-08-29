@@ -1,4 +1,48 @@
 package com.elsria.task;
 
+import com.elsria.exceptions.NoSuchTaskException;
+
+import java.util.function.Function;
+
 public enum TaskType {
+    TODO('T', 2, ToDoTask::createTask),
+    DEADLINE('D', 3, DeadlineTask::createTask),
+    EVENT('E', 4, EventTask::createTask);
+
+    private final char taskType;
+    private final int argCount;
+    private final Function<String[], Task> deserializationFunction;
+
+    TaskType(char taskType, int argCount, Function<String[], Task> deserializationFunction) {
+        this.taskType = taskType;
+        this.argCount = argCount;
+        this.deserializationFunction = deserializationFunction;
+    }
+
+    public static TaskType getTaskType(char taskType) throws NoSuchTaskException {
+        for (TaskType t : TaskType.values()) {
+            if (t.taskType == taskType) {
+                return t;
+            }
+        }
+
+        throw new NoSuchTaskException(taskType);
+    }
+
+    public Function<String[], Task> getDeserializationFunction() {
+        return deserializationFunction;
+    }
+
+    public int getArgCount() {
+        return argCount;
+    }
+
+    public static boolean isValidTaskType(char taskType) {
+        for (TaskType t : TaskType.values()) {
+            if (t.taskType == taskType) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

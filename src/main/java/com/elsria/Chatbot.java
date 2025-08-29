@@ -1,4 +1,8 @@
-package com.Elsria;
+package com.elsria;
+
+import com.elsria.commands.Command;
+import com.elsria.commands.CommandParser;
+import com.elsria.task.TaskList;
 
 public class Chatbot {
     private final String name;

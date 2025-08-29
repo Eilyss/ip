@@ -1,9 +1,8 @@
-package com.Elsria.Commands;
+package com.elsria.commands;
 
-import com.Elsria.Command;
-import com.Elsria.Task;
-import com.Elsria.TaskList;
-import com.Elsria.UiHandler;
+import com.elsria.task.Task;
+import com.elsria.task.TaskList;
+import com.elsria.UiHandler;
 
 import java.io.BufferedWriter;
 import java.io.File;

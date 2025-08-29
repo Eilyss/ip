@@ -1,4 +1,7 @@
-package com.elsria;
+package com.elsria.commands;
+
+import com.elsria.task.TaskList;
+import com.elsria.UiHandler;
 
 import java.util.List;
 

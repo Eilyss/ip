@@ -1,4 +1,4 @@
-package com.elsria;
+package com.elsria.commands;
 
 public abstract class Command {
 

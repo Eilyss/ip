@@ -1,4 +1,9 @@
-package com.elsria;
+package com.elsria.task;
+
+import com.elsria.exceptions.InvalidTaskSerializationException;
+import com.elsria.exceptions.NoSuchTaskException;
+
+import java.util.Arrays;
 
 public abstract class Task {
     private static final char markedSymbol = 'X';
@@ -42,13 +47,24 @@ public abstract class Task {
 
     public abstract String serialize();
 
-    public abstract Task deserialize(String task);
-
     protected String baseSerialization() {
-        return String.format("%c|%b|%s", this.taskType(), isMarked, task);
+        int i = this.isMarked ? 1 : 0;
+        return String.format("%c|%d|%s", this.taskType(), i, task);
     }
 
-    public static Task createTaskFromString(String input) {
+    public Task deserialize(String serialization) throws InvalidTaskSerializationException {
+        String[] tokens = serialization.split("|");
 
+        if (tokens.length == 0 || tokens[0].length() != 1 || !TaskType.isValidTaskType(tokens[0].charAt(0))) {
+            throw new InvalidTaskSerializationException(serialization);
+        }
+
+        TaskType taskType = TaskType.getTaskType(tokens[0].charAt(0));
+        String[] args = Arrays.copyOfRange(tokens, 1, tokens.length);
+        if (args.length != taskType.getArgCount()) {
+            throw new InvalidTaskSerializationException(serialization);
+        }
+
+        return taskType.getDeserializationFunction().apply(args);
     }
 }
