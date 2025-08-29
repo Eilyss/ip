@@ -1,9 +1,12 @@
-package com.Elsria.Commands;
+package com.elsria.commands;
 
-import com.Elsria.*;
+import com.elsria.task.EventTask;
+import com.elsria.task.Task;
+import com.elsria.task.TaskList;
+import com.elsria.UiHandler;
 
 public class EventCommand extends AddToListCommand{
-    public EventCommand(UIHandler uiHandler, TaskList taskList, String rawArguments) {
+    public EventCommand(UiHandler uiHandler, TaskList taskList, String rawArguments) {
         super(uiHandler, taskList, rawArguments);
     }
 
@@ -43,6 +46,6 @@ public class EventCommand extends AddToListCommand{
             return null;
         }
 
-        return new Event(arguments[0], timings[0], timings[1]);
+        return new EventTask(arguments[0], timings[0], timings[1]);
     }
 }

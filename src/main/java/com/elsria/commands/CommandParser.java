@@ -1,14 +1,15 @@
-package com.Elsria;
+package com.elsria.commands;
 
-import com.Elsria.Commands.InvalidCommand;
+import com.elsria.task.TaskList;
+import com.elsria.UiHandler;
 
 public class CommandParser {
     private final String name;
-    private final UIHandler uiHandler;
+    private final UiHandler uiHandler;
     private final TaskList taskList;
     private boolean endProgram;
 
-    public CommandParser(String name, UIHandler uiHandler, TaskList taskList) {
+    public CommandParser(String name, UiHandler uiHandler, TaskList taskList) {
         this.name = name;
         this.uiHandler = uiHandler;
         this.taskList = taskList;

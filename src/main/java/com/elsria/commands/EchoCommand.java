@@ -1,13 +1,12 @@
-package com.Elsria.Commands;
+package com.elsria.commands;
 
-import com.Elsria.Command;
-import com.Elsria.UIHandler;
+import com.elsria.UiHandler;
 
 public class EchoCommand extends Command {
     private String echo;
-    private UIHandler uiHandler;
+    private UiHandler uiHandler;
 
-    public EchoCommand(UIHandler uiHandler, String input) {
+    public EchoCommand(UiHandler uiHandler, String input) {
         this.uiHandler = uiHandler;
         this.echo = stripQuotes(input);
     }

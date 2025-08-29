@@ -1,16 +1,14 @@
-package com.Elsria.Commands;
+package com.elsria.commands;
 
-import com.Elsria.Command;
-import com.Elsria.Task;
-import com.Elsria.TaskList;
-import com.Elsria.UIHandler;
+import com.elsria.task.TaskList;
+import com.elsria.UiHandler;
 
-public class DeleteCommand extends Command {
-    private UIHandler uiHandler;
+public class UnmarkCommand extends Command {
+    private UiHandler uiHandler;
     private TaskList taskList;
     private String[] arguments;
 
-    public DeleteCommand(UIHandler uiHandler, TaskList taskList, String[] arguments) {
+    public UnmarkCommand(UiHandler uiHandler, TaskList taskList, String[] arguments) {
         this.uiHandler = uiHandler;
         this.taskList = taskList;
         this.arguments = arguments;
@@ -42,11 +40,9 @@ public class DeleteCommand extends Command {
             return;
         }
 
-
-        this.uiHandler.queueMessage(String.format("Okay! I got rid of task %d", taskID));
+        taskList.unmarkTask(taskID);
+        this.uiHandler.queueMessage("Okay! That task is no longer marked as done");
         this.uiHandler.queueMessage(taskList.getTaskDescription(taskID));
-        taskList.remove(taskID);
-        this.uiHandler.queueMessage(String.format("Now you've got %d tasks in the list!", taskID));
         this.uiHandler.sayMessages();
     }
 }

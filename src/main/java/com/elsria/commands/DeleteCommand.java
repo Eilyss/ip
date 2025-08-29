@@ -1,15 +1,15 @@
-package com.Elsria.Commands;
+package com.elsria.commands;
 
-import com.Elsria.Command;
-import com.Elsria.TaskList;
-import com.Elsria.UIHandler;
+import com.elsria.Constants;
+import com.elsria.task.TaskList;
+import com.elsria.UiHandler;
 
-public class MarkCommand extends Command {
-    private UIHandler uiHandler;
+public class DeleteCommand extends Command {
+    private UiHandler uiHandler;
     private TaskList taskList;
     private String[] arguments;
 
-    public MarkCommand(UIHandler uiHandler, TaskList taskList, String[] arguments) {
+    public DeleteCommand(UiHandler uiHandler, TaskList taskList, String[] arguments) {
         this.uiHandler = uiHandler;
         this.taskList = taskList;
         this.arguments = arguments;
@@ -41,9 +41,16 @@ public class MarkCommand extends Command {
             return;
         }
 
-        taskList.markTask(taskID);
-        this.uiHandler.queueMessage("Okay! I have marked that task as done.");
+
+        this.uiHandler.queueMessage(String.format("Okay! I got rid of task %d", taskID));
         this.uiHandler.queueMessage(taskList.getTaskDescription(taskID));
+        taskList.remove(taskID);
+        this.uiHandler.queueMessage(String.format("Now you've got %d tasks in the list!", taskID));
+        if (!this.taskList.writeToFile(Constants.LIST_STORAGE_DIRECTORY, Constants.TO_DO_LIST_FILENAME)) {
+            this.uiHandler.queueMessage("Woah, hold on...");
+            this.uiHandler.queueMessage("I seem to be unable to save your changes.");
+            this.uiHandler.queueMessage("Could you run the Save command?");
+        }
         this.uiHandler.sayMessages();
     }
 }

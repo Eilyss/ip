@@ -1,13 +1,12 @@
-package com.Elsria.Commands;
+package com.elsria.commands;
 
-import com.Elsria.Command;
-import com.Elsria.UIHandler;
+import com.elsria.UiHandler;
 
 public class GreetCommand extends Command {
     private String name;
-    private UIHandler uiHandler;
+    private UiHandler uiHandler;
 
-    public GreetCommand(UIHandler uiHandler, String name) {
+    public GreetCommand(UiHandler uiHandler, String name) {
         this.name = name;
         this.uiHandler = uiHandler;
     }

@@ -1,15 +1,14 @@
-package com.Elsria.Commands;
+package com.elsria.commands;
 
-import com.Elsria.Command;
-import com.Elsria.TaskList;
-import com.Elsria.UIHandler;
+import com.elsria.task.TaskList;
+import com.elsria.UiHandler;
 
-public class UnmarkCommand extends Command {
-    private UIHandler uiHandler;
+public class MarkCommand extends Command {
+    private UiHandler uiHandler;
     private TaskList taskList;
     private String[] arguments;
 
-    public UnmarkCommand(UIHandler uiHandler, TaskList taskList, String[] arguments) {
+    public MarkCommand(UiHandler uiHandler, TaskList taskList, String[] arguments) {
         this.uiHandler = uiHandler;
         this.taskList = taskList;
         this.arguments = arguments;
@@ -41,8 +40,8 @@ public class UnmarkCommand extends Command {
             return;
         }
 
-        taskList.unmarkTask(taskID);
-        this.uiHandler.queueMessage("Okay! That task is no longer marked as done");
+        taskList.markTask(taskID);
+        this.uiHandler.queueMessage("Okay! I have marked that task as done.");
         this.uiHandler.queueMessage(taskList.getTaskDescription(taskID));
         this.uiHandler.sayMessages();
     }
