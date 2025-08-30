@@ -4,6 +4,9 @@ import com.elsria.task.EventTask;
 import com.elsria.task.Task;
 import com.elsria.task.TaskList;
 import com.elsria.UiHandler;
+import com.elsria.time.Time;
+
+import java.time.LocalDateTime;
 
 public class EventCommand extends AddToListCommand{
     public EventCommand(UiHandler uiHandler, TaskList taskList, String rawArguments) {
@@ -46,6 +49,20 @@ public class EventCommand extends AddToListCommand{
             return null;
         }
 
-        return new EventTask(arguments[0], timings[0], timings[1]);
+        LocalDateTime startTime = Time.convertToTime(timings[0]);
+
+        if (startTime == null) {
+            super.errorMessage = "That is not a valid start time :P";
+            return null;
+        }
+
+        LocalDateTime endTime = Time.convertToTime(timings[1]);
+
+        if (endTime == null) {
+            super.errorMessage = "That is not a valid end time :P";
+            return null;
+        }
+
+        return new EventTask(arguments[0], startTime, endTime);
     }
 }

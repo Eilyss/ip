@@ -1,11 +1,14 @@
 package com.elsria.task;
 
+import java.time.LocalDateTime;
+
 public class DeadlineTask extends Task {
     private String deadline;
+    private LocalDateTime deadlineDateTime;
 
-    public DeadlineTask(String description, String deadline) {
+    public DeadlineTask(String description, LocalDateTime deadline) {
         super(description);
-        this.deadline = deadline;
+        this.deadlineDateTime = deadline;
     }
 
     public DeadlineTask(String description, String deadline, boolean isMarked) {
@@ -24,7 +27,8 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s, by %s", super.toString(), deadline);
+
+        return String.format("%s, by %s", super.toString(), deadlineDateTime);
     }
 
     @Override

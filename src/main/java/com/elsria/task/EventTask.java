@@ -1,6 +1,12 @@
 package com.elsria.task;
 
+import com.elsria.time.Time;
+
+import java.time.LocalDateTime;
+
 public class EventTask extends Task {
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private String start;
     private String end;
 
@@ -16,6 +22,12 @@ public class EventTask extends Task {
         this.end = end;
     }
 
+    public EventTask(String description, LocalDateTime startTime, LocalDateTime endTime) {
+        super(description);
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     @Override
     public char taskType() {
         return 'E';
@@ -23,7 +35,7 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s, from %s to %s", super.toString(), start, end);
+        return String.format("%s, from %s to %s", super.toString(), startTime, endTime);
     }
 
     @Override
