@@ -5,9 +5,9 @@ import com.elsria.exceptions.NoSuchTaskException;
 import java.util.function.Function;
 
 public enum TaskType {
-    TODO('T', 2, ToDoTask::createTask),
-    DEADLINE('D', 3, DeadlineTask::createTask),
-    EVENT('E', 4, EventTask::createTask);
+    TODO('T', 2, ToDoTask::createFromArgs),
+    DEADLINE('D', 3, DeadlineTask::createFromArgs),
+    EVENT('E', 4, EventTask::createFromArgs);
 
     private final char taskType;
     private final int argCount;

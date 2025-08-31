@@ -1,7 +1,5 @@
 package com.elsria.time.dateparser;
 
-import com.elsria.time.TimeConstants;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -36,9 +34,10 @@ public class DayOfWeekParser extends DateParser {
     private static int getDayDifference(LocalDate currentDate, DayOfWeek found, Matcher dateMatcher) {
         DayOfWeek today = currentDate.getDayOfWeek();
         int dayDifference = (found.getValue() - today.getValue() + 7) % 7;
-        if (dateMatcher.group(1).equals("next") && found.getValue() - today.getValue() >= 0) {
+
+        if (dateMatcher.group(1) != null && dateMatcher.group(1).equals("next") && found.getValue() - today.getValue() >= 0) {
             dayDifference += 7;
-        } else if (dateMatcher.group(2).equals("following")) {
+        } else if (dateMatcher.group(1).equals("following")) {
             dayDifference += 7;
             if (found.getValue() - today.getValue() >= 0) {
                 dayDifference += 7;

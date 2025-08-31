@@ -1,8 +1,8 @@
 package com.elsria.time.dateparser;
 
 import com.elsria.time.Month;
-import com.elsria.time.TimeConstants;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ public class FullDateParser extends DateParser {
 
             try {
                 potentialDates.add(LocalDate.of(year, month, day));
-            } catch (Exception ignored) {
+            } catch (DateTimeException ignored) {
             }
         }
         return potentialDates;

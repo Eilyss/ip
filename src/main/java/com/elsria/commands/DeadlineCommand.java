@@ -5,8 +5,6 @@ import com.elsria.task.DeadlineTask;
 import com.elsria.task.Task;
 import com.elsria.time.Time;
 
-import java.time.LocalDateTime;
-
 public class DeadlineCommand extends AddToListCommand{
     public DeadlineCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
@@ -35,13 +33,13 @@ public class DeadlineCommand extends AddToListCommand{
             return null;
         }
 
-        LocalDateTime time = Time.convertToTime(arguments[1]);
+        Time time = Time.parseTime(arguments[1]);
 
         if (time == null) {
             super.errorMessage = "That is not a valid time :P";
             return null;
         }
 
-        return new DeadlineTask(arguments[0], Time.convertToTime(arguments[1]));
+        return new DeadlineTask(arguments[0], Time.parseTime(arguments[1]));
     }
 }
