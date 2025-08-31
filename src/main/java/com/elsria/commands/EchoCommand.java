@@ -1,14 +1,16 @@
 package com.elsria.commands;
 
 import com.elsria.UiHandler;
+import com.elsria.core.ApplicationContext;
 
 public class EchoCommand extends Command {
-    private String echo;
-    private UiHandler uiHandler;
+    private final String echo;
+    private final UiHandler uiHandler;
 
-    public EchoCommand(UiHandler uiHandler, String input) {
-        this.uiHandler = uiHandler;
-        this.echo = stripQuotes(input);
+    public EchoCommand(ApplicationContext context, CommandRequest request) {
+        super(context, request);
+        this.uiHandler = context.getUIHandler();
+        this.echo = stripQuotes(request.getRawArgs());
     }
 
     private static String stripQuotes(String input) {

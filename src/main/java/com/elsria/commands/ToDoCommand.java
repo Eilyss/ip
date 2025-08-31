@@ -1,14 +1,13 @@
 package com.elsria.commands;
 
+import com.elsria.core.ApplicationContext;
 import com.elsria.task.Task;
-import com.elsria.task.TaskList;
-import com.elsria.UiHandler;
 import com.elsria.task.ToDoTask;
 
 public class ToDoCommand extends AddToListCommand{
 
-    public ToDoCommand(UiHandler uiHandler, TaskList taskList, String rawArguments) {
-        super(uiHandler, taskList, rawArguments);
+    public ToDoCommand(ApplicationContext context, CommandRequest request) {
+        super(context, request);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.elsria.commands;
 
+import com.elsria.core.ApplicationContext;
 import com.elsria.task.EventTask;
 import com.elsria.task.Task;
 import com.elsria.task.TaskList;
@@ -9,8 +10,8 @@ import com.elsria.time.Time;
 import java.time.LocalDateTime;
 
 public class EventCommand extends AddToListCommand{
-    public EventCommand(UiHandler uiHandler, TaskList taskList, String rawArguments) {
-        super(uiHandler, taskList, rawArguments);
+    public EventCommand(ApplicationContext context, CommandRequest request) {
+        super(context, request);
     }
 
     @Override

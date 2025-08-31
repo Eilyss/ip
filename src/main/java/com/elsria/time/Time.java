@@ -1,22 +1,18 @@
 package com.elsria.time;
 
+import com.elsria.time.dateparser.CompositeDateParser;
+import com.elsria.time.dateparser.DateParser;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.function.Function;
 
 public class Time {
     public static LocalDateTime convertToTime(String input) {
         LocalDateTime currentTime = LocalDateTime.now();
-        final Set<Function<String, List<LocalDate>>> dateParser = DateParser.parseFunctions;
-        ArrayList<LocalDate> possibleDates = new ArrayList<>();
-
-        for (Function<String, List<LocalDate>> parser : dateParser) {
-            possibleDates.addAll(parser.apply(input));
-        }
+        CompositeDateParser dateParser = DateParser.createDefaultParser();
+        List<LocalDate> possibleDates = dateParser.processString(input);
 
         if (possibleDates.isEmpty()) {
             return null;

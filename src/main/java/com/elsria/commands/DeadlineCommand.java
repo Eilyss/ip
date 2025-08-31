@@ -1,16 +1,15 @@
 package com.elsria.commands;
 
+import com.elsria.core.ApplicationContext;
 import com.elsria.task.DeadlineTask;
 import com.elsria.task.Task;
-import com.elsria.task.TaskList;
 import com.elsria.time.Time;
-import com.elsria.UiHandler;
 
 import java.time.LocalDateTime;
 
 public class DeadlineCommand extends AddToListCommand{
-    public DeadlineCommand(UiHandler uiHandler, TaskList taskList, String rawArguments) {
-        super(uiHandler, taskList, rawArguments);
+    public DeadlineCommand(ApplicationContext context, CommandRequest request) {
+        super(context, request);
     }
 
     @Override

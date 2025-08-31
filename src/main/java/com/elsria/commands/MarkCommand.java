@@ -1,5 +1,6 @@
 package com.elsria.commands;
 
+import com.elsria.core.ApplicationContext;
 import com.elsria.task.TaskList;
 import com.elsria.UiHandler;
 
@@ -8,10 +9,11 @@ public class MarkCommand extends Command {
     private TaskList taskList;
     private String[] arguments;
 
-    public MarkCommand(UiHandler uiHandler, TaskList taskList, String[] arguments) {
-        this.uiHandler = uiHandler;
-        this.taskList = taskList;
-        this.arguments = arguments;
+    public MarkCommand(ApplicationContext context, CommandRequest request) {
+        super(context, request);
+        this.uiHandler = context.getUIHandler();
+        this.taskList = context.getTaskList();
+        this.arguments = request.getArgs();
     }
 
     @Override

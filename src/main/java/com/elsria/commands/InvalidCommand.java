@@ -1,12 +1,14 @@
 package com.elsria.commands;
 
 import com.elsria.UiHandler;
+import com.elsria.core.ApplicationContext;
 
 public class InvalidCommand extends Command {
     UiHandler uiHandler;
 
-    public InvalidCommand(UiHandler uiHandler) {
-        this.uiHandler = uiHandler;
+    public InvalidCommand(ApplicationContext context, CommandRequest request) {
+        super(context, request);
+        this.uiHandler = context.getUIHandler();
     }
 
     @Override
