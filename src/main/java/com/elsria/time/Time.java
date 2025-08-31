@@ -7,6 +7,7 @@ import com.elsria.time.dateparser.DateParser;
 import com.elsria.time.timeparser.CompositeTimeParser;
 import com.elsria.time.timeparser.TimeParser;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -141,7 +142,7 @@ public class Time {
         LocalTime time;
         try {
             time = LocalTime.of(hour, minute, second);
-        } catch (InvalidTimeSerializationException e) {
+        } catch (DateTimeException e) {
             throw new InvalidTimeSerializationException("Time string given is not a valid time!");
         }
 
@@ -166,7 +167,7 @@ public class Time {
         LocalDate date;
         try {
             date = LocalDate.of(year, month, day);
-        } catch (InvalidTimeTypeException e) {
+        } catch (DateTimeException e) {
             throw new InvalidDateSerializationException("Time string given is not a valid time!");
         }
 
