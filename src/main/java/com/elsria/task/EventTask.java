@@ -1,19 +1,21 @@
 package com.elsria.task;
 
-public class EventTask extends Task {
-    private String start;
-    private String end;
+import com.elsria.time.Time;
 
-    public EventTask(String description, String start, String end) {
+public class EventTask extends Task {
+    private Time startTime;
+    private Time endTime;
+
+    public EventTask(String description, Time startTime, Time endTime) {
         super(description);
-        this.start = start;
-        this.end = end;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
-    public EventTask(String description, String start, String end, boolean isMarked) {
+    public EventTask(String description, Time startTime, Time endTime, boolean isMarked) {
         super(description, isMarked);
-        this.start = start;
-        this.end = end;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     @Override
@@ -23,15 +25,15 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("%s, from %s to %s", super.toString(), start, end);
+        return String.format("%s, from %s to %s", super.toString(), startTime.serialize(), endTime.serialize());
     }
 
     @Override
     public String serialize() {
-        return String.format("%s|%s|%s", super.baseSerialization(), start, end);
+        return String.format("%s|%s|%s", super.baseSerialization(), startTime.serialize(), endTime.serialize());
     }
 
-    public static Task createTask(String[] args) {
-        return new EventTask(args[1], args[2], args[3], Integer.parseInt(args[0]) != 0);
+    public static Task createFromArgs(String[] args) {
+        return new EventTask(args[1], Time.deserialize(args[2]), Time.deserialize(args[3]), Integer.parseInt(args[0]) != 0);
     }
 }

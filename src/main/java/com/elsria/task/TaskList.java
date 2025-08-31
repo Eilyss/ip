@@ -78,7 +78,7 @@ public class TaskList extends ArrayList<Task> {
                 try {
                     nextTask = Task.deserialize(line);
                     list.add(nextTask);
-                } catch (InvalidTaskSerializationException e) {
+                } catch (Exception e) {
                     failedLines.add(line);
                 }
             }

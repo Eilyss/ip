@@ -1,5 +1,6 @@
 package com.elsria.commands;
 
+import com.elsria.core.ApplicationContext;
 import com.elsria.task.TaskList;
 import com.elsria.UiHandler;
 
@@ -7,9 +8,10 @@ public class ListCommand extends Command {
     private UiHandler uiHandler;
     private TaskList taskList;
 
-    public ListCommand(UiHandler uiHandler, TaskList taskList) {
-        this.uiHandler = uiHandler;
-        this.taskList = taskList;
+    public ListCommand(ApplicationContext context, CommandRequest request) {
+        super(context, request);
+        this.uiHandler = context.getUIHandler();
+        this.taskList = context.getTaskList();
     }
 
     @Override

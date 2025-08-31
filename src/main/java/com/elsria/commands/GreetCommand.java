@@ -1,14 +1,16 @@
 package com.elsria.commands;
 
 import com.elsria.UiHandler;
+import com.elsria.core.ApplicationContext;
 
 public class GreetCommand extends Command {
-    private String name;
-    private UiHandler uiHandler;
+    private final String name;
+    private final UiHandler uiHandler;
 
-    public GreetCommand(UiHandler uiHandler, String name) {
-        this.name = name;
-        this.uiHandler = uiHandler;
+    public GreetCommand(ApplicationContext context, CommandRequest request) {
+        super(context, request);
+        this.name = context.getName();
+        this.uiHandler = context.getUIHandler();
     }
 
     @Override

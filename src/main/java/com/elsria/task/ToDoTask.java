@@ -20,7 +20,7 @@ public class ToDoTask extends Task {
         return super.baseSerialization();
     }
 
-    public static Task createTask(String[] args) {
+    public static Task createFromArgs(String[] args) {
         return new ToDoTask(args[1], Integer.parseInt(args[0]) != 0);
     }
 }

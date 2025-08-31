@@ -1,13 +1,13 @@
 package com.elsria.commands;
 
+import com.elsria.core.ApplicationContext;
 import com.elsria.task.DeadlineTask;
 import com.elsria.task.Task;
-import com.elsria.task.TaskList;
-import com.elsria.UiHandler;
+import com.elsria.time.Time;
 
 public class DeadlineCommand extends AddToListCommand{
-    public DeadlineCommand(UiHandler uiHandler, TaskList taskList, String rawArguments) {
-        super(uiHandler, taskList, rawArguments);
+    public DeadlineCommand(ApplicationContext context, CommandRequest request) {
+        super(context, request);
     }
 
     @Override
@@ -19,7 +19,7 @@ public class DeadlineCommand extends AddToListCommand{
 
         String[] arguments = rawArguments.split(" /by ");
 
-        if (arguments[0].isEmpty()) {
+        if (arguments[0].isEmpty()|| rawArguments.startsWith("/")) {
             super.errorMessage = "Erm... so what task?";
             return null;
         }
@@ -33,6 +33,13 @@ public class DeadlineCommand extends AddToListCommand{
             return null;
         }
 
-        return new DeadlineTask(arguments[0], arguments[1]);
+        Time time = Time.parseTime(arguments[1]);
+
+        if (time == null) {
+            super.errorMessage = "That is not a valid time :P";
+            return null;
+        }
+
+        return new DeadlineTask(arguments[0], Time.parseTime(arguments[1]));
     }
 }

@@ -1,14 +1,16 @@
 package com.elsria.task;
 
-public class DeadlineTask extends Task {
-    private String deadline;
+import com.elsria.time.Time;
 
-    public DeadlineTask(String description, String deadline) {
+public class DeadlineTask extends Task {
+    private Time deadline;
+
+    public DeadlineTask(String description, Time deadline) {
         super(description);
         this.deadline = deadline;
     }
 
-    public DeadlineTask(String description, String deadline, boolean isMarked) {
+    public DeadlineTask(String description, Time deadline, boolean isMarked) {
         super(description, isMarked);
         this.deadline = deadline;
     }
@@ -18,21 +20,22 @@ public class DeadlineTask extends Task {
         return 'D';
     }
 
-    public String getDeadline() {
+    public Time getDeadline() {
         return this.deadline;
     }
 
     @Override
     public String toString() {
-        return String.format("%s, by %s", super.toString(), deadline);
+
+        return String.format("%s, by %s", super.toString(), deadline.toString());
     }
 
     @Override
     public String serialize() {
-        return String.format("%s|%s", super.baseSerialization(), deadline);
+        return String.format("%s|%s", super.baseSerialization(), deadline.serialize());
     }
 
-    public static Task createTask(String[] args) {
-        return new DeadlineTask(args[1], args[2], Integer.parseInt(args[0]) != 0);
+    public static Task createFromArgs(String[] args) {
+        return new DeadlineTask(args[1], Time.parseTime(args[2]), Integer.parseInt(args[0]) != 0);
     }
 }
