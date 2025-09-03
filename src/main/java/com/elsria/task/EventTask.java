@@ -36,4 +36,24 @@ public class EventTask extends Task {
     public static Task createFromArgs(String[] args) {
         return new EventTask(args[1], Time.deserialize(args[2]), Time.deserialize(args[3]), Integer.parseInt(args[0]) != 0);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (other == null) {
+            return false;
+        }
+
+        if (other instanceof EventTask otherTask) {
+            return this.description.equals(otherTask.description)
+                    && this.isMarked() == otherTask.isMarked()
+                    && this.startTime.equals(otherTask.startTime)
+                    && this.endTime.equals(otherTask.endTime);
+        }
+
+        return false;
+    }
 }

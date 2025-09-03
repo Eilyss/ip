@@ -27,6 +27,24 @@ public class TaskList extends ArrayList<Task> {
         return super.get(id).toString();
     }
 
+    public TaskList getDeepCopy() {
+        TaskList copy = new TaskList();
+        for (Task task : this) {
+            copy.add(task);
+        }
+        return copy;
+    }
+
+    public TaskList getTasksContainingKeyword(String keyword) {
+        TaskList taskList = new TaskList();
+        for (Task task : this) {
+            if (task.containsKeyword(keyword)) {
+                taskList.add(task);
+            }
+        }
+        return taskList;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

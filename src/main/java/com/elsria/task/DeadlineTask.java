@@ -38,4 +38,23 @@ public class DeadlineTask extends Task {
     public static Task createFromArgs(String[] args) {
         return new DeadlineTask(args[1], Time.parseTime(args[2]), Integer.parseInt(args[0]) != 0);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (other == null) {
+            return false;
+        }
+
+        if (other instanceof DeadlineTask otherTask) {
+            return this.description.equals(otherTask.description)
+                    && this.isMarked() == otherTask.isMarked()
+                    && this.deadline.equals(otherTask.deadline);
+        }
+
+        return false;
+    }
 }

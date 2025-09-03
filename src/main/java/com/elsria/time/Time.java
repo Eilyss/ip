@@ -190,4 +190,22 @@ public class Time {
             return "Not a valid time";
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+
+        if (other == null) {
+            return false;
+        }
+
+        if (other instanceof Time time) {
+            return this.date.equals(time.date)
+                    && this.time.equals(time.time);
+        }
+
+        return false;
+    }
 }
