@@ -71,12 +71,12 @@ public class Time {
         LocalDate dateFound = LocalDate.now();
         LocalTime timeFound = LocalTime.of(23, 59);
         if (!possibleDates.isEmpty()) {
-            dateFound = possibleDates.getLast();
+            dateFound = possibleDates.get(possibleDates.size() - 1);
             hasDate = true;
         }
 
         if (!possibleTimes.isEmpty()) {
-            timeFound = possibleTimes.getLast();
+            timeFound = possibleTimes.get(possibleDates.size() - 1);
             hasTime = true;
         }
 
