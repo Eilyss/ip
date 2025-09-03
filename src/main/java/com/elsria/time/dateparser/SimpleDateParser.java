@@ -11,9 +11,9 @@ public class SimpleDateParser extends DateParser {
     private static final String SIMPLE_DATE_REGEX =
             "(?i)"
                     + "\\b(0?[1-9]|[12][0-9]|3[01])"                      // Day (1–31, optional leading zero)
-                    + "\\s*[\\\\/]\\s*"                                   // Slash or backslash with optional spaces
+                    + "\\s*[\\\\/\\-]\\s*"                                // Slash or backslash with optional spaces
                     + "(0?[1-9]|1[0-2])"                                  // Month (1-12, optional leading zero)
-                    + "(?:\\s*[\\\\/]\\s*"                                // Slash or backslash with optional spaces
+                    + "(?:\\s*[\\\\/\\-]\\s*"                             // Slash/backslash/dash with optional spaces
                     + "((?:\\d{2})?\\d{2}))?\\b";                         // Optional 2- or 4-digit year
 
     public static final Pattern pattern =

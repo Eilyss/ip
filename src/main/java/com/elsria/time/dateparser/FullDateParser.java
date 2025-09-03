@@ -12,13 +12,13 @@ import java.util.regex.Pattern;
 public class FullDateParser extends DateParser {
     private static final String FULL_DATE_REGEX =
             "(?i)"
-                    + "\\b(0?[1-9]|[12][0-9]|3[01])?\\s*"                 // Day (1–31, optional leading zero)
+                    + "\\b(0?[1-9]|[12][0-9]|3[01])\\s*"                  // Day (1–31, optional leading zero)
                     + "(?:st|nd|rd|th)?\\s*"                              // Optional ordinal suffix
                     + "\\b(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|"        // Month (short/full)
                     + "apr(?:il)?|may|jun(?:e)?|jul(?:y)?|"
                     + "aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|"
                     + "nov(?:ember)?|dec(?:ember)?)\\b\\s*"
-                    + "((?:\\d{2})?\\d{2})?\\b";                          // Optional 2- or 4-digit year
+                    + "(\\d{4})?\\b";                                     // Optional 2- or 4-digit year
     public static final Pattern pattern = Pattern.compile(FULL_DATE_REGEX, Pattern.CASE_INSENSITIVE);
 
     @Override
