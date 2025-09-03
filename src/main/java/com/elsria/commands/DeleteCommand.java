@@ -1,19 +1,21 @@
 package com.elsria.commands;
 
-import com.elsria.Constants;
 import com.elsria.core.ApplicationContext;
+import com.elsria.core.Storage;
 import com.elsria.task.TaskList;
-import com.elsria.UiHandler;
+import com.elsria.core.UiHandler;
 
 public class DeleteCommand extends Command {
     private final UiHandler uiHandler;
     private final TaskList taskList;
+    private final Storage storage;
     private final String[] arguments;
 
     public DeleteCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
         this.uiHandler = context.getUIHandler();
         this.taskList = context.getTaskList();
+        this.storage = context.getStorage();
         this.arguments = request.getArgs();
     }
 
@@ -48,7 +50,7 @@ public class DeleteCommand extends Command {
         this.uiHandler.queueMessage(taskList.getTaskDescription(taskID));
         taskList.remove(taskID);
         this.uiHandler.queueMessage(String.format("Now you've got %d tasks in the list!", taskID));
-        if (!this.taskList.writeToFile(Constants.LIST_STORAGE_DIRECTORY, Constants.TO_DO_LIST_FILENAME)) {
+        if (!this.storage.saveListToStorage(this.taskList)) {
             this.uiHandler.queueMessage("Woah, hold on...");
             this.uiHandler.queueMessage("I seem to be unable to save your changes.");
             this.uiHandler.queueMessage("Could you run the Save command?");

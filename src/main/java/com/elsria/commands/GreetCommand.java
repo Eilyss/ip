@@ -1,6 +1,6 @@
 package com.elsria.commands;
 
-import com.elsria.UiHandler;
+import com.elsria.core.UiHandler;
 import com.elsria.core.ApplicationContext;
 
 public class GreetCommand extends Command {

@@ -2,7 +2,7 @@ package com.elsria.commands;
 
 import com.elsria.core.ApplicationContext;
 import com.elsria.task.TaskList;
-import com.elsria.UiHandler;
+import com.elsria.core.UiHandler;
 
 public class ListCommand extends Command {
     private UiHandler uiHandler;

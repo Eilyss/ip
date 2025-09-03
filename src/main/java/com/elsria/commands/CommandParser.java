@@ -1,9 +1,5 @@
 package com.elsria.commands;
 
-import com.elsria.core.ApplicationContext;
-import com.elsria.task.TaskList;
-import com.elsria.UiHandler;
-
 public class CommandParser {
     private boolean endProgram;
 

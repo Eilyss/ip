@@ -1,12 +1,12 @@
 package com.elsria.task;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ListLoadWrapper {
     private TaskList taskList;
-    private ArrayList<String> failedSerializations;
+    private List<String> failedSerializations;
 
-    public ListLoadWrapper(TaskList taskList, ArrayList<String> failedSerializations) {
+    public ListLoadWrapper(TaskList taskList, List<String> failedSerializations) {
         this.taskList = taskList;
         this.failedSerializations = failedSerializations;
     }
@@ -15,7 +15,7 @@ public class ListLoadWrapper {
         return taskList;
     }
 
-    public ArrayList<String> getFailedSerializations() {
+    public List<String> getFailedSerializations() {
         return failedSerializations;
     }
 }

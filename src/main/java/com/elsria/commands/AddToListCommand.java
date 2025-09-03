@@ -1,14 +1,15 @@
 package com.elsria.commands;
 
-import com.elsria.Constants;
 import com.elsria.core.ApplicationContext;
+import com.elsria.core.Storage;
 import com.elsria.task.Task;
 import com.elsria.task.TaskList;
-import com.elsria.UiHandler;
+import com.elsria.core.UiHandler;
 
 public abstract class AddToListCommand extends Command {
     private final UiHandler uiHandler;
     private final TaskList taskList;
+    private final Storage storage;
     private Task task;
     protected String errorMessage;
 
@@ -16,6 +17,7 @@ public abstract class AddToListCommand extends Command {
         super(applicationContext, commandRequest);
         this.taskList = applicationContext.getTaskList();
         this.uiHandler = applicationContext.getUIHandler();
+        this.storage = applicationContext.getStorage();
         try {
             this.task = createTask(commandRequest.getRawArgs());
         } catch (IllegalArgumentException e) {
@@ -32,11 +34,9 @@ public abstract class AddToListCommand extends Command {
         }
         this.taskList.add(this.task);
         this.uiHandler.queueMessage("added: " + this.task);
-        if (!this.taskList.writeToFile(Constants.LIST_STORAGE_DIRECTORY, Constants.TO_DO_LIST_FILENAME)) {
-            this.uiHandler.queueMessage("Woah, hold on...");
-            this.uiHandler.queueMessage("I seem to be unable to save your changes.");
-            this.uiHandler.queueMessage("Could you run the Save command?");
-        }
+
+        CommandUtils.saveListToStorage(this.storage, this.taskList, this.uiHandler);
+
         this.uiHandler.sayMessages();
 
     }

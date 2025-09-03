@@ -1,18 +1,21 @@
 package com.elsria.commands;
 
 import com.elsria.core.ApplicationContext;
+import com.elsria.core.Storage;
 import com.elsria.task.TaskList;
-import com.elsria.UiHandler;
+import com.elsria.core.UiHandler;
 
 public class UnmarkCommand extends Command {
     private UiHandler uiHandler;
     private TaskList taskList;
+    private Storage storage;
     private String[] arguments;
 
     public UnmarkCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
         this.uiHandler = context.getUIHandler();
         this.taskList = context.getTaskList();
+        this.storage = context.getStorage();
         this.arguments = request.getArgs();
     }
 
@@ -45,6 +48,10 @@ public class UnmarkCommand extends Command {
         taskList.unmarkTask(taskID);
         this.uiHandler.queueMessage("Okay! That task is no longer marked as done");
         this.uiHandler.queueMessage(taskList.getTaskDescription(taskID));
+
+        CommandUtils.saveListToStorage(this.storage, this.taskList, this.uiHandler);
+
+
         this.uiHandler.sayMessages();
     }
 }

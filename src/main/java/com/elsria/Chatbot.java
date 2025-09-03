@@ -1,9 +1,6 @@
 package com.elsria;
 
-import com.elsria.commands.Command;
-import com.elsria.commands.CommandParser;
-import com.elsria.task.ListLoadWrapper;
-import com.elsria.task.TaskList;
+import com.elsria.core.UiHandler;
 
 public class Chatbot {
     private final String name;

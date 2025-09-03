@@ -1,4 +1,4 @@
-package com.elsria;
+package com.elsria.core;
 
 import java.util.ArrayList;
 
