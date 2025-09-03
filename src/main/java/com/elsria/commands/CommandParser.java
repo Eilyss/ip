@@ -1,6 +1,13 @@
 package com.elsria.commands;
 
+/**
+ * Utility class that facilitates parsing the user input to create
+ * a command
+ */
 public class CommandParser {
+    /**
+     * Is true if the command should terminate the program
+     */
     private boolean endProgram;
 
     public CommandParser() {
@@ -11,6 +18,14 @@ public class CommandParser {
         return this.endProgram;
     }
 
+    /**
+     * Returns the CommandRequest that was obtained from
+     * the raw user input
+     *
+     * @param rawInput raw user input.
+     * @return Information regarding the command in the
+     *         form of a CommandRequest object
+     */
     public CommandRequest getCommandType(String rawInput) {
         if (rawInput == null || rawInput.trim().isEmpty()) {
             return new CommandRequest(CommandType.INVALID, rawInput);

@@ -11,6 +11,10 @@ import com.elsria.task.ListLoadWrapper;
 import java.nio.file.Path;
 import java.util.Scanner;
 
+/**
+ * Entry point for Elsria
+ */
+
 public class Elsria {
     private static final String name = "Elsria";
     public static final String LIST_STORAGE_DIRECTORY = "data";
