@@ -5,6 +5,9 @@ import com.elsria.core.ApplicationContext;
 import java.util.Arrays;
 import java.util.Set;
 
+/**
+ * An Enum consisting all CommandTypes available in the project
+ */
 public enum CommandType {
     GREET(Set.of("hello", "hi"), GreetCommand::new),
     ECHO(Set.of("echo"), EchoCommand::new),

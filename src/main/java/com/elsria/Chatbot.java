@@ -2,6 +2,10 @@ package com.elsria;
 
 import com.elsria.core.UiHandler;
 
+/**
+ * Represents a generic Chatbot.
+ */
+
 public class Chatbot {
     private final String name;
 
