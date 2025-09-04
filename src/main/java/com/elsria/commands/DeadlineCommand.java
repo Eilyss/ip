@@ -5,8 +5,9 @@ import com.elsria.task.DeadlineTask;
 import com.elsria.task.Task;
 import com.elsria.time.Time;
 
-public class DeadlineCommand extends AddToListCommand{
-    public DeadlineCommand(ApplicationContext context, CommandRequest request) {
+public class DeadlineCommand extends AddToListCommand {
+    public DeadlineCommand(ApplicationContext context,
+                           CommandRequest request) {
         super(context, request);
     }
 
@@ -19,7 +20,7 @@ public class DeadlineCommand extends AddToListCommand{
 
         String[] arguments = rawArguments.split(" /by ");
 
-        if (arguments[0].isEmpty()|| rawArguments.startsWith("/")) {
+        if (arguments[0].isEmpty() || rawArguments.startsWith("/")) {
             super.errorMessage = "Erm... so what task?";
             return null;
         }

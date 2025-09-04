@@ -1,14 +1,14 @@
 package com.elsria.commands;
 
-import com.elsria.core.UiHandler;
 import com.elsria.core.ApplicationContext;
+import com.elsria.core.UiHandler;
 
 public class FarewellCommand extends Command {
-    UiHandler uiHandler;
+    private final UiHandler uiHandler;
 
     public FarewellCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
-        this.uiHandler = context.getUIHandler();
+        this.uiHandler = context.getUiHandler();
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.elsria.task;
 
-import com.elsria.exceptions.NoSuchTaskException;
-
 import java.util.function.Function;
+
+import com.elsria.exceptions.NoSuchTaskException;
 
 public enum TaskType {
     TODO('T', 2, ToDoTask::createFromArgs),
@@ -13,13 +13,15 @@ public enum TaskType {
     private final int argCount;
     private final Function<String[], Task> deserializationFunction;
 
-    TaskType(char taskType, int argCount, Function<String[], Task> deserializationFunction) {
+    TaskType(char taskType, int argCount,
+             Function<String[], Task> deserializationFunction) {
         this.taskType = taskType;
         this.argCount = argCount;
         this.deserializationFunction = deserializationFunction;
     }
 
-    public static TaskType getTaskType(char taskType) throws NoSuchTaskException {
+    public static TaskType getTaskType(char taskType)
+            throws NoSuchTaskException {
         for (TaskType t : TaskType.values()) {
             if (t.taskType == taskType) {
                 return t;

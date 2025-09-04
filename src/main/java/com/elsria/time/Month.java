@@ -1,8 +1,6 @@
 package com.elsria.time;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -21,14 +19,6 @@ public enum Month {
     NOVEMBER(11, Set.of("nov", "november")),
     DECEMBER(12, Set.of("dec", "december"));
 
-    private int asNumber;
-    private Set<String> aliases;
-
-    Month(int number, Set<String> aliases) {
-        this.asNumber = number;
-        this.aliases = aliases;
-    }
-
     private static final Map<String, Month> ALIAS_MAP = new HashMap<>();
 
     static {
@@ -37,6 +27,15 @@ public enum Month {
                 ALIAS_MAP.put(alias, month);
             }
         }
+    }
+
+    private int asNumber;
+    private Set<String> aliases;
+
+
+    Month(int number, Set<String> aliases) {
+        this.asNumber = number;
+        this.aliases = aliases;
     }
 
     public int getAsNumber() {
@@ -49,7 +48,9 @@ public enum Month {
     }
 
     public static Optional<Month> fromAlias(String alias) {
-        if (alias == null) return Optional.empty();
+        if (alias == null) {
+            return Optional.empty();
+        }
         return Optional.ofNullable(ALIAS_MAP.get(alias.toLowerCase()));
     }
 }

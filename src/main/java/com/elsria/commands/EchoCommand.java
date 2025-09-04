@@ -1,7 +1,7 @@
 package com.elsria.commands;
 
-import com.elsria.core.UiHandler;
 import com.elsria.core.ApplicationContext;
+import com.elsria.core.UiHandler;
 
 public class EchoCommand extends Command {
     private final String echo;
@@ -9,7 +9,7 @@ public class EchoCommand extends Command {
 
     public EchoCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
-        this.uiHandler = context.getUIHandler();
+        this.uiHandler = context.getUiHandler();
         this.echo = stripQuotes(request.getRawArgs());
     }
 

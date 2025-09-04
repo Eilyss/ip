@@ -3,7 +3,8 @@ package com.elsria.core;
 import java.util.ArrayList;
 
 public class UiHandler {
-    private static final String lineSeparator = "____________________________________________________________";
+    private static final String lineSeparator =
+            "____________________________________________________________";
     private final ArrayList<String> messages = new ArrayList<>();
 
     public UiHandler() {

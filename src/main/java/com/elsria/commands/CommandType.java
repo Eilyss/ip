@@ -1,9 +1,9 @@
 package com.elsria.commands;
 
-import com.elsria.core.ApplicationContext;
-
 import java.util.Arrays;
 import java.util.Set;
+
+import com.elsria.core.ApplicationContext;
 
 /**
  * An Enum consisting all CommandTypes available in the project

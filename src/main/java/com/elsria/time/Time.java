@@ -1,17 +1,17 @@
 package com.elsria.time;
 
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+
 import com.elsria.exceptions.InvalidDateSerializationException;
 import com.elsria.exceptions.InvalidTimeSerializationException;
 import com.elsria.time.dateparser.CompositeDateParser;
 import com.elsria.time.dateparser.DateParser;
 import com.elsria.time.timeparser.CompositeTimeParser;
 import com.elsria.time.timeparser.TimeParser;
-
-import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
 
 public class Time {
     private enum DisplayType {
@@ -130,7 +130,11 @@ public class Time {
         if (parts.length != 3) {
             throw new InvalidTimeSerializationException("Incorrect time format!");
         }
-        int hour, minute, second;
+
+        int hour;
+        int minute;
+        int second;
+
         try {
             hour = Integer.parseInt(parts[0]);
             minute = Integer.parseInt(parts[1]);
@@ -155,7 +159,10 @@ public class Time {
             throw new InvalidDateSerializationException("Incorrect date format!");
         }
 
-        int day, month, year;
+        int day;
+        int month;
+        int year;
+
         try {
             day = Integer.parseInt(parts[0]);
             month = Integer.parseInt(parts[1]);

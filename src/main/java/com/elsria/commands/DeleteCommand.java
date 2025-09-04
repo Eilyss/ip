@@ -2,8 +2,8 @@ package com.elsria.commands;
 
 import com.elsria.core.ApplicationContext;
 import com.elsria.core.Storage;
-import com.elsria.task.TaskList;
 import com.elsria.core.UiHandler;
+import com.elsria.task.TaskList;
 
 public class DeleteCommand extends Command {
     private final UiHandler uiHandler;
@@ -13,7 +13,7 @@ public class DeleteCommand extends Command {
 
     public DeleteCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
-        this.uiHandler = context.getUIHandler();
+        this.uiHandler = context.getUiHandler();
         this.taskList = context.getTaskList();
         this.storage = context.getStorage();
         this.arguments = request.getArgs();

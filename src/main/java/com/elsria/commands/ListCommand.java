@@ -1,16 +1,16 @@
 package com.elsria.commands;
 
 import com.elsria.core.ApplicationContext;
-import com.elsria.task.TaskList;
 import com.elsria.core.UiHandler;
+import com.elsria.task.TaskList;
 
 public class ListCommand extends Command {
-    private UiHandler uiHandler;
-    private TaskList taskList;
+    private final UiHandler uiHandler;
+    private final TaskList taskList;
 
     public ListCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
-        this.uiHandler = context.getUIHandler();
+        this.uiHandler = context.getUiHandler();
         this.taskList = context.getTaskList();
     }
 
@@ -23,7 +23,9 @@ public class ListCommand extends Command {
 
         this.uiHandler.queueMessage("Here are the tasks on your list:");
         for (int i = 0; i < taskList.size(); i++) {
-            this.uiHandler.queueMessage(String.format("%d. %s", i + 1, this.taskList.get(i).toString()));
+            this.uiHandler.queueMessage(
+                    String.format("%d. %s", i + 1, this.taskList.get(i).toString())
+            );
         }
         this.uiHandler.sayMessages();
     }

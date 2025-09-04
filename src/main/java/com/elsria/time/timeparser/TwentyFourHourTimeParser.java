@@ -10,24 +10,29 @@ import java.util.regex.Pattern;
 public class TwentyFourHourTimeParser extends TimeParser {
     private static final String TWENTY_FOUR_HOUR_REGEX =
             "(?i)"
-                    + "([01]\\d|2[0-3])"             // 24-hour format hours (0-23)
-                    + "[.:]?([0-5]\\d)";             // Minutes
+                    + "([01]\\d|2[0-3])"
+                    + "[.:]?([0-5]\\d)";
 
-    public static final Pattern pattern = Pattern.compile(TWENTY_FOUR_HOUR_REGEX, Pattern.CASE_INSENSITIVE);
+    private static final Pattern pattern =
+            Pattern.compile(TWENTY_FOUR_HOUR_REGEX,
+                    Pattern.CASE_INSENSITIVE);
 
     @Override
     public List<LocalTime> parse(String date) {
         Matcher matcher = pattern.matcher(date);
         ArrayList<LocalTime> times = new ArrayList<LocalTime>();
+        boolean error = false;
 
         while (matcher.find()) {
             int hour = Integer.parseInt(matcher.group(1));
-            int minute = matcher.group(2) == null ? 0 : Integer.parseInt(matcher.group(2));
+            int minute = matcher.group(2) == null
+                    ? 0
+                    : Integer.parseInt(matcher.group(2));
 
             try {
                 times.add(LocalTime.of(hour, minute));
             } catch (DateTimeException ignore) {
-
+                error = true;
             }
         }
 

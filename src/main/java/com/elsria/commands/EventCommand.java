@@ -5,9 +5,7 @@ import com.elsria.task.EventTask;
 import com.elsria.task.Task;
 import com.elsria.time.Time;
 
-import java.time.LocalDateTime;
-
-public class EventCommand extends AddToListCommand{
+public class EventCommand extends AddToListCommand {
     public EventCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
     }

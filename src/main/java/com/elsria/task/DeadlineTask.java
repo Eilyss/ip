@@ -3,7 +3,7 @@ package com.elsria.task;
 import com.elsria.time.Time;
 
 public class DeadlineTask extends Task {
-    private Time deadline;
+    private final Time deadline;
 
     public DeadlineTask(String description, Time deadline) {
         super(description);

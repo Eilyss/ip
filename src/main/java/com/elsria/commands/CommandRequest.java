@@ -21,7 +21,8 @@ public class CommandRequest {
      *                     input
      * @param originalCommand the full original user input
      */
-    public CommandRequest(CommandType commandType, String[] args, String rawArguments, String originalCommand) {
+    public CommandRequest(CommandType commandType, String[] args,
+                          String rawArguments, String originalCommand) {
         this.commandType = commandType;
         this.args = args;
         this.rawArguments = rawArguments;

@@ -2,7 +2,6 @@ package com.elsria.time.dateparser;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,7 +13,8 @@ public class PhraseParser extends DateParser {
                     + "day\\s+after|following\\s+day|"
                     + "next\\s+(?:week|month|year))\\b";
 
-    private static final Pattern pattern = Pattern.compile(PHRASE_REGEX, Pattern.CASE_INSENSITIVE);
+    private static final Pattern pattern =
+            Pattern.compile(PHRASE_REGEX, Pattern.CASE_INSENSITIVE);
 
     @Override
     public List<LocalDate> parse(String input) {

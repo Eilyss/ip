@@ -2,9 +2,9 @@ package com.elsria.commands;
 
 import com.elsria.core.ApplicationContext;
 import com.elsria.core.Storage;
+import com.elsria.core.UiHandler;
 import com.elsria.task.Task;
 import com.elsria.task.TaskList;
-import com.elsria.core.UiHandler;
 
 /**
  * Abstract class representing a general AddToListCommand,
@@ -12,21 +12,21 @@ import com.elsria.core.UiHandler;
  * <p>
  * This class provides a basic structure for commands that interact
  * with the TaskList
- * 
+ *
  * <p>
  * Subclasses should provide concrete implementations of the
  * abstract methods such as {@link #createTask(String args)}.
  */
 public abstract class AddToListCommand extends Command {
+    /**
+     * Error message to run in case of failure
+     */
+    protected String errorMessage;
     private final UiHandler uiHandler;
     private final TaskList taskList;
     private final Storage storage;
     private Task task;
 
-    /**
-     * Error message to run in case of failure
-     */
-    protected String errorMessage;
 
     /**
      * Default constructor for all AddToListCommands
@@ -40,7 +40,7 @@ public abstract class AddToListCommand extends Command {
     public AddToListCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
         this.taskList = context.getTaskList();
-        this.uiHandler = context.getUIHandler();
+        this.uiHandler = context.getUiHandler();
         this.storage = context.getStorage();
         try {
             this.task = createTask(request.getRawArgs());

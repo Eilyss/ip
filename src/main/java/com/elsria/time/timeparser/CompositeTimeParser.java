@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompositeTimeParser {
-    private List<TimeParser> timeParsers;
+    private final List<TimeParser> timeParsers;
 
     public CompositeTimeParser(List<TimeParser> timeParsers) {
         this.timeParsers = timeParsers;

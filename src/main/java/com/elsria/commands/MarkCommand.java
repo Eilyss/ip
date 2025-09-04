@@ -2,18 +2,18 @@ package com.elsria.commands;
 
 import com.elsria.core.ApplicationContext;
 import com.elsria.core.Storage;
-import com.elsria.task.TaskList;
 import com.elsria.core.UiHandler;
+import com.elsria.task.TaskList;
 
 public class MarkCommand extends Command {
     private final UiHandler uiHandler;
     private final TaskList taskList;
     private final Storage storage;
-    private String[] arguments;
+    private final String[] arguments;
 
     public MarkCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
-        this.uiHandler = context.getUIHandler();
+        this.uiHandler = context.getUiHandler();
         this.taskList = context.getTaskList();
         this.storage = context.getStorage();
         this.arguments = request.getArgs();

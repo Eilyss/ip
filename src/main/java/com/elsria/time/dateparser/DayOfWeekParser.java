@@ -14,7 +14,8 @@ public class DayOfWeekParser extends DateParser {
                     + "\\b(sun(?:day)?|mon(?:day)?|"
                     + "tue(?:s|sday)?|wed(?:s|nesday)?|"
                     + "thu(?:r|rs|rsday)?|fri(?:day)?|sat(?:urday)?)\\b";
-    private static final Pattern pattern = Pattern.compile(DAY_REGEX, Pattern.CASE_INSENSITIVE);
+    private static final Pattern pattern =
+            Pattern.compile(DAY_REGEX, Pattern.CASE_INSENSITIVE);
 
     @Override
     public List<LocalDate> parse(String date) {
@@ -31,11 +32,14 @@ public class DayOfWeekParser extends DateParser {
         return potentialDates;
     }
 
-    private static int getDayDifference(LocalDate currentDate, DayOfWeek found, Matcher dateMatcher) {
+    private static int getDayDifference(
+            LocalDate currentDate, DayOfWeek found, Matcher dateMatcher) {
         DayOfWeek today = currentDate.getDayOfWeek();
         int dayDifference = (found.getValue() - today.getValue() + 7) % 7;
 
-        if (dateMatcher.group(1) != null && dateMatcher.group(1).equals("next") && found.getValue() - today.getValue() >= 0) {
+        if (dateMatcher.group(1) != null
+                && dateMatcher.group(1).equals("next")
+                && found.getValue() - today.getValue() >= 0) {
             dayDifference += 7;
         } else if (dateMatcher.group(1).equals("following")) {
             dayDifference += 7;
