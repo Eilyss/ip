@@ -1,7 +1,6 @@
 package com.elsria.core;
 
 import com.elsria.task.TaskList;
-import com.elsria.time.dateparser.DateParser;
 
 public class ApplicationContext {
     private final String name;
@@ -9,7 +8,8 @@ public class ApplicationContext {
     private final TaskList taskList;
     private final Storage storage;
 
-    public ApplicationContext(String name, UiHandler uiHandler, TaskList taskList, Storage storage) {
+    public ApplicationContext(String name, UiHandler uiHandler,
+                              TaskList taskList, Storage storage) {
         this.name = name;
         this.uiHandler = uiHandler;
         this.taskList = taskList;
@@ -20,7 +20,7 @@ public class ApplicationContext {
         return this.name;
     }
 
-    public UiHandler getUIHandler() {
+    public UiHandler getUiHandler() {
         return this.uiHandler;
     }
 

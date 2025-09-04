@@ -1,9 +1,9 @@
 package com.elsria.commands;
 
-import com.elsria.core.ApplicationContext;
-
 import java.util.Arrays;
 import java.util.Set;
+
+import com.elsria.core.ApplicationContext;
 
 public enum CommandType {
     GREET(Set.of("hello", "hi"), GreetCommand::new),

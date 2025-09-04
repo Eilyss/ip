@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompositeDateParser {
-    private List<DateParser> dateParsers;
+    private final List<DateParser> dateParsers;
 
     public CompositeDateParser(List<DateParser> dateParsers) {
         this.dateParsers = dateParsers;

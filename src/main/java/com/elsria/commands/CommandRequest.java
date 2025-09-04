@@ -6,7 +6,8 @@ public class CommandRequest {
     private final String rawArguments;
     private final String originalCommand;
 
-    public CommandRequest(CommandType commandType, String[] args, String rawArguments, String originalCommand) {
+    public CommandRequest(CommandType commandType, String[] args,
+                          String rawArguments, String originalCommand) {
         this.commandType = commandType;
         this.args = args;
         this.rawArguments = rawArguments;

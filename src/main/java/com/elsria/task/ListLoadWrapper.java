@@ -3,8 +3,8 @@ package com.elsria.task;
 import java.util.List;
 
 public class ListLoadWrapper {
-    private TaskList taskList;
-    private List<String> failedSerializations;
+    private final TaskList taskList;
+    private final List<String> failedSerializations;
 
     public ListLoadWrapper(TaskList taskList, List<String> failedSerializations) {
         this.taskList = taskList;

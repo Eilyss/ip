@@ -1,13 +1,5 @@
 package com.elsria.task;
 
-import com.elsria.exceptions.InvalidTaskSerializationException;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList extends ArrayList<Task> {

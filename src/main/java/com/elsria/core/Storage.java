@@ -1,9 +1,5 @@
 package com.elsria.core;
 
-import com.elsria.task.ListLoadWrapper;
-import com.elsria.task.Task;
-import com.elsria.task.TaskList;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -11,6 +7,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.elsria.task.ListLoadWrapper;
+import com.elsria.task.Task;
+import com.elsria.task.TaskList;
 
 public class Storage {
     private final Path filePath;
