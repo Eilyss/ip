@@ -1,22 +1,23 @@
 package com.elsria.task;
 
-import java.util.Arrays;
-
 import com.elsria.exceptions.InvalidTaskSerializationException;
+
+import java.util.Arrays;
+import java.util.Locale;
 
 public abstract class Task {
     private static final char markedSymbol = 'X';
     private static final char unmarkedSymbol = ' ';
-    protected String task;
+    protected String description;
     protected boolean isMarked;
 
     public Task(String description) {
-        this.task = description;
+        this.description = description;
         this.isMarked = false;
     }
 
     public Task(String description, boolean isMarked) {
-        this.task = description;
+        this.description = description;
         this.isMarked = isMarked;
     }
 
@@ -32,23 +33,27 @@ public abstract class Task {
         return this.isMarked;
     }
 
-    public String getTask() {
-        return this.task;
+    public String getDescription() {
+        return this.description;
     }
 
     public abstract char taskType();
 
+    public boolean containsKeyword(String keyword) {
+        return this.description.toLowerCase().contains(keyword.toLowerCase());
+    }
+
     @Override
     public String toString() {
         char markStatus = this.isMarked ? markedSymbol : unmarkedSymbol;
-        return String.format("[%c][%c] %s", this.taskType(), markStatus, task);
+        return String.format("[%c][%c] %s", this.taskType(), markStatus, description);
     }
 
     public abstract String serialize();
 
     protected String baseSerialization() {
         int i = this.isMarked ? 1 : 0;
-        return String.format("%c|%d|%s", this.taskType(), i, task);
+        return String.format("%c|%d|%s", this.taskType(), i, description);
     }
 
     public static Task deserialize(String serialization)
@@ -69,4 +74,7 @@ public abstract class Task {
 
         return taskType.getDeserializationFunction().apply(args);
     }
+
+    @Override
+    public abstract boolean equals(Object other);
 }

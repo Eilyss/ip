@@ -16,6 +16,7 @@ public enum CommandType {
     EVENT(Set.of("event"), EventCommand::new),
     DELETE(Set.of("delete", "remove"), DeleteCommand::new),
     LIST(Set.of("list"), ListCommand::new),
+    FIND(Set.of("find", "search"), FindCommand::new),
     MARK(Set.of("mark"), MarkCommand::new),
     UNMARK(Set.of("unmark"), UnmarkCommand::new),
     FAREWELL(Set.of("bye", "farewell", "goodbye", "exit", "quit"), FarewellCommand::new),
