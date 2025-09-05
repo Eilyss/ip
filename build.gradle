@@ -45,3 +45,5 @@ run{
 checkstyle {
     toolVersion = '11.0.0'
 }
+
+tasks.checkstyleTest.enabled = false

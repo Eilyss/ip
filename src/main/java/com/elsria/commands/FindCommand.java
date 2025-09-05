@@ -15,7 +15,7 @@ public class FindCommand extends Command {
 
     public FindCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
-        this.uiHandler = context.getUIHandler();
+        this.uiHandler = context.getUiHandler();
         this.taskList = context.getTaskList();
         this.arguments = request.getArgs();
     }
