@@ -6,8 +6,8 @@ import com.elsria.core.ApplicationContext;
  * Abstract class representing a general Command to the chatbot.
  * <p>
  * This class provides a basic structure for specific Commands
- * It defines common properties and behaviors, and provides abstract methods that
- * must be implemented by subclasses.
+ * It defines common properties and behaviors, and provides
+ * abstract methods that must be implemented by subclasses.
  * <p>
  * Subclasses should provide concrete implementations of
  * the abstract methods

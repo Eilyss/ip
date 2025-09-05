@@ -5,6 +5,24 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Represents the twelve months of the year as an enum with support for multiple
+ * name aliases.
+ * <p>
+ * The {@code Month} enum provides functionality to convert between month names and
+ * the numeric representations. It supports case-insensitive lookup of
+ * months.
+ * </p>
+ *
+ * <p><b>Key Features:</b></p>
+ * <ul>
+ *   <li>Numeric month representation (1-12)</li>
+ *   <li>Support for common abbreviations and full names</li>
+ *   <li>Case-insensitive alias lookup</li>
+ * </ul>
+ *
+ * Credit: JavaDoc was written with guidance from generative AI
+ */
 public enum Month {
     JANUARY(1, Set.of("jan", "january")),
     FEBRUARY(2, Set.of("feb", "february")),
@@ -32,7 +50,13 @@ public enum Month {
     private int asNumber;
     private Set<String> aliases;
 
-
+    /**
+     * Constructs a Month enum with the specified numeric representation
+     * and associated aliases
+     *
+     * @param number the numeric representation for that month (1 - 12)
+     * @param aliases the set of string aliases for that month
+     */
     Month(int number, Set<String> aliases) {
         this.asNumber = number;
         this.aliases = aliases;
@@ -42,11 +66,20 @@ public enum Month {
         return this.asNumber;
     }
 
-    @Override
-    public String toString() {
-        return super.toString().toUpperCase();
-    }
-
+    /**
+     * Attempts to match the provided string alias to a month based the aliases
+     * specified in the enum
+     * <p>
+     * The lookup is case-insensitive, and the method compares the provided string
+     * to every alias set for each month. If no match is found, an empty Optional
+     * will be returned instead.
+     * </p>
+     *
+     * @param alias the string alias to look up (e.g., "jan", "January", "JAN")
+     * @return an {@link Optional} containing the matching Month, or empty if no match found
+     *
+     * @see Optional
+     */
     public static Optional<Month> fromAlias(String alias) {
         if (alias == null) {
             return Optional.empty();

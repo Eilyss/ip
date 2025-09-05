@@ -1,21 +1,62 @@
 package com.elsria.task;
 
-import com.elsria.exceptions.InvalidTaskSerializationException;
-
 import java.util.Arrays;
-import java.util.Locale;
 
+import com.elsria.exceptions.InvalidTaskSerializationException;
+import com.elsria.time.Time;
+
+/**
+ * Abstract base class representing a task.
+ * <p>
+ * The {@code Task} class provides common functionality for all task types,
+ * which includes marking/unmarking, description management, keyword search,
+ * serialization, and deserialization.
+ * </p>
+ *
+ * <p><b>Key Features:</b></p>
+ * <ul>
+ *   <li>Marking/unmarking completion status</li>
+ *   <li>Keyword search</li>
+ *   <li>Serialization and deserialization support</li>
+ * </ul>
+ *
+ * <p><b>Serialization Format:</b></p>
+ * <pre>
+ * taskType|isMarked|description|[type-specific fields]...
+ * </pre>
+ *
+ * Credit: JavaDoc was written with guidance from generative AI
+ *
+ * @see ToDoTask
+ * @see DeadlineTask
+ * @see EventTask
+ * @see InvalidTaskSerializationException
+ */
 public abstract class Task {
     private static final char markedSymbol = 'X';
     private static final char unmarkedSymbol = ' ';
     protected String description;
     protected boolean isMarked;
 
+    /**
+     * Constructs a Task with the specified description.
+     * The task is initially unmarked (not completed).
+     *
+     * @param description the task description.
+     */
     public Task(String description) {
         this.description = description;
         this.isMarked = false;
     }
 
+    /**
+     * Constructs a Task with the specified description
+     * and completion status
+     *
+     * @param description the task description.
+     * @param isMarked the completion status,
+     *                 (true for completed, false for incomplete)
+     */
     public Task(String description, boolean isMarked) {
         this.description = description;
         this.isMarked = isMarked;
@@ -51,11 +92,39 @@ public abstract class Task {
 
     public abstract String serialize();
 
+    /**
+     * Provides the base serialization of Task objects, only meant to be used by Task
+     * subclasses.
+     * <p>
+     * Serialization format: {@code taskType|isMarked|description|[type-specific fields]...}
+     * </p>
+     *
+     * @return the base string representation of the Task object
+     *
+     * @see #deserialize(String)
+     */
     protected String baseSerialization() {
         int i = this.isMarked ? 1 : 0;
         return String.format("%c|%d|%s", this.taskType(), i, description);
     }
 
+    /**
+     * Deserializes a Task from its string representation.
+     * <p>
+     * This method parses the serialized string and delegates to the appropriate
+     * task type's deserialization function based on the type identifier.
+     * </p>
+     *
+     * @param serialization the serialized task string
+     * @return a reconstructed Task object
+     * @throws InvalidTaskSerializationException if the serialization format is invalid,
+     *         the task type is unknown, or the argument count doesn't match the Task type
+     * @throws NumberFormatException if numeric fields cannot be parsed into Time
+     *
+     * @see #serialize()
+     * @see TaskType
+     * @see Time
+     */
     public static Task deserialize(String serialization)
             throws InvalidTaskSerializationException {
         String[] tokens = serialization.split("\\|");

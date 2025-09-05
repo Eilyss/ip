@@ -12,7 +12,26 @@ import com.elsria.core.UiHandler;
 import com.elsria.task.ListLoadWrapper;
 
 /**
- * Entry point for Elsria
+ * Main entry point and application launcher for the Elsria task management system.
+ * <p>
+ * Elsria is a chatbot that helps users manage their tasks with persistent storage
+ * and a command-line interface for task management.
+ * </p>
+ *
+ * <p><b>Key Features:</b></p>
+ * <ul>
+ *   <li>Interactive command-based task management</li>
+ *   <li>Persistent storage of tasks to local files</li>
+ *   <li>Support for different task types (todo, deadline, event)</li>
+ *   <li>User-friendly console interface</li>
+ * </ul>
+ *
+ * Credit: JavaDoc was written with guidance from generative AI
+ *
+ * @see ApplicationContext
+ * @see CommandParser
+ * @see Storage
+ * @see UiHandler
  */
 public class Elsria {
     public static final String LIST_STORAGE_DIRECTORY = "data";

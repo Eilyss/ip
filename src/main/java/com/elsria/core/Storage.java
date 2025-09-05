@@ -24,13 +24,12 @@ public class Storage {
     }
 
     public ListLoadWrapper loadListFromStorage() {
-        if (!Files.exists(this.filePath)) {
-            return null; // File doesn't exist
-        }
-
         TaskList list = new TaskList();
         List<String> failedLines = new ArrayList<>();
 
+        if (!Files.exists(this.filePath)) {
+            return new ListLoadWrapper(list, failedLines);
+        }
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -42,7 +41,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            return null;
+            return new ListLoadWrapper(list, failedLines);
         }
 
         return new ListLoadWrapper(list, failedLines);

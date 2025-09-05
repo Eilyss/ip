@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 import com.elsria.exceptions.InvalidDateSerializationException;
 import com.elsria.exceptions.InvalidTimeSerializationException;
@@ -13,8 +14,41 @@ import com.elsria.time.dateparser.DateParser;
 import com.elsria.time.timeparser.CompositeTimeParser;
 import com.elsria.time.timeparser.TimeParser;
 
+/**
+ * Represents an all-purpose time class. It has configurable display formatting.
+ * <p>
+ * The {@code Time} class provides a convenient way to handle dates and times. It supports parsing,
+ * serialization, and different display formats.
+ * </p>
+ *
+ * <p><b>Key Features:</b></p>
+ * <ul>
+ *   <li>Dates and/or time parsing</li>
+ *   <li>Configurable display formatting</li>
+ *   <li>Serialization and deserialization support</li>
+ * </ul>
+ *
+ * <p><b>Display Mode:</b></p>
+ * <ul>
+ *   <li>{@link DisplayMode#FULL}: Shows both date and time</li>
+ *   <li>{@link DisplayMode#DATE_ONLY}: Shows only the date portion</li>
+ *   <li>{@link DisplayMode#TIME_ONLY}: Shows only the time portion</li>
+ * </ul>
+ *
+ * <p><b>Serialization Format:</b></p>
+ * <pre>
+ * displayTypeOrdinal,hour:minute:second,day/month/year
+ * </pre>
+ *
+ * @see LocalDate
+ * @see LocalTime
+ * @see LocalDateTime
+ */
 public class Time {
-    private enum DisplayType {
+    /**
+     * Local enum representing the 3 supported DisplayTypes.
+     */
+    private enum DisplayMode {
         FULL,
         TIME_ONLY,
         DATE_ONLY
@@ -22,44 +56,90 @@ public class Time {
 
     private final LocalDate date;
     private final LocalTime time;
-    private DisplayType displayType;
+    private DisplayMode displayMode;
 
+    /**
+     * Constructs a Time object from a LocalDateTime.
+     * The display type is set to {@link DisplayMode#FULL}.
+     *
+     * @param time the LocalDateTime to be converted.
+     */
     public Time(LocalDateTime time) {
         this.date = time.toLocalDate();
         this.time = time.toLocalTime();
-        this.displayType = DisplayType.FULL;
+        this.displayMode = DisplayMode.FULL;
     }
 
+    /**
+     * Constructs a Time object from a LocalDate.
+     * The display type is set to {@link DisplayMode#DATE_ONLY}.
+     *
+     * @param date the date to be converted.
+     */
     public Time(LocalDate date) {
         this.date = date;
         this.time = LocalTime.of(23, 59, 0);
-        this.displayType = DisplayType.DATE_ONLY;
+        this.displayMode = DisplayMode.DATE_ONLY;
     }
 
+    /**
+     * Constructs a Time object from a LocalDate.
+     * The display type is set to {@link DisplayMode#TIME_ONLY}.
+     *
+     * @param time the time to be converted.
+     */
     public Time(LocalTime time) {
         this.date = LocalDate.now();
         this.time = time;
-        this.displayType = DisplayType.TIME_ONLY;
+        this.displayMode = DisplayMode.TIME_ONLY;
     }
 
-    private Time(LocalDate date, LocalTime time, DisplayType displayType) {
+    /**
+     * Private constructor for internal use with full control over all components.
+     *
+     * @param date the date component.
+     * @param time the time component.
+     * @param displayMode the display format to use.
+     */
+    private Time(LocalDate date, LocalTime time, DisplayMode displayMode) {
         this.date = date;
         this.time = time;
-        this.displayType = DisplayType.FULL;
+        this.displayMode = DisplayMode.FULL;
     }
 
     public void setDisplayTypeToFull() {
-        this.displayType = DisplayType.FULL;
+        this.displayMode = DisplayMode.FULL;
     }
 
     public void setDisplayTypeToTimeOnly() {
-        this.displayType = DisplayType.TIME_ONLY;
+        this.displayMode = DisplayMode.TIME_ONLY;
     }
 
     public void setDisplayTypeToDateOnly() {
-        this.displayType = DisplayType.DATE_ONLY;
+        this.displayMode = DisplayMode.DATE_ONLY;
     }
 
+    /**
+     * TODO: Convert return value to Optional
+     * Extracts the date and/or time from a string input. It is capable or processing
+     * (relatively) natural language.
+     * <p>
+     * This method uses a composite parser to extract both date and time components
+     * from the input. If no date is found, the current date is used. If no time is found,
+     * 23:59pm is used as default.
+     * </p>
+     * <p></p>
+     * Returns an empty {@link Optional} if neither date nor time can be parsed from the input.
+     * </p>
+     *
+     * @param input the string to parse for date and time information.
+     * @return an {@link Optional} containing a {@code Time} object representing the parsed
+     *         date and time, or an empty {@code Optional} if the input string does not contain a
+     *         parsable time.
+     *
+     * @see CompositeDateParser
+     * @see CompositeTimeParser
+     */
     public static Time parseTime(String input) {
         CompositeDateParser dateParser = DateParser.createDefaultParser();
         List<LocalDate> possibleDates = dateParser.processString(input);
@@ -76,7 +156,7 @@ public class Time {
         }
 
         if (!possibleTimes.isEmpty()) {
-            timeFound = possibleTimes.get(possibleDates.size() - 1);
+            timeFound = possibleTimes.get(possibleTimes.size() - 1);
             hasTime = true;
         }
 
@@ -84,45 +164,74 @@ public class Time {
             return null;
         }
 
-        return new Time(dateFound, timeFound, getDisplayType(hasDate, hasTime));
+        return new Time(dateFound,
+                        timeFound,
+                        getDisplayMode(hasDate, hasTime));
     }
 
+    /**
+     * Serializes the {@code Time} object to a string representation for storage.
+     * <p>
+     * Format: {@code displayTypeOrdinal,hour:minute:second,day/month/year}
+     * </p>
+     *
+     * @return a string representation of the Time object
+     *
+     * @see #deserialize(String)
+     */
     public String serialize() {
-        return String.format("%d,%d:%d:%d,%d/%d/%d", this.displayType.ordinal(),
+        return String.format("%d,%d:%d:%d,%d/%d/%d", this.displayMode.ordinal(),
                 this.time.getHour(), this.time.getMinute(), this.time.getSecond(),
                 this.date.getDayOfMonth(), this.date.getMonthValue(), this.date.getYear());
     }
 
+    /**
+     * Deserializes a Time object from its string representation.
+     * <p>
+     * This method is the inverse of {@link #serialize()} and as such expects the same format.
+     * </p>
+     *
+     * @param input the serialized string representation of a Time object
+     * @return a reconstructed Time object
+     * @throws InvalidTimeSerializationException if the time component cannot be parsed
+     * @throws InvalidDateSerializationException if the date component cannot be parsed
+     * @throws IllegalArgumentException if the display type ordinal is invalid
+     * @throws NumberFormatException if any numeric component cannot be parsed
+     *
+     * @see #serialize()
+     * @see InvalidTimeSerializationException
+     * @see InvalidDateSerializationException
+     */
     public static Time deserialize(String input) {
         String[] parts = input.split(",");
 
-        DisplayType displayType = intToDisplayType(Integer.parseInt(parts[0]));
+        DisplayMode displayMode = intToDisplayType(Integer.parseInt(parts[0]));
         LocalTime time = deserializeTime(parts[1]);
         LocalDate date = deserializeDate(parts[2]);
 
-        return new Time(date, time, getDisplayType(false, false));
+        return new Time(date, time, getDisplayMode(false, false));
     }
 
-    private static DisplayType getDisplayType(boolean hasDate, boolean hasTime) {
+    private static DisplayMode getDisplayMode(boolean hasDate, boolean hasTime) {
         if (hasDate && hasTime) {
-            return DisplayType.FULL;
+            return DisplayMode.FULL;
         }
         if (hasDate) {
-            return DisplayType.DATE_ONLY;
+            return DisplayMode.DATE_ONLY;
         }
         if (hasTime) {
-            return DisplayType.TIME_ONLY;
+            return DisplayMode.TIME_ONLY;
         }
         throw new IllegalArgumentException("Cannot simultaneously have no date and time!");
 
     }
 
-    private static DisplayType intToDisplayType(int ordinal) {
-        if (ordinal < 0 || ordinal >= DisplayType.values().length) {
+    private static DisplayMode intToDisplayType(int ordinal) {
+        if (ordinal < 0 || ordinal >= DisplayMode.values().length) {
             throw new IllegalArgumentException("Invalid ordinal: " + ordinal);
         }
 
-        return DisplayType.values()[ordinal];
+        return DisplayMode.values()[ordinal];
     }
 
     private static LocalTime deserializeTime(String input) {
@@ -140,14 +249,16 @@ public class Time {
             minute = Integer.parseInt(parts[1]);
             second = Integer.parseInt(parts[2]);
         } catch (NumberFormatException e) {
-            throw new InvalidTimeSerializationException("Time string contains non-integers!");
+            throw new InvalidTimeSerializationException(
+                    "Time string contains non-integers!");
         }
 
         LocalTime time;
         try {
             time = LocalTime.of(hour, minute, second);
         } catch (DateTimeException e) {
-            throw new InvalidTimeSerializationException("Time string given is not a valid time!");
+            throw new InvalidTimeSerializationException(
+                    "Time string given is not a valid time!");
         }
 
         return time;
@@ -156,7 +267,8 @@ public class Time {
     private static LocalDate deserializeDate(String input) {
         String[] parts = input.split("/");
         if (parts.length != 3) {
-            throw new InvalidDateSerializationException("Incorrect date format!");
+            throw new InvalidDateSerializationException(
+                    "Incorrect date format!");
         }
 
         int day;
@@ -168,7 +280,8 @@ public class Time {
             month = Integer.parseInt(parts[1]);
             year = Integer.parseInt(parts[2]);
         } catch (NumberFormatException e) {
-            throw new InvalidDateSerializationException("Time string contains non-integers!");
+            throw new InvalidDateSerializationException(
+                    "Time string contains non-integers!");
         }
 
         LocalDate date;
@@ -181,21 +294,42 @@ public class Time {
         return date;
     }
 
+    /**
+     * Returns the string representation of this Time object according
+     * to the display mode.
+     * <p>
+     * Format:
+     * </p>
+     * <ul>
+     *   <li>{@link DisplayMode#FULL}: "HHMM dd Month yyyy"</li>
+     *   <li>{@link DisplayMode#TIME_ONLY}: "HHMM"</li>
+     *   <li>{@link DisplayMode#DATE_ONLY}: "dd Month yyyy"</li>
+     * </ul>
+     *
+     * @return a formatted string representation of this Time object
+     */
     @Override
     public String toString() {
-        String dateString = String.format("%d %s %d", date.getDayOfMonth(), date.getMonth(), date.getYear());
-        String timeString = String.format("%2d%2d", time.getHour(), time.getMinute());
+        String dateString =
+                String.format(
+                        "%d %s %d",
+                        date.getDayOfMonth(),
+                        date.getMonth(),
+                        date.getYear()
+                ).toLowerCase();
+        String timeString =
+                String.format(
+                        "%2d%2d",
+                        time.getHour(),
+                        time.getMinute()
+                ).toLowerCase();
 
-        switch (displayType) {
-        case FULL:
-            return timeString + " " + dateString;
-        case TIME_ONLY:
-            return timeString;
-        case DATE_ONLY:
-            return dateString;
-        default:
-            return "Not a valid time";
-        }
+        return switch (displayMode) {
+        case FULL -> timeString + " " + dateString;
+        case TIME_ONLY -> timeString;
+        case DATE_ONLY -> dateString;
+        default -> "Not a valid time";
+        };
     }
 
     @Override
