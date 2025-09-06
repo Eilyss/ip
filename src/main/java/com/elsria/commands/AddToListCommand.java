@@ -7,7 +7,8 @@ import com.elsria.task.Task;
 import com.elsria.task.TaskList;
 
 /**
- * Abstract class representing a general AddToListCommand,
+ * TODO: Scrap AddToListCommands, just have an AddCommand, unnecessary inheritance
+ * Abstract class representing a general Command that adds specific tasks to a list,
  * which extends from Command
  * <p>
  * This class provides a basic structure for commands that interact
@@ -65,10 +66,5 @@ public abstract class AddToListCommand extends Command {
 
     }
 
-    /**
-     * Abstract method for creating the correct Task
-     * <p>
-     * Subclasses must implement this method to ensure that the correct Task gets created
-     */
     public abstract Task createTask(String args);
 }

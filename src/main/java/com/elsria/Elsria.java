@@ -66,7 +66,7 @@ public class Elsria {
             Command command =
                     request.getCommandType().create(context, request);
             command.execute();
-            running = !parser.endProgram();
+            running = !parser.shouldTerminateProgram();
         }
     }
 }

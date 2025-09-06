@@ -5,6 +5,7 @@ import com.elsria.core.UiHandler;
 import com.elsria.task.TaskList;
 
 /**
+ * TODO: TO BE SCRAPPED, I'll try not to need something like this
  * A class that extracts common functionality
  * from similar Commands
  */

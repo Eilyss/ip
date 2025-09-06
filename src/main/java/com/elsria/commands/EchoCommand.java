@@ -3,10 +3,39 @@ package com.elsria.commands;
 import com.elsria.core.ApplicationContext;
 import com.elsria.core.UiHandler;
 
+/**
+ * Echoes the user's input text back.
+ * <p>
+ * The {@code EchoCommand} takes user input and displays it back to the user.
+ * Single and double quotes are automatically stripped.
+ * </p>
+ *
+ * <p><b>Command Format:</b></p>
+ * <pre>
+ * echo [text]
+ * </pre>
+ *
+ * <p><b>Requirements:</b></p>
+ * <ul>
+ *     <li>{@link UiHandler}</li>
+ * </ul>
+ *
+ * @see Command
+ * @see ApplicationContext
+ * @see CommandRequest
+ * @see UiHandler
+ */
 public class EchoCommand extends Command {
     private final String echo;
     private final UiHandler uiHandler;
 
+    /**
+     * Constructs a new EchoCommand with the specified context and request.
+     *
+     * @param context the {@link ApplicationContext} providing access to shared state and services.
+     * @param request the {@link CommandRequest} containing the text to echo, stored in rawArgs.
+     * @throws NullPointerException if either context or request is null
+     */
     public EchoCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
         this.uiHandler = context.getUiHandler();

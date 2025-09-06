@@ -4,6 +4,9 @@ import com.elsria.core.ApplicationContext;
 import com.elsria.task.Task;
 import com.elsria.task.ToDoTask;
 
+/**
+ * TODO:Scrap this class
+ */
 public class ToDoCommand extends AddToListCommand {
 
     public ToDoCommand(ApplicationContext context, CommandRequest request) {

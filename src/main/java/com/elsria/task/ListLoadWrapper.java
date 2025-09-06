@@ -15,7 +15,6 @@ import java.util.List;
  * <ul>
  *   <li>Encapsulate successful task loading results</li>
  *   <li>Track failed lines for error reporting</li>
- *   <li>Enable more elegant handling of invalid task data</li>
  * </ul>
  *
  * @see TaskList

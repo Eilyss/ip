@@ -1,21 +1,56 @@
 package com.elsria.commands;
 
 /**
- * Utility class that facilitates parsing the user input to create
- * a command
+ * Parses raw user input into structured command requests.
+ * <p>
+ * The {@code CommandParser} processes raw input from users and converts it
+ * into a structured {@link CommandRequest} that can be used for creating
+ * and executing commands. It handles command identification, argument
+ * separation, and indicates when it receives a program terminating command.
+ * </p>
+ *
+ * <p><b>Responsibilities:</b></p>
+ * <ul>
+ *   <li>Tokenizes raw input into command and arguments</li>
+ *   <li>Identifies the {@link CommandType} from input tokens</li>
+ *   <li>Indicates when it encounters a {@link Command} that should trigger program termination</li>
+ *   <li>Handles empty and invalid input</li>
+ *   <li>Constructs comprehensive {@link CommandRequest} objects</li>
+ * </ul>
+ *
+ * <p><b>Input Parsing Rules:</b></p>
+ * <ul>
+ *   <li>First word is treated as the command keyword</li>
+ *   <li>Remaining text is treated as arguments</li>
+ *   <li>Command matching is not case-sensitive</li>
+ *   <li>Empty input returns {@link CommandType#INVALID}</li>
+ * </ul>
+ *
+ * Credit: Written with guidance from generative AI
+ *
+ * @see CommandRequest
+ * @see CommandType
+ * @see CommandType#getCommandType(String)
  */
 public class CommandParser {
     /**
-     * Is true if the command should terminate the program
+     * Flag indicating whether a program-terminating command was encountered
      */
-    private boolean endProgram;
+    private boolean isProgramTerminating;
 
+    /**
+     * Constructs a new CommandParser with initial state.
+     * <p>
+     * The endProgram flag is initially set to false and will be set to true
+     * only when a farewell command ({@link CommandType#FAREWELL}) is parsed.
+     * </p>
+     */
     public CommandParser() {
-        this.endProgram = false;
+        this.isProgramTerminating = false;
     }
 
-    public boolean endProgram() {
-        return this.endProgram;
+    public boolean shouldTerminateProgram() {
+        return this.isProgramTerminating;
     }
 
     /**
@@ -23,8 +58,8 @@ public class CommandParser {
      * the raw user input
      *
      * @param rawInput raw user input.
-     * @return Information regarding the command in the
-     *         form of a CommandRequest object
+     * @return a {@link CommandRequest} object containing details regarding
+     *         the specific command
      */
     public CommandRequest getCommandType(String rawInput) {
         if (rawInput == null || rawInput.trim().isEmpty()) {
@@ -44,7 +79,7 @@ public class CommandParser {
         CommandType commandType = CommandType.getCommandType(command);
 
         if (commandType == CommandType.FAREWELL) {
-            this.endProgram = true;
+            this.isProgramTerminating = true;
         }
 
         return new CommandRequest(commandType, arguments, rawArgument, rawInput);

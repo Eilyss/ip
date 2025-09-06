@@ -5,6 +5,9 @@ import com.elsria.task.DeadlineTask;
 import com.elsria.task.Task;
 import com.elsria.time.Time;
 
+/**
+ * TODO:Scrap this class
+ */
 public class DeadlineCommand extends AddToListCommand {
     public DeadlineCommand(ApplicationContext context,
                            CommandRequest request) {

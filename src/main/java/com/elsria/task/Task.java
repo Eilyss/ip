@@ -39,7 +39,7 @@ public abstract class Task {
     protected boolean isMarked;
 
     /**
-     * Constructs a Task with the specified description.
+     * Default constructor for a Task with the specified description.
      * The task is initially unmarked (not completed).
      *
      * @param description the task description.
