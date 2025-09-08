@@ -75,8 +75,8 @@ public class EventTask extends Task {
         return String.format(
                 "%s, from %s to %s",
                 super.toString(),
-                startTime.serialize(),
-                endTime.serialize()
+                startTime.toString(),
+                endTime.toString()
         );
     }
 

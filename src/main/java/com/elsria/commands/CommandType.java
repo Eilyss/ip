@@ -50,9 +50,9 @@ import com.elsria.core.ApplicationContext;
 public enum CommandType {
     GREET(Set.of("hello", "hi"), GreetCommand::new),
     ECHO(Set.of("echo"), EchoCommand::new),
-    TODO(Set.of("todo"), ToDoCommand::new),
-    DEADLINE(Set.of("deadline"), DeadlineCommand::new),
-    EVENT(Set.of("event"), EventCommand::new),
+    TODO(Set.of("todo"), AddCommand::new),
+    DEADLINE(Set.of("deadline"), AddCommand::new),
+    EVENT(Set.of("event"), AddCommand::new),
     DELETE(Set.of("delete", "remove"), DeleteCommand::new),
     LIST(Set.of("list"), ListCommand::new),
     FIND(Set.of("find", "search"), FindCommand::new),
