@@ -92,7 +92,6 @@ public class EventTask extends Task {
      *
      * @return a string representation of this {@code EventTask} for storage
      * @see Time#serialize()
-     * @see #createFromArgs(String[])
      * @see Task#baseSerialization()
      */
     @Override
@@ -102,39 +101,6 @@ public class EventTask extends Task {
                 super.baseSerialization(),
                 startTime.serialize(),
                 endTime.serialize()
-        );
-    }
-
-    /**
-     * Creates an {@code EventTask} from String arguments derived from its
-     * serialization.
-     * <p>
-     * This method is used by the task {@link Task#deserialize(String)}
-     * to reconstruct a {@code EventTask} from it's serialized form.
-     * </p>
-     *
-     * @param args the deserialized arguments in the following order:
-     *             <ol>
-     *               <li>args[0]: completion status
-     *                            ("0" for incomplete, "1" for completed)</li>
-     *               <li>args[1]: event description</li>
-     *               <li>args[2]: serialized starting {@code Time} string</li>
-     *               <li>args[3]: serialized ending {@code Time} string</li>
-     *             </ol>
-     * @return a new reconstructed {@code EventTask}
-     * @throws ArrayIndexOutOfBoundsException if args has fewer than 4 elements
-     * @throws NumberFormatException if the completion status cannot be parsed as an integer
-     * @throws IllegalArgumentException if the Time strings cannot be deserialized
-     *
-     * @see Task#deserialize(String)
-     * @see Time#deserialize(String)
-     */
-    public static Task createFromArgs(String[] args) {
-        return new EventTask(
-                args[1],
-                Time.deserialize(args[2]),
-                Time.deserialize(args[3]),
-                Integer.parseInt(args[0]) != 0
         );
     }
 

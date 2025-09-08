@@ -2,13 +2,13 @@ package com.elsria.core;
 
 import java.util.ArrayList;
 
+/**
+ * To Be Updated...
+ */
 public class UiHandler {
     private static final String lineSeparator =
             "____________________________________________________________";
     private final ArrayList<String> messages = new ArrayList<>();
-
-    public UiHandler() {
-    }
 
     public void queueMessage(String message) {
         this.messages.add(message);

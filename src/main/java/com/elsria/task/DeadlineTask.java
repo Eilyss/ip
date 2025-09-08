@@ -60,7 +60,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Returns a formatted string representation of this {@Code DeadlineTask}.
+     * Returns a formatted string representation of this {@code DeadlineTask}.
      * <p>
      * Format: {@code [D][markStatus] description, by deadline}
      * </p>
@@ -84,39 +84,11 @@ public class DeadlineTask extends Task {
      *
      * @return a string representation of this {@code DeadlineTask} for storage
      * @see Time#serialize()
-     * @see #createFromArgs(String[])
      * @see Task#baseSerialization()
      */
     @Override
     public String serialize() {
         return String.format("%s|%s", super.baseSerialization(), deadline.serialize());
-    }
-
-    /**
-     * Creates a {@code DeadlineTask} from String arguments derived from its
-     * serialization.
-     * <p>
-     * This method is used by the task {@link Task#deserialize(String)}
-     * to reconstruct a {@code DeadlineTask} from it's serialized form.
-     * </p>
-     *
-     * @param args the deserialized arguments in the following order:
-     *             <ol>
-     *               <li>args[0]: completion status
-     *                            ("0" for incomplete, "1" for completed)</li>
-     *               <li>args[1]: task description</li>
-     *               <li>args[2]: serialized {@code Time} string</li>
-     *             </ol>
-     * @return a new reconstructed {@code DeadlineTask}
-     * @throws ArrayIndexOutOfBoundsException if args has fewer than 3 elements
-     * @throws NumberFormatException if the completion status cannot be parsed as an integer
-     * @throws IllegalArgumentException if the Time string cannot be deserialized
-     *
-     * @see Task#deserialize(String)
-     * @see Time#deserialize(String)
-     */
-    public static Task createFromArgs(String[] args) {
-        return new DeadlineTask(args[1], Time.parseTime(args[2]), Integer.parseInt(args[0]) != 0);
     }
 
     @Override

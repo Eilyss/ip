@@ -1,7 +1,5 @@
 package com.elsria.task;
 
-import java.util.function.Function;
-
 import com.elsria.exceptions.NoSuchTaskException;
 
 /**
@@ -27,19 +25,16 @@ import com.elsria.exceptions.NoSuchTaskException;
  * @see NoSuchTaskException
  */
 public enum TaskType {
-    TODO('T', 2, ToDoTask::createFromArgs),
-    DEADLINE('D', 3, DeadlineTask::createFromArgs),
-    EVENT('E', 4, EventTask::createFromArgs);
+    TODO('T', 2),
+    DEADLINE('D', 3),
+    EVENT('E', 4);
 
     private final char taskType;
     private final int argCount;
-    private final Function<String[], Task> deserializationFunction;
 
-    TaskType(char taskType, int argCount,
-             Function<String[], Task> deserializationFunction) {
+    TaskType(char taskType, int argCount) {
         this.taskType = taskType;
         this.argCount = argCount;
-        this.deserializationFunction = deserializationFunction;
     }
 
     /**
@@ -60,10 +55,6 @@ public enum TaskType {
         }
 
         throw new NoSuchTaskException(taskType);
-    }
-
-    public Function<String[], Task> getDeserializationFunction() {
-        return deserializationFunction;
     }
 
     public int getArgCount() {

@@ -1,7 +1,5 @@
 package com.elsria.task;
 
-import java.util.Arrays;
-
 import com.elsria.exceptions.InvalidTaskSerializationException;
 import com.elsria.time.Time;
 
@@ -136,12 +134,25 @@ public abstract class Task {
         }
 
         TaskType taskType = TaskType.getTaskType(tokens[0].charAt(0));
-        String[] args = Arrays.copyOfRange(tokens, 1, tokens.length);
-        if (args.length != taskType.getArgCount()) {
+        if (tokens.length != taskType.getArgCount() + 1) {
             throw new InvalidTaskSerializationException(serialization);
         }
 
-        return taskType.getDeserializationFunction().apply(args);
+        return switch (taskType) {
+        case TODO -> new ToDoTask(
+                tokens[2],
+                Integer.parseInt(tokens[1]) != 0);
+        case DEADLINE -> new DeadlineTask(
+                tokens[2],
+                Time.parseTime(tokens[3]),
+                Integer.parseInt(tokens[1]) != 0);
+        case EVENT -> new EventTask(
+                tokens[2],
+                Time.deserialize(tokens[3]),
+                Time.deserialize(tokens[4]),
+                Integer.parseInt(tokens[1]) != 0
+        );
+        };
     }
 
     @Override
