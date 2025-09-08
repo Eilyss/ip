@@ -36,6 +36,7 @@ public class ApplicationContext {
     private final UiHandler uiHandler;
     private final TaskList taskList;
     private final Storage storage;
+    private boolean shouldKeepRunning = true;
 
     /**
      * Constructs a new ApplicationContext with the specified components.
@@ -68,5 +69,13 @@ public class ApplicationContext {
 
     public Storage getStorage() {
         return this.storage;
+    }
+
+    public boolean shouldKeepRunning() {
+        return this.shouldKeepRunning;
+    }
+
+    public void stopProgram() {
+        this.shouldKeepRunning = false;
     }
 }

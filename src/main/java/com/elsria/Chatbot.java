@@ -1,5 +1,9 @@
 package com.elsria;
 
+import com.elsria.commands.Command;
+import com.elsria.commands.CommandParser;
+import com.elsria.commands.CommandRequest;
+import com.elsria.core.ApplicationContext;
 import com.elsria.core.UiHandler;
 
 /**
@@ -21,14 +25,16 @@ import com.elsria.core.UiHandler;
  */
 public class Chatbot {
     private final String name;
+    private CommandParser parser;
 
     /**
      * Constructs a new Chatbot instance with the specified name.
      *
      * @param name the name of this chatbot. It is used in personalized messages.
      */
-    public Chatbot(String name) {
+    public Chatbot(String name, CommandParser parser) {
         this.name = name;
+        this.parser = parser;
     }
 
     /**
@@ -73,5 +79,18 @@ public class Chatbot {
         }
         uiHandler.queueMessage("What do you wanna do today?");
         uiHandler.sayMessages();
+    }
+
+    /**
+     * todo
+     * @param context
+     * @param input
+     * @return
+     */
+    public boolean interpret(ApplicationContext context, String input) {
+        CommandRequest request = this.parser.getCommandType(input);
+        Command command = request.getCommandType().create(context, request);
+        command.execute();
+        return context.shouldKeepRunning();
     }
 }

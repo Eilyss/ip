@@ -36,6 +36,7 @@ public class FarewellCommand extends Command {
     public FarewellCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
         this.uiHandler = context.getUiHandler();
+        context.stopProgram();
     }
 
     @Override

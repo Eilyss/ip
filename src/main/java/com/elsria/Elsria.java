@@ -42,12 +42,12 @@ public class Elsria {
         Scanner sc = new Scanner(System.in);
         Path path = Path.of(LIST_STORAGE_DIRECTORY,
                 TO_DO_LIST_FILENAME);
-        Chatbot elsria = new Chatbot(name);
+        CommandParser parser = new CommandParser();
+        Chatbot elsria = new Chatbot(name, parser);
 
         UiHandler uiHandler = new UiHandler();
         Storage storage = new Storage(path);
         ListLoadWrapper wrapper = storage.loadListFromStorage();
-        CommandParser parser = new CommandParser();
 
         ApplicationContext context =
                 new ApplicationContext(elsria.getName(),
@@ -61,12 +61,7 @@ public class Elsria {
         String prompt;
         while (running && sc.hasNextLine()) {
             prompt = sc.nextLine();
-            CommandRequest request =
-                    parser.getCommandType(prompt);
-            Command command =
-                    request.getCommandType().create(context, request);
-            command.execute();
-            running = !parser.shouldTerminateProgram();
+            running = elsria.interpret(context, prompt);
         }
     }
 }

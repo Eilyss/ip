@@ -33,24 +33,12 @@ package com.elsria.commands;
  * @see CommandType#getCommandType(String)
  */
 public class CommandParser {
-    /**
-     * Flag indicating whether a program-terminating command was encountered
-     */
-    private boolean isProgramTerminating;
 
     /**
      * Constructs a new CommandParser with initial state.
-     * <p>
-     * The endProgram flag is initially set to false and will be set to true
-     * only when a farewell command ({@link CommandType#FAREWELL}) is parsed.
-     * </p>
      */
     public CommandParser() {
-        this.isProgramTerminating = false;
-    }
 
-    public boolean shouldTerminateProgram() {
-        return this.isProgramTerminating;
     }
 
     /**
@@ -77,10 +65,6 @@ public class CommandParser {
         }
 
         CommandType commandType = CommandType.getCommandType(command);
-
-        if (commandType == CommandType.FAREWELL) {
-            this.isProgramTerminating = true;
-        }
 
         return new CommandRequest(commandType, arguments, rawArgument, rawInput);
     }
