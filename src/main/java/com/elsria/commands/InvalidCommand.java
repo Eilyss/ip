@@ -1,7 +1,6 @@
 package com.elsria.commands;
 
 import com.elsria.core.ApplicationContext;
-import com.elsria.core.UiHandler;
 
 /**
  * Fallback command for handling unrecognized or invalid user input.
@@ -28,27 +27,11 @@ import com.elsria.core.UiHandler;
  *   <li>Serves as the default fallback in command processing</li>
  * </ul>
  *
- * <p><b>Example Usage:</b></p>
- * <pre>
- * {@code
- * Input: "do something"
- * Output: "Sorry wut??"
- *
- * Input: "random gibberish"
- * Output: "Sorry wut??"
- *
- * Input: "" (empty)
- * Output: "Sorry wut??"
- * }
- * </pre>
- *
  * @see Command
  * @see CommandType#INVALID
  * @see CommandParser#getCommandType(String)
  */
 public class InvalidCommand extends Command {
-    private final UiHandler uiHandler;
-
     /**
      * Constructs a new InvalidCommand with the specified context and request.
      *
@@ -59,11 +42,10 @@ public class InvalidCommand extends Command {
     public InvalidCommand(ApplicationContext context,
                           CommandRequest request) {
         super(context, request);
-        this.uiHandler = context.getUiHandler();
     }
 
     @Override
-    public void execute() {
-        this.uiHandler.say("Sorry wut??");
+    public String execute() {
+        return "Sorry wut??";
     }
 }

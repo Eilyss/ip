@@ -62,5 +62,5 @@ public abstract class Command {
      *   <li>Should provide suitable responses to users through the UI handler</li>
      * </ul>
      */
-    public abstract void execute();
+    public abstract String execute();
 }

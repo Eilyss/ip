@@ -28,8 +28,12 @@ public class UiHandler {
     }
 
     public void say(String message) {
+        String[] messageParts = message.split("\n");
+
         System.out.println("\t" + lineSeparator);
-        System.out.println("\t" + message);
+        for (String s : messageParts) {
+            System.out.println("\t" + s);
+        }
         System.out.println("\t" + lineSeparator);
     }
 

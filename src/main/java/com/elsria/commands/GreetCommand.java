@@ -1,7 +1,6 @@
 package com.elsria.commands;
 
 import com.elsria.core.ApplicationContext;
-import com.elsria.core.UiHandler;
 
 /**
  * Greets the user
@@ -14,18 +13,11 @@ import com.elsria.core.UiHandler;
  * [hello/hi/greet]
  * </pre>
  *
- * <p><b>Requirements:</b></p>
- * <ul>
- *     <li>{@link UiHandler}</li>
- * </ul>
- *
  * @see Command
  * @see ApplicationContext
- * @see UiHandler
  */
 public class GreetCommand extends Command {
     private final String name;
-    private final UiHandler uiHandler;
 
     /**
      * Constructs a new {@code GreetCommand} with the specified context and request.
@@ -37,13 +29,15 @@ public class GreetCommand extends Command {
     public GreetCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
         this.name = context.getName();
-        this.uiHandler = context.getUiHandler();
     }
 
     @Override
-    public void execute() {
-        this.uiHandler.queueMessage(String.format("Heya! It's me, %s!", this.name));
-        this.uiHandler.queueMessage("What do you wanna do today?");
-        this.uiHandler.sayMessages();
+    public String execute() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(String.format("Heya! It's me, %s!\n", this.name));
+        sb.append("What do you wanna do today?");
+
+        return sb.toString();
     }
 }
