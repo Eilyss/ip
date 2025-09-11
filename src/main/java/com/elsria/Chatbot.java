@@ -6,6 +6,8 @@ import com.elsria.commands.CommandRequest;
 import com.elsria.core.ApplicationContext;
 import com.elsria.core.UiHandler;
 
+import javafx.scene.image.Image;
+
 /**
  * Represents a conversational chatbot that provides user interaction through responses.
  * <p>
@@ -27,6 +29,7 @@ public class Chatbot {
     private final String name;
     private CommandParser parser;
     private ApplicationContext context;
+    private Image profilePicture;
 
     /**
      * Constructs a new Chatbot instance with the specified name.
@@ -39,6 +42,13 @@ public class Chatbot {
         this.context = context;
     }
 
+    public void setProfilePicture(Image profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public Image getProfilePicture() {
+        return profilePicture;
+    }
     /**
      * Returns the name of the chatbot.
      *
