@@ -1,7 +1,6 @@
 package com.elsria.commands;
 
 import com.elsria.core.ApplicationContext;
-import com.elsria.core.UiHandler;
 
 /**
  * Bids farewell the user
@@ -14,18 +13,10 @@ import com.elsria.core.UiHandler;
  * [exit/bye]
  * </pre>
  *
- * <p><b>Requirements:</b></p>
- * <ul>
- *     <li>{@link UiHandler}</li>
- * </ul>
- *
  * @see Command
  * @see ApplicationContext
- * @see UiHandler
  */
 public class FarewellCommand extends Command {
-    private final UiHandler uiHandler;
-
     /**
      * Constructs a new {@code FarewellCommand} with the specified context and request.
      *
@@ -35,12 +26,11 @@ public class FarewellCommand extends Command {
      */
     public FarewellCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
-        this.uiHandler = context.getUiHandler();
         context.stopProgram();
     }
 
     @Override
-    public void execute() {
-        this.uiHandler.say("Okey dokey, see you soon!");
+    public String execute() {
+        return "Okey dokey, see you soon!";
     }
 }

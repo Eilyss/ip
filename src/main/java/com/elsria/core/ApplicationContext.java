@@ -20,7 +20,6 @@ import com.elsria.task.TaskList;
  * <p><b>Components:</b></p>
  * <ul>
  *     <li>{@link #getName()}: Application identifier for personalization</li>
- *     <li>{@link #getUiHandler()}: User interface management</li>
  *     <li>{@link #getTaskList()}: Central task storage and management</li>
  *     <li>{@link #getStorage()}: Persistent data storage</li>
  * </ul>
@@ -33,7 +32,6 @@ import com.elsria.task.TaskList;
  */
 public class ApplicationContext {
     private final String name;
-    private final UiHandler uiHandler;
     private final TaskList taskList;
     private final Storage storage;
     private boolean shouldKeepRunning = true;
@@ -42,25 +40,18 @@ public class ApplicationContext {
      * Constructs a new ApplicationContext with the specified components.
      *
      * @param name the application name identifier.
-     * @param uiHandler the user interface handler.
      * @param taskList the task list containing application tasks.
      * @param storage the storage component for persistence.
      * @throws NullPointerException if any parameter is null
      */
-    public ApplicationContext(String name, UiHandler uiHandler,
-                              TaskList taskList, Storage storage) {
+    public ApplicationContext(String name, TaskList taskList, Storage storage) {
         this.name = name;
-        this.uiHandler = uiHandler;
         this.taskList = taskList;
         this.storage = storage;
     }
 
     public String getName() {
         return this.name;
-    }
-
-    public UiHandler getUiHandler() {
-        return this.uiHandler;
     }
 
     public TaskList getTaskList() {

@@ -2,7 +2,6 @@ package com.elsria.commands;
 
 import com.elsria.core.ApplicationContext;
 import com.elsria.core.Storage;
-import com.elsria.core.UiHandler;
 import com.elsria.task.DeadlineTask;
 import com.elsria.task.EventTask;
 import com.elsria.task.Task;
@@ -11,7 +10,7 @@ import com.elsria.task.ToDoTask;
 import com.elsria.time.Time;
 
 /**
- * TODO: Scrap AddToListCommands, just have an AddCommand, unnecessary inheritance
+ * TODO: Update Documentation
  * Abstract class representing a general Command that adds specific tasks to a list,
  * which extends from Command
  * <p>
@@ -23,7 +22,6 @@ public class AddCommand extends Command {
      * Error message to run in case of failure
      */
     protected String errorMessage;
-    private final UiHandler uiHandler;
     private final TaskList taskList;
     private final Storage storage;
     private Task task;
@@ -41,7 +39,6 @@ public class AddCommand extends Command {
     public AddCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
         this.taskList = context.getTaskList();
-        this.uiHandler = context.getUiHandler();
         this.storage = context.getStorage();
         try {
             this.task = createTask(request.getCommandType(), request.getRawArgs());
@@ -52,17 +49,24 @@ public class AddCommand extends Command {
 
 
     @Override
-    public void execute() {
+    public String execute() {
         if (task == null) {
-            this.uiHandler.say(this.errorMessage);
-            return;
+            return this.errorMessage;
         }
         this.taskList.add(this.task);
-        this.uiHandler.queueMessage("added: " + this.task);
 
-        CommandUtils.saveListToStorage(this.storage, this.taskList, this.uiHandler);
+        StringBuilder sb = new StringBuilder();
+        sb.append("added: ");
+        sb.append(this.task);
+        sb.append("\n");
 
-        this.uiHandler.sayMessages();
+        if (!storage.saveListToStorage(taskList)) {
+            sb.append("Woah, hold on...\n");
+            sb.append("I seem to be unable to save your changes.\n");
+            sb.append("Could you run the Save command?\n");
+        }
+
+        return sb.toString();
 
     }
 

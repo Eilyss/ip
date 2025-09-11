@@ -6,6 +6,8 @@ import com.elsria.commands.CommandRequest;
 import com.elsria.core.ApplicationContext;
 import com.elsria.core.UiHandler;
 
+import javafx.scene.image.Image;
+
 /**
  * Represents a conversational chatbot that provides user interaction through responses.
  * <p>
@@ -26,17 +28,27 @@ import com.elsria.core.UiHandler;
 public class Chatbot {
     private final String name;
     private CommandParser parser;
+    private ApplicationContext context;
+    private Image profilePicture;
 
     /**
      * Constructs a new Chatbot instance with the specified name.
      *
      * @param name the name of this chatbot. It is used in personalized messages.
      */
-    public Chatbot(String name, CommandParser parser) {
+    public Chatbot(String name, CommandParser parser, ApplicationContext context) {
         this.name = name;
         this.parser = parser;
+        this.context = context;
     }
 
+    public void setProfilePicture(Image profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public Image getProfilePicture() {
+        return profilePicture;
+    }
     /**
      * Returns the name of the chatbot.
      *
@@ -60,7 +72,6 @@ public class Chatbot {
      *   <li>Prompts user for action</li>
      * </ol>
      *
-     * @param uiHandler the user interface handler used to display messages.
      * @param hasLoadError indicates whether data loading encountered errors.
      *                     If true, a specialised error message will be displayed.
      *
@@ -69,28 +80,27 @@ public class Chatbot {
      * @see UiHandler#queueMessage(String)
      * @see UiHandler#sayMessages()
      */
-    public void startupMessage(UiHandler uiHandler, boolean hasLoadError) {
-        uiHandler.queueMessage(String.format("Heya! It's me, %s!", name));
+    public String getStartupMessage(boolean hasLoadError) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("Heya! It's me, %s!\n", name));
         if (hasLoadError) {
-            uiHandler.queueMessage("Hmm... there seems to be an error with loading your data.");
-            uiHandler.queueMessage("Could you check it out please?");
-            uiHandler.queueMessage("In any case, welcome!");
-            uiHandler.sayMessages();
+            sb.append("Hmm... there seems to be an error with loading your data.\n");
+            sb.append("Could you check it out please?\n");
+            sb.append("In any case, welcome!\n");
+            return sb.toString();
         }
-        uiHandler.queueMessage("What do you wanna do today?");
-        uiHandler.sayMessages();
+        sb.append("What do you wanna do today?\n");
+        return sb.toString();
     }
 
     /**
      * todo
-     * @param context
      * @param input
      * @return
      */
-    public boolean interpret(ApplicationContext context, String input) {
+    public String interpret(String input) {
         CommandRequest request = this.parser.getCommandType(input);
-        Command command = request.getCommandType().create(context, request);
-        command.execute();
-        return context.shouldKeepRunning();
+        Command command = request.getCommandType().create(this.context, request);
+        return command.execute();
     }
 }

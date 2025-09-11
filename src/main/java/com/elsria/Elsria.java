@@ -3,9 +3,7 @@ package com.elsria;
 import java.nio.file.Path;
 import java.util.Scanner;
 
-import com.elsria.commands.Command;
 import com.elsria.commands.CommandParser;
-import com.elsria.commands.CommandRequest;
 import com.elsria.core.ApplicationContext;
 import com.elsria.core.Storage;
 import com.elsria.core.UiHandler;
@@ -43,25 +41,26 @@ public class Elsria {
         Path path = Path.of(LIST_STORAGE_DIRECTORY,
                 TO_DO_LIST_FILENAME);
         CommandParser parser = new CommandParser();
-        Chatbot elsria = new Chatbot(name, parser);
 
         UiHandler uiHandler = new UiHandler();
         Storage storage = new Storage(path);
         ListLoadWrapper wrapper = storage.loadListFromStorage();
 
         ApplicationContext context =
-                new ApplicationContext(elsria.getName(),
-                        uiHandler,
+                new ApplicationContext(name,
                         wrapper.getTaskList(),
                         storage);
-        elsria.startupMessage(context.getUiHandler(),
-                !wrapper.getFailedSerializations().isEmpty());
+        Chatbot elsria = new Chatbot(name, parser, context);
+        uiHandler.say(elsria.getStartupMessage(
+                !wrapper.getFailedSerializations().isEmpty()));
 
         boolean running = true;
         String prompt;
         while (running && sc.hasNextLine()) {
             prompt = sc.nextLine();
-            running = elsria.interpret(context, prompt);
+            String response = elsria.interpret(prompt);
+            uiHandler.say(response);
+            running = context.shouldKeepRunning();
         }
     }
 }

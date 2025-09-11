@@ -1,7 +1,6 @@
 package com.elsria.commands;
 
 import com.elsria.core.ApplicationContext;
-import com.elsria.core.UiHandler;
 
 /**
  * Echoes the user's input text back.
@@ -15,19 +14,12 @@ import com.elsria.core.UiHandler;
  * echo [text]
  * </pre>
  *
- * <p><b>Requirements:</b></p>
- * <ul>
- *     <li>{@link UiHandler}</li>
- * </ul>
- *
  * @see Command
  * @see ApplicationContext
  * @see CommandRequest
- * @see UiHandler
  */
 public class EchoCommand extends Command {
     private final String echo;
-    private final UiHandler uiHandler;
 
     /**
      * Constructs a new EchoCommand with the specified context and request.
@@ -38,7 +30,6 @@ public class EchoCommand extends Command {
      */
     public EchoCommand(ApplicationContext context, CommandRequest request) {
         super(context, request);
-        this.uiHandler = context.getUiHandler();
         this.echo = stripQuotes(request.getRawArgs());
     }
 
@@ -52,7 +43,7 @@ public class EchoCommand extends Command {
     }
 
     @Override
-    public void execute() {
-        this.uiHandler.say(this.echo);
+    public String execute() {
+        return this.echo;
     }
 }
