@@ -139,19 +139,27 @@ public abstract class Task {
         }
 
         return switch (taskType) {
-        case TODO -> new ToDoTask(
-                tokens[2],
-                Integer.parseInt(tokens[1]) != 0);
-        case DEADLINE -> new DeadlineTask(
+        case TODO:
+            assert tokens.length == 3;
+            yield new ToDoTask(
+                    tokens[2],
+                    Integer.parseInt(tokens[1]) != 0
+            );
+        case DEADLINE:
+            assert tokens.length == 4;
+            yield new DeadlineTask(
                 tokens[2],
                 Time.parseTime(tokens[3]),
-                Integer.parseInt(tokens[1]) != 0);
-        case EVENT -> new EventTask(
+                Integer.parseInt(tokens[1]) != 0
+            );
+        case EVENT:
+            assert tokens.length == 5;
+            yield new EventTask(
                 tokens[2],
                 Time.deserialize(tokens[3]),
                 Time.deserialize(tokens[4]),
                 Integer.parseInt(tokens[1]) != 0
-        );
+            );
         };
     }
 
