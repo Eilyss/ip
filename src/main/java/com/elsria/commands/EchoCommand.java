@@ -29,7 +29,6 @@ public class EchoCommand extends Command {
      * @throws NullPointerException if either context or request is null
      */
     public EchoCommand(ApplicationContext context, CommandRequest request) {
-        super(context, request);
         this.echo = stripQuotes(request.getRawArgs());
     }
 

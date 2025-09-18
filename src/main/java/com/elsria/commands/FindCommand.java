@@ -52,7 +52,6 @@ public class FindCommand extends Command {
      * @throws NullPointerException if either context or request is null
      */
     public FindCommand(ApplicationContext context, CommandRequest request) {
-        super(context, request);
         this.taskList = context.getTaskList();
         this.arguments = request.getArgs();
     }

@@ -37,7 +37,6 @@ public class AddCommand extends Command {
      * @param request The command data parsed from user input
      */
     public AddCommand(ApplicationContext context, CommandRequest request) {
-        super(context, request);
         this.taskList = context.getTaskList();
         this.storage = context.getStorage();
         try {

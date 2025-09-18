@@ -46,7 +46,6 @@ public class ListCommand extends Command {
      * @throws NullPointerException if context is null
      */
     public ListCommand(ApplicationContext context, CommandRequest request) {
-        super(context, request);
         this.taskList = context.getTaskList();
     }
 

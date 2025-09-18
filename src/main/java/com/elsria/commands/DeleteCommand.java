@@ -59,7 +59,6 @@ public class DeleteCommand extends Command {
      * @throws NullPointerException if either context or request is null
      */
     public DeleteCommand(ApplicationContext context, CommandRequest request) {
-        super(context, request);
         this.taskList = context.getTaskList();
         this.storage = context.getStorage();
         this.arguments = request.getArgs();

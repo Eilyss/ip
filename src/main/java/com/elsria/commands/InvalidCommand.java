@@ -41,7 +41,6 @@ public class InvalidCommand extends Command {
      */
     public InvalidCommand(ApplicationContext context,
                           CommandRequest request) {
-        super(context, request);
     }
 
     @Override

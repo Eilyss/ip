@@ -27,7 +27,6 @@ public class GreetCommand extends Command {
      * @throws NullPointerException if either context or request is null
      */
     public GreetCommand(ApplicationContext context, CommandRequest request) {
-        super(context, request);
         this.name = context.getName();
     }
 

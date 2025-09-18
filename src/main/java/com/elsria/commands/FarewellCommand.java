@@ -25,7 +25,6 @@ public class FarewellCommand extends Command {
      * @throws NullPointerException if either context or request is null
      */
     public FarewellCommand(ApplicationContext context, CommandRequest request) {
-        super(context, request);
         context.stopProgram();
     }
 
