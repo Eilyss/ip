@@ -1,5 +1,8 @@
-package com.elsria.commands;
+package com.elsria.commands.impl;
 
+import com.elsria.commands.Command;
+import com.elsria.commands.CommandRequest;
+import com.elsria.commands.CommandType;
 import com.elsria.core.ApplicationContext;
 import com.elsria.core.Storage;
 import com.elsria.task.DeadlineTask;

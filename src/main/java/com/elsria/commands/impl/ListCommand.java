@@ -1,5 +1,7 @@
-package com.elsria.commands;
+package com.elsria.commands.impl;
 
+import com.elsria.commands.Command;
+import com.elsria.commands.CommandRequest;
 import com.elsria.core.ApplicationContext;
 import com.elsria.task.TaskList;
 

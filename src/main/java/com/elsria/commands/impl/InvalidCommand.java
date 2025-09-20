@@ -1,5 +1,9 @@
-package com.elsria.commands;
+package com.elsria.commands.impl;
 
+import com.elsria.commands.Command;
+import com.elsria.commands.CommandParser;
+import com.elsria.commands.CommandRequest;
+import com.elsria.commands.CommandType;
 import com.elsria.core.ApplicationContext;
 
 /**

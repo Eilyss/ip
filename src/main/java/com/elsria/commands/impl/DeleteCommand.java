@@ -1,30 +1,32 @@
-package com.elsria.commands;
+package com.elsria.commands.impl;
 
+import com.elsria.commands.Command;
+import com.elsria.commands.CommandRequest;
 import com.elsria.core.ApplicationContext;
 import com.elsria.core.Storage;
 import com.elsria.task.TaskList;
 
 /**
- * Marks tasks as completed in the task list.
+ * Deletes a task from the task list based on their index.
  * <p>
- * The {@code MarkCommand} allows users to mark specific tasks as done by their
- * index (which can be checked by calling the {@link ListCommand}). It validates
- * the task ID, updates the task status, and persists the updated list in storage.
+ * The {@code DeleteCommand} removes a specific task from the task list based on its
+ * position on the list. It prompts the user to try again if the index provided was
+ * out-of-bounds. It saves the list to storage after the deletion.
  * </p>
  *
  * <p><b>Command Format:</b></p>
  * <pre>
- * mark [taskNumber]
+ * delete [taskNumber]
  * </pre>
  *
  * <p><b>Execution Flow:</b></p>
  * <ol>
- *     <li>Validates argument count and format</li>
- *     <li>Parses and validates the task index</li>
- *     <li>Confirms the task exists in the list</li>
- *     <li>Marks the task as completed</li>
- *     <li>Persists changes to storage</li>
- *     <li>Respond to the user</li>
+ *   <li>Validates argument count and format</li>
+ *   <li>Parses and validates the task index</li>
+ *   <li>Confirms the task exists in the list</li>
+ *   <li>Removes the task from the task list</li>
+ *   <li>Persists changes to storage</li>
+ *   <li>Provides comprehensive user feedback</li>
  * </ol>
  *
  * <p><b>Error Handling:</b></p>
@@ -33,32 +35,32 @@ import com.elsria.task.TaskList;
  *   <li>Too many arguments: Informs user of argument overload</li>
  *   <li>Invalid number format: Requests numeric input</li>
  *   <li>Invalid task ID: Notifies user of non-existent task</li>
+ *   <li>Storage failures: Alerts user about save issues</li>
  * </ul>
  *
- * <p><b>Visual Change:</b></p>
- * <pre>
- * Before: [T][ ] Buy groceries
- * After:  [T][X] Buy groceries
- * </pre>
+ * Credit: Written with guidance from generative AI
  *
  * @see Command
- * @see TaskList#markTask(int)
+ * @see ApplicationContext
+ * @see CommandRequest
+ * @see TaskList#remove(int)
  * @see TaskList#checkValidID(int)
+ * @see Storage#saveListToStorage(TaskList)
  */
-public class MarkCommand extends Command {
+public class DeleteCommand extends Command {
     private final TaskList taskList;
     private final Storage storage;
     private final String[] arguments;
 
     /**
-     * Constructs a new MarkCommand with the specified context and request.
+     * Constructs a new DeleteCommand with the specified context and request.
      *
-     * @param context the application context providing access to shared state and services.
-     * @param request the command request containing the mark arguments.
+     * @param context the {@link ApplicationContext} providing access to shared state and services.
+     * @param request the {@link ApplicationContext} containing the deletion arguments.
      *                Expected to contain a single numeric argument representing the task index.
      * @throws NullPointerException if either context or request is null
      */
-    public MarkCommand(ApplicationContext context, CommandRequest request) {
+    public DeleteCommand(ApplicationContext context, CommandRequest request) {
         this.taskList = context.getTaskList();
         this.storage = context.getStorage();
         this.arguments = request.getArgs();
@@ -86,25 +88,16 @@ public class MarkCommand extends Command {
             return "Woah buddy that task does not exist!";
         }
 
-        if (taskList.get(taskID).isMarked()) {
-            return "This task is already marked as done!";
-        }
-
-        taskList.markTask(taskID);
-
         StringBuilder sb = new StringBuilder();
-
-        sb.append("Okay! I have marked that task as done.\n");
+        sb.append(String.format("Okay! I got rid of task %d\n", taskID));
         sb.append(taskList.getTaskDescription(taskID));
-        sb.append("\n");
-
-        if (!storage.saveListToStorage(taskList)) {
+        taskList.remove(taskID);
+        sb.append(String.format("Now you've got %d tasks in the list!\n", taskID));
+        if (!this.storage.saveListToStorage(this.taskList)) {
             sb.append("Woah, hold on...\n");
             sb.append("I seem to be unable to save your changes.\n");
             sb.append("Could you run the Save command?\n");
         }
-
-
         return sb.toString();
     }
 }

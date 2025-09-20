@@ -1,21 +1,22 @@
-package com.elsria.commands;
+package com.elsria.commands.impl;
 
+import com.elsria.commands.Command;
+import com.elsria.commands.CommandRequest;
 import com.elsria.core.ApplicationContext;
 import com.elsria.core.Storage;
 import com.elsria.task.TaskList;
 
 /**
- * Unmarks tasks in the task list.
+ * Marks tasks as completed in the task list.
  * <p>
- * The {@code UnmarkCommand} allows users to unmark specific tasks as done by their
+ * The {@code MarkCommand} allows users to mark specific tasks as done by their
  * index (which can be checked by calling the {@link ListCommand}). It validates
  * the task ID, updates the task status, and persists the updated list in storage.
- * It acts as the inverse to {@link MarkCommand}.
  * </p>
  *
  * <p><b>Command Format:</b></p>
  * <pre>
- * unmark [taskNumber]
+ * mark [taskNumber]
  * </pre>
  *
  * <p><b>Execution Flow:</b></p>
@@ -38,15 +39,15 @@ import com.elsria.task.TaskList;
  *
  * <p><b>Visual Change:</b></p>
  * <pre>
- * Before: [T][X] Buy groceries
- * After:  [T][ ] Buy groceries
+ * Before: [T][ ] Buy groceries
+ * After:  [T][X] Buy groceries
  * </pre>
  *
  * @see Command
  * @see TaskList#markTask(int)
  * @see TaskList#checkValidID(int)
  */
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
     private final TaskList taskList;
     private final Storage storage;
     private final String[] arguments;
@@ -59,7 +60,7 @@ public class UnmarkCommand extends Command {
      *                Expected to contain a single numeric argument representing the task index.
      * @throws NullPointerException if either context or request is null
      */
-    public UnmarkCommand(ApplicationContext context, CommandRequest request) {
+    public MarkCommand(ApplicationContext context, CommandRequest request) {
         this.taskList = context.getTaskList();
         this.storage = context.getStorage();
         this.arguments = request.getArgs();
@@ -87,17 +88,22 @@ public class UnmarkCommand extends Command {
             return "Woah buddy that task does not exist!";
         }
 
-        taskList.unmarkTask(taskID);
+        if (taskList.get(taskID).isMarked()) {
+            return "This task is already marked as done!";
+        }
+
+        taskList.markTask(taskID);
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Okay! That task is no longer marked as done");
+        sb.append("Okay! I have marked that task as done.\n");
         sb.append(taskList.getTaskDescription(taskID));
+        sb.append("\n");
 
         if (!storage.saveListToStorage(taskList)) {
-            sb.append("Woah, hold on...");
-            sb.append("I seem to be unable to save your changes.");
-            sb.append("Could you run the Save command?");
+            sb.append("Woah, hold on...\n");
+            sb.append("I seem to be unable to save your changes.\n");
+            sb.append("Could you run the Save command?\n");
         }
 
 
