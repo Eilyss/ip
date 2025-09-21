@@ -55,15 +55,18 @@ public class MarkCommand implements Command {
     /**
      * Constructs a new MarkCommand with the specified context and request.
      *
-     * @param context the application context providing access to shared state and services.
-     * @param request the command request containing the mark arguments.
-     *                Expected to contain a single numeric argument representing the task index.
+     * @param storage a reference to the storage to store the new {@link TaskList}
+     * @param taskList a reference to the {@link TaskList} where we will mark the
+     *                 corresponding task
+     * @param taskId the taskNumber as it appears on the list. The user expects
+     *               1-based indexing, but behind the code uses 0-based indexing
+     *               Hence we subtrack taskId by 1 before storing.
      * @throws NullPointerException if either context or request is null
      */
     public MarkCommand(Storage storage, TaskList taskList, int taskId) {
         this.storage = storage;
         this.taskList = taskList;
-        this.taskId = taskId;
+        this.taskId = taskId - 1;
     }
 
     @Override
@@ -72,26 +75,26 @@ public class MarkCommand implements Command {
 
         if (this.taskId > this.taskList.size()) {
             response = new CommandResponse(DialoguePath.TASK_ID_OOB, ResponseStatus.SUCCESS);
-            response.attachResults(new String[]{Integer.toString(this.taskId)});
+            response.attachResults(new String[]{Integer.toString(this.taskId + 1)});
             return response;
         }
 
         Task task = this.taskList.get(this.taskId);
         if (task.isMarked()) {
             response = new CommandResponse(DialoguePath.TASK_ALREADY_MARKED, ResponseStatus.SUCCESS);
-            response.attachResults(new String[]{Integer.toString(this.taskId)});
+            response.attachResults(new String[]{Integer.toString(this.taskId + 1)});
             return response;
         }
         taskList.markTask(taskId);
 
         if (!storage.saveListToStorage(taskList)) {
             response = new CommandResponse(DialoguePath.MARK_TASK_STORAGE_FAILURE, ResponseStatus.SUCCESS);
-            response.attachResults(new String[] {task.toString()});
+            response.attachResults(new String[] {task.getDescription()});
             return response;
         }
 
         response = new CommandResponse(DialoguePath.SUCCESSFULLY_MARKED_TASK, ResponseStatus.SUCCESS);
-        response.attachResults(new String[] {task.toString()});
+        response.attachResults(new String[] {task.getDescription()});
         return response;
     }
 }

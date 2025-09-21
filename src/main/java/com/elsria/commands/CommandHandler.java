@@ -64,7 +64,7 @@ public class CommandHandler {
 
         if (response.getStatus() == ResponseStatus.TOTAL_FAILURE
                 || response.getStatus() == ResponseStatus.CATASTROPHIC_FAILURE) {
-            return new Response(response.getDirective(), ResponseStatus.TOTAL_FAILURE);
+            return this.handleTotalFailure(response);
         }
 
         if (response.getStatus() == ResponseStatus.SUCCESS) {
@@ -80,7 +80,7 @@ public class CommandHandler {
         FactoryResponse response = this.factory.handle(request);
 
         if (response.getStatus() == ResponseStatus.TOTAL_FAILURE) {
-            return new Response(response.getDirective(), ResponseStatus.TOTAL_FAILURE);
+            return this.handleTotalFailure(response);
         }
 
         if (response.getStatus() == ResponseStatus.SUCCESS) {
@@ -96,7 +96,7 @@ public class CommandHandler {
         CommandResponse response = command.execute();
 
         if (response.getStatus() == ResponseStatus.TOTAL_FAILURE) {
-            return new Response(response.getDirective(), ResponseStatus.TOTAL_FAILURE);
+            return this.handleTotalFailure(response);
         }
 
         if (response.getStatus() == ResponseStatus.SUCCESS) {
@@ -109,23 +109,23 @@ public class CommandHandler {
 
     private Response handleCompletionStage(CommandResponse response, String input) {
         if (response.getStatus() == ResponseStatus.TOTAL_FAILURE) {
-            return new Response(response.getDirective(), ResponseStatus.TOTAL_FAILURE);
+            return this.handleTotalFailure(response);
         }
 
         if (response.getStatus() == ResponseStatus.SUCCESS || response.getStatus() == ResponseStatus.EXIT_PROGRAM) {
             this.currentStage = ProcessingStage.IDLE;
-            return new Response(response.getDirective(), ResponseStatus.SUCCESS);
+            return response;
         }
 
         return response;
     }
 
-    private Response handleTotalFailure(DialoguePath directive) {
+    private Response handleTotalFailure(Response response) {
         this.currentStage = ProcessingStage.IDLE;
-        return new Response(directive, ResponseStatus.TOTAL_FAILURE);
+        return response;
     }
 
     private Response handleTotalFailure() {
-        return this.handleTotalFailure(DialoguePath.GENERIC_FAILURE);
+        return this.handleTotalFailure(new Response(DialoguePath.GENERIC_FAILURE, ResponseStatus.TOTAL_FAILURE));
     }
 }

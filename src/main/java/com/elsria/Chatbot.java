@@ -7,6 +7,8 @@ import com.elsria.ui.Ui;
 
 import javafx.scene.image.Image;
 
+import java.util.regex.Pattern;
+
 /**
  * Represents a conversational chatbot that provides user interaction through responses.
  * <p>
@@ -111,7 +113,7 @@ public class Chatbot {
      */
     public void interpret(String input) {
         Response handlerResponse = this.handler.interpret(input);
-        this.pendingResponses = this.getDialogueFromDirective(handlerResponse.getDirective());
+        this.pendingResponses = this.getDialogueFromDirective(handlerResponse.getDirective(), handlerResponse.getAttachedResults());
     }
 
     public void respond() {
@@ -121,7 +123,24 @@ public class Chatbot {
 
     private String[] getDialogueFromDirective(DialoguePath directive, String... arguments) {
         String base = this.dialogueMap.getDialogueFromDirective(directive);
+        String formatted = makeSubstitutions(base, arguments);
+        return new String[] { formatted };
+    }
 
-        return new String[] { base };
+    private String makeSubstitutions(String input, String... arguments) {
+        Pattern curlyBraces = Pattern.compile("(?<!\\\\)\\{([^{}]*)\\}");
+        String output = curlyBraces.matcher(input).replaceAll(match -> {
+            String content = match.group(1);
+            String[] parts = content.split(":");
+            String key = parts[0];
+
+            return switch (key) {
+            case "r" -> arguments[Integer.parseInt(parts[1])];
+            case "name" -> this.name;
+            default -> content;
+            };
+        });
+
+        return output;
     }
 }

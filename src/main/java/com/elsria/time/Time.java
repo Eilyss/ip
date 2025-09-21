@@ -209,7 +209,7 @@ public class Time {
         LocalTime time = deserializeTime(parts[1]);
         LocalDate date = deserializeDate(parts[2]);
 
-        return new Time(date, time, getDisplayMode(false, false));
+        return new Time(date, time, displayMode);
     }
 
     private static DisplayMode getDisplayMode(boolean hasDate, boolean hasTime) {

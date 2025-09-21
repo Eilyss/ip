@@ -37,16 +37,15 @@ public class DayOfWeekParser extends DateParser {
         DayOfWeek today = currentDate.getDayOfWeek();
         int dayDifference = (found.getValue() - today.getValue() + 7) % 7;
 
-        if (dateMatcher.group(1) != null
-                && dateMatcher.group(1).equals("next")
-                && found.getValue() - today.getValue() >= 0) {
-            dayDifference += 7;
-        } else if (dateMatcher.group(1).equals("following")) {
-            dayDifference += 7;
-            if (found.getValue() - today.getValue() >= 0) {
+        if (dateMatcher.group(1) != null) {
+            String prefix = dateMatcher.group(1);
+            if (prefix.equals("next")) {
                 dayDifference += 7;
+            } else if (prefix.equals("following")) {
+                dayDifference += 14;
             }
         }
+
         return dayDifference;
     }
 }

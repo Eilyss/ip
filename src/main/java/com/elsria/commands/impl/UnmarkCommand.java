@@ -65,7 +65,7 @@ public class UnmarkCommand implements Command {
     public UnmarkCommand(Storage storage, TaskList taskList, int taskId) {
         this.storage = storage;
         this.taskList = taskList;
-        this.taskId = taskId;
+        this.taskId = taskId - 1;
     }
 
     @Override
@@ -74,26 +74,26 @@ public class UnmarkCommand implements Command {
 
         if (this.taskId > this.taskList.size()) {
             response = new CommandResponse(DialoguePath.TASK_ID_OOB, ResponseStatus.SUCCESS);
-            response.attachResults(new String[]{Integer.toString(this.taskId)});
+            response.attachResults(new String[]{Integer.toString(this.taskId + 1)});
             return response;
         }
 
         Task task = this.taskList.get(this.taskId);
         if (!task.isMarked()) {
             response = new CommandResponse(DialoguePath.TASK_NOT_MARKED, ResponseStatus.SUCCESS);
-            response.attachResults(new String[]{Integer.toString(this.taskId)});
+            response.attachResults(new String[]{Integer.toString(this.taskId + 1)});
             return response;
         }
         taskList.markTask(taskId);
 
         if (!storage.saveListToStorage(taskList)) {
             response = new CommandResponse(DialoguePath.UNMARK_TASK_STORAGE_FAILURE, ResponseStatus.SUCCESS);
-            response.attachResults(new String[] {task.toString()});
+            response.attachResults(new String[] {task.getDescription()});
             return response;
         }
 
         response = new CommandResponse(DialoguePath.SUCCESSFULLY_UNMARKED_TASK, ResponseStatus.SUCCESS);
-        response.attachResults(new String[] {task.toString()});
+        response.attachResults(new String[] {task.getDescription()});
         return response;
     }
 }

@@ -16,6 +16,10 @@ public class Response {
         this.attachedResults = additionalResults;
     }
 
+    public String[] getAttachedResults() {
+        return this.attachedResults;
+    }
+
     public DialoguePath getDirective() {
         return this.directive;
     }
