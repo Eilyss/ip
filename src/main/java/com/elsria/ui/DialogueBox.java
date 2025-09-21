@@ -30,7 +30,26 @@ public class DialogueBox extends HBox {
         }
 
         dialogue.setText(text);
-        displayPicture.setImage(profilePicture);
+
+        if (profilePicture == null) {
+            this.getChildren().remove(displayPicture);
+        } else {
+            displayPicture.setImage(profilePicture);
+        }
+    }
+
+    public DialogueBox(String text) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogueBox.fxml"));
+            fxmlLoader.setController(this);
+            fxmlLoader.setRoot(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        dialogue.setText(text);
+        this.getChildren().remove(displayPicture);
     }
 
     private void flip() {

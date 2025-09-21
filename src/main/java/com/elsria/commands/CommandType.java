@@ -4,6 +4,26 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.elsria.commands.factory.AddCommandFactory;
+import com.elsria.commands.factory.CommandFactory;
+import com.elsria.commands.factory.DeleteCommandFactory;
+import com.elsria.commands.factory.EchoCommandFactory;
+import com.elsria.commands.factory.FarewellCommandFactory;
+import com.elsria.commands.factory.FindCommandFactory;
+import com.elsria.commands.factory.GreetCommandFactory;
+import com.elsria.commands.factory.ListCommandFactory;
+import com.elsria.commands.factory.MarkCommandFactory;
+import com.elsria.commands.factory.UnmarkCommandFactory;
+import com.elsria.commands.parsers.AddCommandParser;
+import com.elsria.commands.parsers.CommandParser;
+import com.elsria.commands.parsers.DeleteCommandParser;
+import com.elsria.commands.parsers.EchoCommandParser;
+import com.elsria.commands.parsers.FarewellCommandParser;
+import com.elsria.commands.parsers.FindCommandParser;
+import com.elsria.commands.parsers.GreetCommandParser;
+import com.elsria.commands.parsers.ListCommandParser;
+import com.elsria.commands.parsers.MarkCommandParser;
+import com.elsria.commands.parsers.UnmarkCommandParser;
 import com.elsria.core.ApplicationContext;
 
 /**
@@ -43,34 +63,33 @@ import com.elsria.core.ApplicationContext;
  * Credit: JavaDoc was written with guidance from generative AI
  *
  * @see Command
- * @see CommandCreator
+ * @see CommandFactory
  * @see ApplicationContext
  * @see CommandRequest
  */
 public enum CommandType {
-    GREET(Set.of("hello", "hi"), GreetCommand::new),
-    ECHO(Set.of("echo"), EchoCommand::new),
-    TODO(Set.of("todo"), AddCommand::new),
-    DEADLINE(Set.of("deadline"), AddCommand::new),
-    EVENT(Set.of("event"), AddCommand::new),
-    DELETE(Set.of("delete", "remove"), DeleteCommand::new),
-    LIST(Set.of("list"), ListCommand::new),
-    FIND(Set.of("find", "search"), FindCommand::new),
-    MARK(Set.of("mark"), MarkCommand::new),
-    UNMARK(Set.of("unmark"), UnmarkCommand::new),
-    FAREWELL(Set.of("bye", "farewell", "goodbye", "exit", "quit"), FarewellCommand::new),
-    INVALID(Set.of("invalid"), InvalidCommand::new);
+    GREET(Set.of("hello", "hi", "greet"), new GreetCommandParser(), new GreetCommandFactory()),
+    ECHO(Set.of("echo"), new EchoCommandParser(), new EchoCommandFactory()),
+    TODO(Set.of("todo"), new AddCommandParser(), new AddCommandFactory()),
+    DEADLINE(Set.of("deadline"), new AddCommandParser(), new AddCommandFactory()),
+    EVENT(Set.of("event"), new AddCommandParser(), new AddCommandFactory()),
+    DELETE(Set.of("delete", "remove"), new DeleteCommandParser(), new DeleteCommandFactory()),
+    LIST(Set.of("list"), new ListCommandParser(), new ListCommandFactory()),
+    FIND(Set.of("find", "search"), new FindCommandParser(), new FindCommandFactory()),
+    MARK(Set.of("mark"), new MarkCommandParser(), new MarkCommandFactory()),
+    UNMARK(Set.of("unmark"), new UnmarkCommandParser(), new UnmarkCommandFactory()),
+    FAREWELL(Set.of("bye", "farewell", "goodbye", "exit", "quit"),
+            new FarewellCommandParser(), new FarewellCommandFactory()),
+    INVALID(Set.of("invalid"), null, null);
 
     private final Set<String> alias;
-    private final CommandCreator creator;
+    private final CommandParser parser;
+    private final CommandFactory factory;
 
-    CommandType(Set<String> alias, CommandCreator creator) {
+    CommandType(Set<String> alias, CommandParser parser, CommandFactory factory) {
         this.alias = alias;
-        this.creator = creator;
-    }
-
-    public Command create(ApplicationContext context, CommandRequest request) {
-        return this.creator.create(context, request);
+        this.parser = parser;
+        this.factory = factory;
     }
 
     public static CommandType getCommandType(String command) {
@@ -90,5 +109,13 @@ public enum CommandType {
 
     public static boolean isValidCommand(String command) {
         return getCommandType(command) != INVALID;
+    }
+
+    public CommandParser getParser() {
+        return this.parser;
+    }
+
+    public CommandFactory getFactory() {
+        return this.factory;
     }
 }

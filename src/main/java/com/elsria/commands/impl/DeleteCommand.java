@@ -1,7 +1,10 @@
-package com.elsria.commands;
+package com.elsria.commands.impl;
 
+import com.elsria.DialoguePath;
+import com.elsria.commands.ResponseStatus;
 import com.elsria.core.ApplicationContext;
 import com.elsria.core.Storage;
+import com.elsria.task.Task;
 import com.elsria.task.TaskList;
 
 /**
@@ -45,10 +48,10 @@ import com.elsria.task.TaskList;
  * @see TaskList#checkValidID(int)
  * @see Storage#saveListToStorage(TaskList)
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand implements Command {
     private final TaskList taskList;
     private final Storage storage;
-    private final String[] arguments;
+    private final int taskId;
 
     /**
      * Constructs a new DeleteCommand with the specified context and request.
@@ -58,45 +61,34 @@ public class DeleteCommand extends Command {
      *                Expected to contain a single numeric argument representing the task index.
      * @throws NullPointerException if either context or request is null
      */
-    public DeleteCommand(ApplicationContext context, CommandRequest request) {
-        super(context, request);
-        this.taskList = context.getTaskList();
-        this.storage = context.getStorage();
-        this.arguments = request.getArgs();
+    public DeleteCommand(Storage storage, TaskList taskList, int taskId) {
+        this.taskList = taskList;
+        this.storage = storage;
+        this.taskId = taskId;
     }
 
     @Override
-    public String execute() {
-        if (this.arguments.length == 0) {
-            return "Wait which one?";
+    public CommandResponse execute() {
+        CommandResponse response;
+
+        if (this.taskId > this.taskList.size()) {
+            response = new CommandResponse(DialoguePath.TASK_ID_OOB, ResponseStatus.SUCCESS);
+            response.attachResults(new String[]{Integer.toString(this.taskId)});
+            return response;
         }
 
-        if (this.arguments.length > 1) {
-            return "Woah woah woah, that's too many arguments! >:(";
+        Task task = this.taskList.get(this.taskId);
+        taskList.remove(taskId);
+
+        if (!storage.saveListToStorage(taskList)) {
+            response = new CommandResponse(DialoguePath.DELETE_TASK_STORAGE_FAILURE, ResponseStatus.SUCCESS);
+            response.attachResults(new String[] {task.toString()});
+            return response;
         }
 
-        int taskID;
+        response = new CommandResponse(DialoguePath.SUCCESSFULLY_DELETED_TASK, ResponseStatus.SUCCESS);
+        response.attachResults(new String[] {task.toString()});
+        return response;
 
-        try {
-            taskID = Integer.parseInt(this.arguments[0]) - 1;
-        } catch (NumberFormatException e) {
-            return "Hey, I need a number!";
-        }
-
-        if (!this.taskList.checkValidID(taskID)) {
-            return "Woah buddy that task does not exist!";
-        }
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("Okay! I got rid of task %d\n", taskID));
-        sb.append(taskList.getTaskDescription(taskID));
-        taskList.remove(taskID);
-        sb.append(String.format("Now you've got %d tasks in the list!\n", taskID));
-        if (!this.storage.saveListToStorage(this.taskList)) {
-            sb.append("Woah, hold on...\n");
-            sb.append("I seem to be unable to save your changes.\n");
-            sb.append("Could you run the Save command?\n");
-        }
-        return sb.toString();
     }
 }

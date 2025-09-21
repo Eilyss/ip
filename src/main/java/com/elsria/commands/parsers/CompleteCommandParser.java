@@ -1,4 +1,10 @@
-package com.elsria.commands;
+package com.elsria.commands.parsers;
+
+import com.elsria.DialoguePath;
+import com.elsria.commands.CommandType;
+import com.elsria.commands.ResponseStatus;
+import com.elsria.commands.impl.Command;
+import com.elsria.commands.impl.CommandRequest;
 
 /**
  * Parses raw user input into structured command requests.
@@ -32,13 +38,16 @@ package com.elsria.commands;
  * @see CommandType
  * @see CommandType#getCommandType(String)
  */
-public class CommandParser {
-
+public class CompleteCommandParser {
     /**
      * Constructs a new CommandParser with initial state.
      */
-    public CommandParser() {
+    public CompleteCommandParser() {
 
+    }
+
+    public boolean canParse(String input) {
+        return CommandType.getCommandType(input.split(" ", 2)[0]) != CommandType.INVALID;
     }
 
     /**
@@ -49,23 +58,13 @@ public class CommandParser {
      * @return a {@link CommandRequest} object containing details regarding
      *         the specific command
      */
-    public CommandRequest getCommandType(String rawInput) {
+    public ParserResponse parse(String rawInput) {
         if (rawInput == null || rawInput.trim().isEmpty()) {
-            return new CommandRequest(CommandType.INVALID, rawInput);
+            return new ParserResponse(DialoguePath.GENERIC_FAILURE, ResponseStatus.TOTAL_FAILURE);
         }
 
         String[] parts = rawInput.split("\\s+", 2);
-        String command = parts[0];
-
-        String[] arguments = new String[0];
-        String rawArgument = "";
-        if (parts.length > 1) {
-            arguments = parts[1].split("\\s+");
-            rawArgument = parts[1];
-        }
-
-        CommandType commandType = CommandType.getCommandType(command);
-
-        return new CommandRequest(commandType, arguments, rawArgument, rawInput);
+        CommandType commandType = CommandType.getCommandType(parts[0]);
+        return commandType.getParser().parse(commandType, rawInput);
     }
 }

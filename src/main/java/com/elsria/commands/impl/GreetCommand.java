@@ -1,5 +1,7 @@
-package com.elsria.commands;
+package com.elsria.commands.impl;
 
+import com.elsria.DialoguePath;
+import com.elsria.commands.ResponseStatus;
 import com.elsria.core.ApplicationContext;
 
 /**
@@ -16,9 +18,7 @@ import com.elsria.core.ApplicationContext;
  * @see Command
  * @see ApplicationContext
  */
-public class GreetCommand extends Command {
-    private final String name;
-
+public class GreetCommand implements Command {
     /**
      * Constructs a new {@code GreetCommand} with the specified context and request.
      *
@@ -26,18 +26,11 @@ public class GreetCommand extends Command {
      * @param request the {@link CommandRequest}
      * @throws NullPointerException if either context or request is null
      */
-    public GreetCommand(ApplicationContext context, CommandRequest request) {
-        super(context, request);
-        this.name = context.getName();
+    public GreetCommand() {
     }
 
     @Override
-    public String execute() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(String.format("Heya! It's me, %s!\n", this.name));
-        sb.append("What do you wanna do today?");
-
-        return sb.toString();
+    public CommandResponse execute() {
+        return new CommandResponse(DialoguePath.GREET, ResponseStatus.SUCCESS);
     }
 }

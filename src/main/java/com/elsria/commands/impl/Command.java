@@ -1,4 +1,4 @@
-package com.elsria.commands;
+package com.elsria.commands.impl;
 
 import com.elsria.core.ApplicationContext;
 
@@ -29,24 +29,7 @@ import com.elsria.core.ApplicationContext;
  * @see ApplicationContext
  * @see CommandRequest
  */
-public abstract class Command {
-    protected ApplicationContext context;
-    protected CommandRequest request;
-
-    /**
-     * Constructs a new Command with the specified context and request.
-     *
-     * @param context the application context providing access to shared state
-     *                and services.
-     * @param request the command request containing arguments and other data
-     *                regarding the specific command.
-     * @throws NullPointerException if either context or request is null
-     */
-    public Command(ApplicationContext context, CommandRequest request) {
-        this.context = context;
-        this.request = request;
-    }
-
+public interface Command {
     /**
      * Executes the command.
      * <p>
@@ -62,5 +45,5 @@ public abstract class Command {
      *   <li>Should provide suitable responses to users through the UI handler</li>
      * </ul>
      */
-    public abstract String execute();
+    CommandResponse execute();
 }

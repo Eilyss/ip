@@ -149,7 +149,7 @@ public abstract class Task {
             assert tokens.length == 4;
             yield new DeadlineTask(
                 tokens[2],
-                Time.parseTime(tokens[3]),
+                Time.deserialize(tokens[3]),
                 Integer.parseInt(tokens[1]) != 0
             );
         case EVENT:

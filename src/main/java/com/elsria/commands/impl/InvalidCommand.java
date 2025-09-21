@@ -1,5 +1,9 @@
-package com.elsria.commands;
+package com.elsria.commands.impl;
 
+import com.elsria.DialoguePath;
+import com.elsria.commands.ResponseStatus;
+import com.elsria.commands.parsers.CompleteCommandParser;
+import com.elsria.commands.CommandType;
 import com.elsria.core.ApplicationContext;
 
 /**
@@ -29,9 +33,9 @@ import com.elsria.core.ApplicationContext;
  *
  * @see Command
  * @see CommandType#INVALID
- * @see CommandParser#getCommandType(String)
+ * @see CompleteCommandParser#getCommandType(String)
  */
-public class InvalidCommand extends Command {
+public class InvalidCommand implements Command {
     /**
      * Constructs a new InvalidCommand with the specified context and request.
      *
@@ -41,11 +45,10 @@ public class InvalidCommand extends Command {
      */
     public InvalidCommand(ApplicationContext context,
                           CommandRequest request) {
-        super(context, request);
     }
 
     @Override
-    public String execute() {
-        return "Sorry wut??";
+    public CommandResponse execute() {
+        return new CommandResponse(DialoguePath.GENERIC_FAILURE, ResponseStatus.SUCCESS);
     }
 }

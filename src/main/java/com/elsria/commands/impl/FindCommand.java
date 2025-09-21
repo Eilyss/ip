@@ -1,6 +1,7 @@
-package com.elsria.commands;
+package com.elsria.commands.impl;
 
-import com.elsria.core.ApplicationContext;
+import com.elsria.DialoguePath;
+import com.elsria.commands.ResponseStatus;
 import com.elsria.task.Task;
 import com.elsria.task.TaskList;
 
@@ -39,37 +40,41 @@ import com.elsria.task.TaskList;
  * @see TaskList#getTasksContainingKeyword(String)
  * @see Task#containsKeyword(String)
  */
-public class FindCommand extends Command {
+public class FindCommand implements Command {
     private final TaskList taskList;
-    private String[] arguments;
+    private String keyword;
 
     /**
-     * Constructs a new {@code FindCommand} with the specified context and request.
+     * Constructs a new {@code FindCommand} based on the given {@link TaskList} and keyword
      *
-     * @param context the application context providing access to shared state and services.
-     * @param request the command request containing the mark arguments.
-     *                Expected to contain a single numeric argument representing the task index.
-     * @throws NullPointerException if either context or request is null
+     * @param tasklist the tasklist to search for the keyword in
+     * @param keyword the keyword to search for within the tasklist
      */
-    public FindCommand(ApplicationContext context, CommandRequest request) {
-        super(context, request);
-        this.taskList = context.getTaskList();
-        this.arguments = request.getArgs();
+    public FindCommand(TaskList tasklist, String keyword) {
+        this.taskList = tasklist;
+        this.keyword = keyword;
     }
 
     @Override
-    public String execute() {
-        TaskList uniqueList = this.taskList.getTasksContainingKeyword(arguments[0]);
+    public CommandResponse execute() {
+        TaskList uniqueList = this.taskList.getTasksContainingKeyword(keyword);
         if (uniqueList.isEmpty()) {
-            return "Hmm... there are no tasks that match your search";
+            return new CommandResponse(DialoguePath.FIND_RETURNS_EMPTY_LIST, ResponseStatus.SUCCESS);
         }
 
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("Here you go!");
+        StringBuilder taskListString = new StringBuilder();
+        taskListString.append("Here you go!");
         for (int i = 0; i < uniqueList.size(); i++) {
-            sb.append(String.format("%d. %s\n", i + 1, uniqueList.get(i).toString()));
+            taskListString.append(String.format("%d. %s", i + 1, uniqueList.get(i).toString()));
+            taskListString.append(System.lineSeparator());
         }
-        return sb.toString();
+
+        CommandResponse response = new CommandResponse(DialoguePath.FIND_SUCCESSFUL, ResponseStatus.SUCCESS);
+        response.attachResults(new String[]{
+            this.keyword,
+            taskListString.toString()
+        });
+
+        return response;
     }
 }
