@@ -82,6 +82,11 @@ public class DialogueMap {
                         + "I seem to be unable to save your changes." + SEP
                         + "Could you run the Save command?"
         );
+        this.dialogueMap.put(DialoguePath.SUCCESSFULLY_SAVED_TASK,
+                "Okay! I have saved the current list into storage.");
+        this.dialogueMap.put(DialoguePath.MARK_TASK_STORAGE_FAILURE,
+                "Hmm... I can't seem to save the the list to storage :/"
+        );
     }
 
     public String getDialogueFromDirective(DialoguePath directive) {

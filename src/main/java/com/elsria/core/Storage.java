@@ -130,7 +130,6 @@ public class Storage {
      * @see Task#serialize()
      */
     public boolean saveListToStorage(TaskList taskList) {
-        System.out.println("Writing to file...");
         try {
             Files.createDirectories(filePath.getParent());
 

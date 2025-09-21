@@ -13,6 +13,7 @@ import com.elsria.commands.factory.FindCommandFactory;
 import com.elsria.commands.factory.GreetCommandFactory;
 import com.elsria.commands.factory.ListCommandFactory;
 import com.elsria.commands.factory.MarkCommandFactory;
+import com.elsria.commands.factory.SaveCommandFactory;
 import com.elsria.commands.factory.UnmarkCommandFactory;
 import com.elsria.commands.parsers.AddCommandParser;
 import com.elsria.commands.parsers.CommandParser;
@@ -23,6 +24,7 @@ import com.elsria.commands.parsers.FindCommandParser;
 import com.elsria.commands.parsers.GreetCommandParser;
 import com.elsria.commands.parsers.ListCommandParser;
 import com.elsria.commands.parsers.MarkCommandParser;
+import com.elsria.commands.parsers.SaveCommandParser;
 import com.elsria.commands.parsers.UnmarkCommandParser;
 import com.elsria.core.ApplicationContext;
 
@@ -75,6 +77,7 @@ public enum CommandType {
     EVENT(Set.of("event"), new AddCommandParser(), new AddCommandFactory()),
     DELETE(Set.of("delete", "remove"), new DeleteCommandParser(), new DeleteCommandFactory()),
     LIST(Set.of("list"), new ListCommandParser(), new ListCommandFactory()),
+    SAVE(Set.of("save"), new SaveCommandParser(), new SaveCommandFactory()),
     FIND(Set.of("find", "search"), new FindCommandParser(), new FindCommandFactory()),
     MARK(Set.of("mark"), new MarkCommandParser(), new MarkCommandFactory()),
     UNMARK(Set.of("unmark"), new UnmarkCommandParser(), new UnmarkCommandFactory()),
