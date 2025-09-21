@@ -12,13 +12,21 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 
 public class DialogueBox extends HBox {
     @FXML
     private Label dialogue;
     @FXML
+    private Pane imageContainer;
+    @FXML
     private ImageView displayPicture;
+    @FXML
+    private StackPane messageBox;
 
+    private static final String RESPONSE_COLOR = "#DAE5E3";
     public DialogueBox(String text, Image profilePicture) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogueBox.fxml"));
@@ -34,7 +42,14 @@ public class DialogueBox extends HBox {
         if (profilePicture == null) {
             this.getChildren().remove(displayPicture);
         } else {
-            displayPicture.setImage(profilePicture);
+            this.displayPicture.setImage(profilePicture);
+
+            Circle clip = new Circle();
+            clip.radiusProperty().bind(this.imageContainer.widthProperty().divide(2));
+            clip.centerXProperty().bind(this.imageContainer.widthProperty().divide(2));
+            clip.centerYProperty().bind(this.imageContainer.heightProperty().divide(2));
+
+            this.displayPicture.setClip(clip);
         }
     }
 
@@ -59,13 +74,18 @@ public class DialogueBox extends HBox {
         this.setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogueBox createSenderDialogue(String s, Image i) {
-        return new DialogueBox(s, i);
+    private void setColor(String color) {
+        messageBox.setStyle(String.format("-fx-background-color: %s; -fx-background-radius: 20px;", RESPONSE_COLOR));
     }
 
-    public static DialogueBox createResponseDialogue(String s, Image i) {
-        DialogueBox db = new DialogueBox(s, i);
+    public static DialogueBox createSenderDialogue(String text, Image profilePicture) {
+        return new DialogueBox(text, profilePicture);
+    }
+
+    public static DialogueBox createResponseDialogue(String text, Image profilePicture) {
+        DialogueBox db = new DialogueBox(text, profilePicture);
         db.flip();
+        db.setColor(RESPONSE_COLOR);
         return db;
     }
 }

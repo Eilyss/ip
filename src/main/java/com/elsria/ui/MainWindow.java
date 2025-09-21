@@ -25,8 +25,9 @@ public class MainWindow extends AnchorPane {
     private User user;
 
     @FXML
-    public void initialise() {
+    public void initialize() {
         scrollPane.vvalueProperty().bind(dialogueContainer.heightProperty());
+        dialogueContainer.prefWidthProperty().bind(scrollPane.widthProperty().subtract(20));
     }
 
     public void setCharacters(Chatbot chatbot, User user) {

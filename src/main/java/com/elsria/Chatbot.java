@@ -113,7 +113,8 @@ public class Chatbot {
      */
     public void interpret(String input) {
         Response handlerResponse = this.handler.interpret(input);
-        this.pendingResponses = this.getDialogueFromDirective(handlerResponse.getDirective(), handlerResponse.getAttachedResults());
+        this.pendingResponses = this.getDialogueFromDirective(
+                handlerResponse.getDirective(), handlerResponse.getAttachedResults());
     }
 
     public void respond() {

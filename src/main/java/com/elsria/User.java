@@ -6,9 +6,9 @@ public class User {
     private String name;
     private Image profilePicture;
 
-    public User(String name, Image profilePicture) {
+    public User(String name, Image profilePicturePath) {
         this.name = name;
-        this.profilePicture = profilePicture;
+        this.profilePicture = profilePicturePath;
     }
 
     public String getName() {

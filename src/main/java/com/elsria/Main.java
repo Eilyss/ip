@@ -9,11 +9,9 @@ import com.elsria.commands.parsers.CompleteCommandParser;
 import com.elsria.core.ApplicationContext;
 import com.elsria.core.Storage;
 import com.elsria.task.ListLoadWrapper;
-import com.elsria.ui.Cli;
 import com.elsria.ui.Gui;
 import com.elsria.ui.MainWindow;
 
-import com.elsria.ui.Ui;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -27,9 +25,6 @@ public class Main extends Application {
     public static final String TO_DO_LIST_FILENAME = "ToDoList";
     private static final String NAME = "Elias";
 
-    private CompleteCommandParser parser;
-    private Storage storage;
-    private ApplicationContext context;
     private boolean hasLoadError = false;
 
     private User user;
@@ -54,8 +49,8 @@ public class Main extends Application {
         this.chatbot.setContext(context);
         this.chatbot.setCommandHandler(handler);
 
-        this.chatbot.setProfilePicture(new Image(this.getClass().getResourceAsStream("/images/Anon.png")));
-        this.user = new User("User", new Image(this.getClass().getResourceAsStream("/images/Anon.png")));
+        this.chatbot.setProfilePicture(new Image(this.getClass().getResourceAsStream("/images/Black.png")));
+        this.user = new User("User", new Image(this.getClass().getResourceAsStream("/images/Black.png")));
 
     }
 
@@ -76,6 +71,7 @@ public class Main extends Application {
             controller.setGui(gui);
             this.chatbot.setUi(gui);
             this.chatbot.displayStartupMessage(this.hasLoadError);
+            stage.setTitle("NeoKortex");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
