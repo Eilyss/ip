@@ -1,5 +1,7 @@
-package com.elsria.commands;
+package com.elsria.commands.factory;
 
+import com.elsria.commands.impl.CommandRequest;
+import com.elsria.commands.impl.Command;
 import com.elsria.core.ApplicationContext;
 
 
@@ -20,9 +22,8 @@ import com.elsria.core.ApplicationContext;
  * @see ApplicationContext
  * @see CommandRequest
  * @see java.util.function.Function
- * @see FunctionalInterface
  */
-@FunctionalInterface
-public interface CommandCreator {
-    Command create(ApplicationContext context, CommandRequest request);
+
+public abstract class CommandFactory {
+    public abstract FactoryResponse create(ApplicationContext context, CommandRequest request);
 }

@@ -1,16 +1,10 @@
 package com.elsria.commands.impl;
 
-import com.elsria.commands.Command;
-import com.elsria.commands.CommandRequest;
-import com.elsria.commands.CommandType;
-import com.elsria.core.ApplicationContext;
+import com.elsria.DialoguePath;
+import com.elsria.commands.ResponseStatus;
 import com.elsria.core.Storage;
-import com.elsria.task.DeadlineTask;
-import com.elsria.task.EventTask;
 import com.elsria.task.Task;
 import com.elsria.task.TaskList;
-import com.elsria.task.ToDoTask;
-import com.elsria.time.Time;
 
 /**
  * TODO: Update Documentation
@@ -20,7 +14,7 @@ import com.elsria.time.Time;
  * This class provides a basic structure for commands that interact
  * with the TaskList
  */
-public class AddCommand extends Command {
+public class AddCommand implements Command {
     /**
      * Error message to run in case of failure
      */
@@ -39,132 +33,28 @@ public class AddCommand extends Command {
      * @param context The application context for the command
      * @param request The command data parsed from user input
      */
-    public AddCommand(ApplicationContext context, CommandRequest request) {
-        this.taskList = context.getTaskList();
-        this.storage = context.getStorage();
-        try {
-            this.task = createTask(request.getCommandType(), request.getRawArgs());
-        } catch (IllegalArgumentException e) {
-            this.errorMessage = "Woah, something went wrong...";
-        }
+    public AddCommand(Storage storage, TaskList taskList, Task task) {
+        this.storage = storage;
+        this.taskList = taskList;
+        this.task = task;
     }
 
 
     @Override
-    public String execute() {
-        if (task == null) {
-            return this.errorMessage;
-        }
+    public CommandResponse execute() {
+        CommandResponse response;
+
         this.taskList.add(this.task);
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("added: ");
-        sb.append(this.task);
-        sb.append("\n");
-
         if (!storage.saveListToStorage(taskList)) {
-            sb.append("Woah, hold on...\n");
-            sb.append("I seem to be unable to save your changes.\n");
-            sb.append("Could you run the Save command?\n");
+            response = new CommandResponse(DialoguePath.ADD_TASK_STORAGE_FAILURE, ResponseStatus.SUCCESS);
+            response.attachResults(new String[] {this.task.toString()});
+            return response;
         }
 
-        return sb.toString();
+        response = new CommandResponse(DialoguePath.SUCCESSFULLY_ADDED_TASK, ResponseStatus.SUCCESS);
+        response.attachResults(new String[] {this.task.toString()});
+        return response;
 
-    }
-
-    /**
-     * Creates the correct task from the {@link CommandType} and arguments
-     * provided by the user.
-     *
-     * @param type the type of Command, can only be TODO, DEADLINE and EVENT
-     * @param args arguments provided in the command
-     * @return the correct {@link Task}
-     */
-    public Task createTask(CommandType type, String args) {
-        if (args.isEmpty()) {
-            this.errorMessage = "Erm... so what task?";
-            return null;
-        }
-
-        return switch(type) {
-        case TODO -> new ToDoTask(args);
-        case DEADLINE -> createDeadlineTask(args);
-        case EVENT -> createEventTask(args);
-        default -> null;
-        };
-    }
-
-    private Task createDeadlineTask(String rawArguments) {
-        String[] arguments = rawArguments.split(" /by ");
-
-        if (arguments[0].trim().isEmpty()) {
-            this.errorMessage = "Erm... so what task?";
-            return null;
-        }
-
-        if (arguments.length == 1) {
-            this.errorMessage = "But when?";
-            return null;
-        }
-        if (arguments.length > 2) {
-            this.errorMessage = "Woah that's too many! Which one?";
-            return null;
-        }
-
-        Time time = Time.parseTime(arguments[1]);
-
-        if (time == null) {
-            this.errorMessage = "That is not a valid time :P";
-            return null;
-        }
-
-        return new DeadlineTask(arguments[0], Time.parseTime(arguments[1]));
-    }
-
-    private Task createEventTask(String rawArguments) {
-        String[] arguments = rawArguments.split(" /from ");
-
-        if (arguments[0].isEmpty()) {
-            this.errorMessage = "Erm... so what task?";
-            return null;
-        }
-
-        if (arguments.length == 1) {
-            this.errorMessage = "But from when?";
-            return null;
-        }
-
-        if (arguments.length > 2) {
-            this.errorMessage = "Woah that's too many start times! Which one?";
-            return null;
-        }
-
-        String[] timings = arguments[1].split(" /to ");
-
-        if (timings.length == 1) {
-            this.errorMessage = "But to when?";
-            return null;
-        }
-
-        if (timings.length > 2) {
-            this.errorMessage = "Woah that's too many end times! Which one?";
-            return null;
-        }
-
-        Time startTime = Time.parseTime(timings[0]);
-
-        if (startTime == null) {
-            this.errorMessage = "That is not a valid start time :P";
-            return null;
-        }
-
-        Time endTime = Time.parseTime(timings[1]);
-
-        if (endTime == null) {
-            this.errorMessage = "That is not a valid end time :P";
-            return null;
-        }
-
-        return new EventTask(arguments[0], startTime, endTime);
     }
 }

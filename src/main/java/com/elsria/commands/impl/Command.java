@@ -1,4 +1,4 @@
-package com.elsria.commands;
+package com.elsria.commands.impl;
 
 import com.elsria.core.ApplicationContext;
 
@@ -29,7 +29,7 @@ import com.elsria.core.ApplicationContext;
  * @see ApplicationContext
  * @see CommandRequest
  */
-public abstract class Command {
+public interface Command {
     /**
      * Executes the command.
      * <p>
@@ -45,5 +45,5 @@ public abstract class Command {
      *   <li>Should provide suitable responses to users through the UI handler</li>
      * </ul>
      */
-    public abstract String execute();
+    CommandResponse execute();
 }

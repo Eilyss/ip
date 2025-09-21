@@ -1,10 +1,9 @@
 package com.elsria;
 
-import com.elsria.commands.Command;
-import com.elsria.commands.CommandParser;
-import com.elsria.commands.CommandRequest;
+import com.elsria.commands.CommandHandler;
+import com.elsria.commands.Response;
 import com.elsria.core.ApplicationContext;
-import com.elsria.core.UiHandler;
+import com.elsria.ui.Ui;
 
 import javafx.scene.image.Image;
 
@@ -23,23 +22,41 @@ import javafx.scene.image.Image;
  *   <li>Providing friendly responses to user input</li>
  * </ul>
  *
- * @see UiHandler
+ * @see Ui
  */
 public class Chatbot {
     private final String name;
-    private CommandParser parser;
+    private CommandHandler handler;
     private ApplicationContext context;
+    private Ui ui;
     private Image profilePicture;
+    private DialogueMap dialogueMap;
+    private String[] pendingResponses;
 
     /**
      * Constructs a new Chatbot instance with the specified name.
      *
      * @param name the name of this chatbot. It is used in personalized messages.
      */
-    public Chatbot(String name, CommandParser parser, ApplicationContext context) {
+    public Chatbot(String name) {
         this.name = name;
-        this.parser = parser;
+        this.dialogueMap = new DialogueMap();
+    }
+
+    public void setContext(ApplicationContext context) {
         this.context = context;
+    }
+
+    public void setCommandHandler(CommandHandler handler) {
+        this.handler = handler;
+    }
+
+    public void setUi(Ui ui) {
+        this.ui = ui;
+    }
+
+    public void setDialogueMap(DialogueMap dialogueMap) {
+        this.dialogueMap = dialogueMap;
     }
 
     public void setProfilePicture(Image profilePicture) {
@@ -77,20 +94,14 @@ public class Chatbot {
      *
      * @throws NullPointerException if uiHandler is null
      *
-     * @see UiHandler#queueMessage(String)
-     * @see UiHandler#sayMessages()
+     * @see Ui
      */
-    public String getStartupMessage(boolean hasLoadError) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("Heya! It's me, %s!\n", name));
+    public void displayStartupMessage(boolean hasLoadError) {
         if (hasLoadError) {
-            sb.append("Hmm... there seems to be an error with loading your data.\n");
-            sb.append("Could you check it out please?\n");
-            sb.append("In any case, welcome!\n");
-            return sb.toString();
+            ui.respond(this.getDialogueFromDirective(DialoguePath.STARTUP_FAILURE));
+        } else {
+            ui.respond(this.getDialogueFromDirective(DialoguePath.GREET));
         }
-        sb.append("What do you wanna do today?\n");
-        return sb.toString();
     }
 
     /**
@@ -98,9 +109,19 @@ public class Chatbot {
      * @param input
      * @return
      */
-    public String interpret(String input) {
-        CommandRequest request = this.parser.getCommandType(input);
-        Command command = request.getCommandType().create(this.context, request);
-        return command.execute();
+    public void interpret(String input) {
+        Response handlerResponse = this.handler.interpret(input);
+        this.pendingResponses = this.getDialogueFromDirective(handlerResponse.getDirective());
+    }
+
+    public void respond() {
+        this.ui.respond(pendingResponses);
+        pendingResponses = null;
+    }
+
+    private String[] getDialogueFromDirective(DialoguePath directive, String... arguments) {
+        String base = this.dialogueMap.getDialogueFromDirective(directive);
+
+        return new String[] { base };
     }
 }

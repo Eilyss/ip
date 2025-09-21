@@ -1,7 +1,7 @@
 package com.elsria.commands.impl;
 
-import com.elsria.commands.Command;
-import com.elsria.commands.CommandRequest;
+import com.elsria.DialoguePath;
+import com.elsria.commands.ResponseStatus;
 import com.elsria.core.ApplicationContext;
 
 /**
@@ -18,7 +18,7 @@ import com.elsria.core.ApplicationContext;
  * @see Command
  * @see ApplicationContext
  */
-public class FarewellCommand extends Command {
+public class FarewellCommand implements Command {
     /**
      * Constructs a new {@code FarewellCommand} with the specified context and request.
      *
@@ -26,12 +26,12 @@ public class FarewellCommand extends Command {
      * @param request the {@link CommandRequest}
      * @throws NullPointerException if either context or request is null
      */
-    public FarewellCommand(ApplicationContext context, CommandRequest request) {
+    public FarewellCommand(ApplicationContext context) {
         context.stopProgram();
     }
 
     @Override
-    public String execute() {
-        return "Okey dokey, see you soon!";
+    public CommandResponse execute() {
+        return new CommandResponse(DialoguePath.FAREWELL, ResponseStatus.EXIT_PROGRAM);
     }
 }

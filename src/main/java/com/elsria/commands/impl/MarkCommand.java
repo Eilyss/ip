@@ -1,9 +1,9 @@
 package com.elsria.commands.impl;
 
-import com.elsria.commands.Command;
-import com.elsria.commands.CommandRequest;
-import com.elsria.core.ApplicationContext;
+import com.elsria.DialoguePath;
+import com.elsria.commands.ResponseStatus;
 import com.elsria.core.Storage;
+import com.elsria.task.Task;
 import com.elsria.task.TaskList;
 
 /**
@@ -47,10 +47,10 @@ import com.elsria.task.TaskList;
  * @see TaskList#markTask(int)
  * @see TaskList#checkValidID(int)
  */
-public class MarkCommand extends Command {
+public class MarkCommand implements Command {
     private final TaskList taskList;
     private final Storage storage;
-    private final String[] arguments;
+    private final int taskId;
 
     /**
      * Constructs a new MarkCommand with the specified context and request.
@@ -60,53 +60,38 @@ public class MarkCommand extends Command {
      *                Expected to contain a single numeric argument representing the task index.
      * @throws NullPointerException if either context or request is null
      */
-    public MarkCommand(ApplicationContext context, CommandRequest request) {
-        this.taskList = context.getTaskList();
-        this.storage = context.getStorage();
-        this.arguments = request.getArgs();
+    public MarkCommand(Storage storage, TaskList taskList, int taskId) {
+        this.storage = storage;
+        this.taskList = taskList;
+        this.taskId = taskId;
     }
 
     @Override
-    public String execute() {
-        if (this.arguments.length == 0) {
-            return "Wait which one?";
+    public CommandResponse execute() {
+        CommandResponse response;
+
+        if (this.taskId > this.taskList.size()) {
+            response = new CommandResponse(DialoguePath.TASK_ID_OOB, ResponseStatus.SUCCESS);
+            response.attachResults(new String[]{Integer.toString(this.taskId)});
+            return response;
         }
 
-        if (this.arguments.length > 1) {
-            return "Woah woah woah, that's too many arguments! >:(";
+        Task task = this.taskList.get(this.taskId);
+        if (task.isMarked()) {
+            response = new CommandResponse(DialoguePath.TASK_ALREADY_MARKED, ResponseStatus.SUCCESS);
+            response.attachResults(new String[]{Integer.toString(this.taskId)});
+            return response;
         }
-
-        int taskID;
-
-        try {
-            taskID = Integer.parseInt(this.arguments[0]) - 1;
-        } catch (NumberFormatException e) {
-            return "Hey, I need a number!";
-        }
-
-        if (!this.taskList.checkValidID(taskID)) {
-            return "Woah buddy that task does not exist!";
-        }
-
-        if (taskList.get(taskID).isMarked()) {
-            return "This task is already marked as done!";
-        }
-
-        taskList.markTask(taskID);
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("Okay! I have marked that task as done.\n");
-        sb.append(taskList.getTaskDescription(taskID));
-        sb.append("\n");
+        taskList.markTask(taskId);
 
         if (!storage.saveListToStorage(taskList)) {
-            sb.append("Woah, hold on...\n");
-            sb.append("I seem to be unable to save your changes.\n");
-            sb.append("Could you run the Save command?\n");
+            response = new CommandResponse(DialoguePath.MARK_TASK_STORAGE_FAILURE, ResponseStatus.SUCCESS);
+            response.attachResults(new String[] {task.toString()});
+            return response;
         }
 
-
-        return sb.toString();
+        response = new CommandResponse(DialoguePath.SUCCESSFULLY_MARKED_TASK, ResponseStatus.SUCCESS);
+        response.attachResults(new String[] {task.toString()});
+        return response;
     }
 }

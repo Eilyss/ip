@@ -20,7 +20,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Chatbot respondent;
+    private Gui gui;
+    private Chatbot chatbot;
     private User user;
 
     @FXML
@@ -28,26 +29,29 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogueContainer.heightProperty());
     }
 
-    public void setCharacters(Chatbot respondent, User user) {
-        this.respondent = respondent;
+    public void setCharacters(Chatbot chatbot, User user) {
+        this.chatbot = chatbot;
         this.user = user;
         scrollPane.vvalueProperty().bind(dialogueContainer.heightProperty());
+    }
+
+    public void setGui(Gui gui) {
+        this.gui = gui;
     }
 
     @FXML
     private void handleUserInput() {
         String input = this.userInput.getText();
-        String response = this.respondent.interpret(input);
-        this.dialogueContainer.getChildren().addAll(
-                DialogueBox.createSenderDialogue(input, this.user.getProfilePicture()),
-                DialogueBox.createResponseDialogue(response, this.respondent.getProfilePicture())
-        );
+        if (input.isEmpty()) {
+            return;
+        }
+        gui.say(input);
+        this.chatbot.interpret(input);
+        this.chatbot.respond();
         this.userInput.clear();
     }
 
-    public void respond(String response) {
-        this.dialogueContainer.getChildren().addAll(
-                DialogueBox.createResponseDialogue(response, this.respondent.getProfilePicture())
-        );
+    public VBox getDialogueContainer() {
+        return this.dialogueContainer;
     }
 }

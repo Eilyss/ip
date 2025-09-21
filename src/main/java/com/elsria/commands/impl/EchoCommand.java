@@ -1,7 +1,7 @@
 package com.elsria.commands.impl;
 
-import com.elsria.commands.Command;
-import com.elsria.commands.CommandRequest;
+import com.elsria.DialoguePath;
+import com.elsria.commands.ResponseStatus;
 import com.elsria.core.ApplicationContext;
 
 /**
@@ -20,31 +20,24 @@ import com.elsria.core.ApplicationContext;
  * @see ApplicationContext
  * @see CommandRequest
  */
-public class EchoCommand extends Command {
+public class EchoCommand implements Command {
     private final String echo;
 
     /**
-     * Constructs a new EchoCommand with the specified context and request.
+     * Constructs a new EchoCommand with the text to echo.
      *
-     * @param context the {@link ApplicationContext} providing access to shared state and services.
-     * @param request the {@link CommandRequest} containing the text to echo, stored in rawArgs.
+     * @param echo the text to echo
      * @throws NullPointerException if either context or request is null
      */
-    public EchoCommand(ApplicationContext context, CommandRequest request) {
-        this.echo = stripQuotes(request.getRawArgs());
+    public EchoCommand(String echo) {
+        this.echo = echo;
     }
 
-    private static String stripQuotes(String input) {
-        if (input.length() >= 2
-                && (input.charAt(0) == '\'' && input.charAt(input.length() - 1) == '\''
-                || input.charAt(0) == '\"' && input.charAt(input.length() - 1) == '\"')) {
-            return input.substring(1, input.length() - 1);
-        }
-        return input;
-    }
 
     @Override
-    public String execute() {
-        return this.echo;
+    public CommandResponse execute() {
+        CommandResponse response = new CommandResponse(DialoguePath.ECHO, ResponseStatus.SUCCESS);
+        response.attachResults(new String[]{this.echo});
+        return response;
     }
 }

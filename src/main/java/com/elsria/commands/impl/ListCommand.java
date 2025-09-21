@@ -1,7 +1,7 @@
 package com.elsria.commands.impl;
 
-import com.elsria.commands.Command;
-import com.elsria.commands.CommandRequest;
+import com.elsria.DialoguePath;
+import com.elsria.commands.ResponseStatus;
 import com.elsria.core.ApplicationContext;
 import com.elsria.task.TaskList;
 
@@ -36,36 +36,35 @@ import com.elsria.task.TaskList;
  * @see Command
  * @see TaskList
  */
-public class ListCommand extends Command {
+public class ListCommand implements Command {
     private final TaskList taskList;
 
     /**
-     * Constructs a new ListCommand with the specified context and request.
+     * Constructs a new ListCommand which prints the current {@link TaskList}.
      *
-     * @param context the {@link ApplicationContext} providing access to shared state and services.
-     * @param request the {@link CommandRequest}. {@code ListCommand} takes no arguments, hence
-     *                this is ignored.
-     * @throws NullPointerException if context is null
+     * @param taskList the current {@link TaskList}
      */
-    public ListCommand(ApplicationContext context, CommandRequest request) {
-        this.taskList = context.getTaskList();
+    public ListCommand(TaskList taskList) {
+        this.taskList = taskList;
     }
 
     @Override
-    public String execute() {
+    public CommandResponse execute() {
         if (this.taskList.isEmpty()) {
-            return "Hmm... there's nothing in your list right now.";
+            return new CommandResponse(DialoguePath.LIST_EMPTY, ResponseStatus.SUCCESS);
         }
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("Here are the tasks on your list:\n");
-        for (int i = 0; i < taskList.size(); i++) {
-            sb.append(
-                    String.format("%d. %s\n", i + 1, this.taskList.get(i).toString())
-            );
+        StringBuilder taskListString = new StringBuilder();
+        for (int i = 0; i < this.taskList.size(); i++) {
+            taskListString.append(String.format("%d. %s", i + 1, this.taskList.get(i).toString()));
+            taskListString.append(System.lineSeparator());
         }
 
+        CommandResponse response = new CommandResponse(DialoguePath.LIST_NON_EMPTY, ResponseStatus.SUCCESS);
+        response.attachResults(new String[]{
+                taskListString.toString()
+        });
 
-        return sb.toString();
+        return response;
     }
 }
