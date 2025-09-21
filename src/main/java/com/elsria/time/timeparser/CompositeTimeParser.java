@@ -12,10 +12,11 @@ public class CompositeTimeParser {
     }
 
     public List<LocalTime> processString(String input) {
-        List<LocalTime> times = new ArrayList<>();
+        List<LocalTime> potentialTimes = new ArrayList<>();
+        String processed = input;
         for (TimeParser tp : this.timeParsers) {
-            times.addAll(tp.parse(input));
+            processed = tp.parse(processed, potentialTimes);
         }
-        return times;
+        return potentialTimes;
     }
 }

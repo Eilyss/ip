@@ -18,10 +18,11 @@ public class TwentyFourHourTimeParser extends TimeParser {
                     Pattern.CASE_INSENSITIVE);
 
     @Override
-    public List<LocalTime> parse(String date) {
+    public String parse(String date, List<? super LocalTime> potentialTimes) {
         Matcher matcher = pattern.matcher(date);
-        ArrayList<LocalTime> times = new ArrayList<LocalTime>();
         boolean error = false;
+
+        StringBuffer strippedInput = new StringBuffer();
 
         while (matcher.find()) {
             int hour = Integer.parseInt(matcher.group(1));
@@ -30,12 +31,15 @@ public class TwentyFourHourTimeParser extends TimeParser {
                     : Integer.parseInt(matcher.group(2));
 
             try {
-                times.add(LocalTime.of(hour, minute));
+                potentialTimes.add(LocalTime.of(hour, minute));
+                matcher.appendReplacement(strippedInput, "");
             } catch (DateTimeException ignore) {
                 error = true;
             }
         }
 
-        return times;
+        matcher.appendTail(strippedInput);
+
+        return strippedInput.toString();
     }
 }

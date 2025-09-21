@@ -25,7 +25,7 @@ public class AddCommandFactory extends CommandFactory {
 
     private FactoryResponse createTodo(ApplicationContext context, CommandRequest request) {
         String[] arguments = request.getTokens();
-        Task todoTask = new ToDoTask(arguments[0]);
+        Task todoTask = new ToDoTask(arguments[0].strip().replaceAll("\\s+", " "));
         Command command = new AddCommand(context.getStorage(), context.getTaskList(), todoTask);
         FactoryResponse response = new FactoryResponse(DialoguePath.INTERMEDIARY, ResponseStatus.SUCCESS);
         response.setResult(command);
@@ -35,7 +35,7 @@ public class AddCommandFactory extends CommandFactory {
     private FactoryResponse createDeadline(ApplicationContext context, CommandRequest request) {
         String[] arguments = request.getTokens();
 
-        String description = arguments[0];
+        String description = arguments[0].strip().replaceAll("\\s+", " ");
         Time deadline = Time.parseTime(arguments[1]);
 
         if (deadline == null) {
@@ -52,7 +52,7 @@ public class AddCommandFactory extends CommandFactory {
     private FactoryResponse createEvent(ApplicationContext context, CommandRequest request) {
         String[] arguments = request.getTokens();
 
-        String description = arguments[0];
+        String description = arguments[0].strip().replaceAll("\\s+", " ");
         Time startTime = Time.parseTime(arguments[1]);
         Time endTime = Time.parseTime(arguments[2]);
 

@@ -9,7 +9,7 @@ public class Cli extends Ui {
     private int maxCharCountPerLine;
 
     public Cli() {
-        this.maxCharCountPerLine = 120; // default char count per line
+        this.maxCharCountPerLine = 60; // default char count per line
     }
 
     public Cli(int maxCharCountPerLine) {

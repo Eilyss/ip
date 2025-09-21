@@ -17,10 +17,11 @@ public class PhraseParser extends DateParser {
             Pattern.compile(PHRASE_REGEX, Pattern.CASE_INSENSITIVE);
 
     @Override
-    public List<LocalDate> parse(String input) {
+    public String parse(String input, List<? super LocalDate> potentialDates) {
         LocalDate currentDate = LocalDate.now();
         Matcher matcher = pattern.matcher(input);
-        ArrayList<LocalDate> potentialDates = new ArrayList<>();
+
+        StringBuffer strippedInput = new StringBuffer();
 
         while (matcher.find()) {
             String keyword = matcher.group(1)
@@ -31,29 +32,37 @@ public class PhraseParser extends DateParser {
             switch (keyword) {
             case "today":
                 potentialDates.add(currentDate);
+                matcher.appendReplacement(strippedInput, "");
                 break;
             case "tomorrow":
                 potentialDates.add(currentDate.plusDays(1));
+                matcher.appendReplacement(strippedInput, "");
                 break;
             case "day after":
             case "following day":
                 potentialDates.add(currentDate.plusDays(2));
+                matcher.appendReplacement(strippedInput, "");
                 break;
             case "next week":
                 potentialDates.add(currentDate.plusWeeks(1));
+                matcher.appendReplacement(strippedInput, "");
                 break;
             case "next month":
                 potentialDates.add(currentDate.plusMonths(1));
+                matcher.appendReplacement(strippedInput, "");
                 break;
             case "next year":
                 potentialDates.add(currentDate.plusYears(1));
+                matcher.appendReplacement(strippedInput, "");
                 break;
             default:
                 break;
             }
         }
 
-        return potentialDates;
+        matcher.appendTail(strippedInput);
+
+        return strippedInput.toString();
 
     }
 }

@@ -31,8 +31,7 @@ public class DialogueMap {
         this.dialogueMap.put(DialoguePath.NO_TASK_ID_SPECIFIED, "Wait which Task?");
         this.dialogueMap.put(DialoguePath.SUCCESSFULLY_ADDED_TASK,
                 "Added:" + SEP
-                        + "{r:0}" + SEP
-                        + "to the list");
+                        + "{r:0}" + SEP);
         this.dialogueMap.put(DialoguePath.ADD_TASK_STORAGE_FAILURE,
                 "Added:" + SEP
                         + "    {r:0}" + SEP
@@ -44,8 +43,7 @@ public class DialogueMap {
         this.dialogueMap.put(DialoguePath.TASK_ID_OOB, "Hey! Task number {r:0} is out of bounds.");
         this.dialogueMap.put(DialoguePath.SUCCESSFULLY_DELETED_TASK,
                 "Deleted:" + SEP
-                        + "    {r:0}" + SEP
-                        + "from the list");;
+                        + "    {r:0}");
         this.dialogueMap.put(DialoguePath.DELETE_TASK_STORAGE_FAILURE,
                 "Deleted:" + SEP
                         + "    {r:0}" + SEP

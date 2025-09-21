@@ -11,5 +11,5 @@ public abstract class TimeParser {
         ));
     }
 
-    public abstract List<LocalTime> parse(String date);
+    public abstract String parse(String date, List<? super LocalTime> potentialTimes);
 }
