@@ -7,13 +7,18 @@ public abstract class DateParser {
 
     public static CompositeDateParser createDefaultParser() {
         return new CompositeDateParser(List.of(
-                new DayOfWeekParser(),
-                new SimpleDateParser(),
                 new FullDateParser(),
+                new FullDateNoYearParser(),
                 new FullDateMonthFirstParser(),
+                new FullDateMonthFirstNoYearParser(),
+                new SimpleDateParser(),
+                new SimpleDateNoYearParser(),
+                new SimpleDateMonthFirstParser(),
+                new SimpleDateMonthFirstNoYearParser(),
+                new DayOfWeekParser(),
                 new PhraseParser()
         ));
     }
 
-    public abstract List<LocalDate> parse(String date);
+    public abstract String parse(String date, List<? super LocalDate> potentialDates);
 }

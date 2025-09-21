@@ -19,10 +19,11 @@ public class TwelveHourTimeParser extends TimeParser {
 
 
     @Override
-    public List<LocalTime> parse(String date) {
+    public String parse(String date, List<? super LocalTime> potentialTimes) {
         Matcher matcher = pattern.matcher(date);
-        ArrayList<LocalTime> times = new ArrayList<LocalTime>();
         boolean invalid = false;
+
+        StringBuffer strippedInput = new StringBuffer();
 
         while (matcher.find()) {
             int hour = Integer.parseInt(matcher.group(1));
@@ -38,12 +39,15 @@ public class TwelveHourTimeParser extends TimeParser {
             }
 
             try {
-                times.add(LocalTime.of(hour, minute, second));
+                potentialTimes.add(LocalTime.of(hour, minute, second));
+                matcher.appendReplacement(strippedInput, "");
             } catch (DateTimeException e) {
                 invalid = true;
             }
         }
 
-        return times;
+        matcher.appendTail(strippedInput);
+
+        return strippedInput.toString();
     }
 }

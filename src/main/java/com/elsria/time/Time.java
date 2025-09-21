@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,6 +54,9 @@ public class Time {
         TIME_ONLY,
         DATE_ONLY
     }
+
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("d MMMM yyyy");
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("hh:mma");
 
     private final LocalDate date;
     private final LocalTime time;
@@ -104,7 +108,7 @@ public class Time {
     private Time(LocalDate date, LocalTime time, DisplayMode displayMode) {
         this.date = date;
         this.time = time;
-        this.displayMode = DisplayMode.FULL;
+        this.displayMode = displayMode;
     }
 
     public void setDisplayTypeToFull() {
@@ -310,19 +314,8 @@ public class Time {
      */
     @Override
     public String toString() {
-        String dateString =
-                String.format(
-                        "%d %s %d",
-                        date.getDayOfMonth(),
-                        date.getMonth(),
-                        date.getYear()
-                ).toLowerCase();
-        String timeString =
-                String.format(
-                        "%2d%2d",
-                        time.getHour(),
-                        time.getMinute()
-                ).toLowerCase();
+        String dateString = DATE_FORMATTER.format(date);
+        String timeString = TIME_FORMATTER.format(time);
 
         return switch (displayMode) {
         case FULL -> timeString + " " + dateString;

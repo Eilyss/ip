@@ -18,18 +18,22 @@ public class DayOfWeekParser extends DateParser {
             Pattern.compile(DAY_REGEX, Pattern.CASE_INSENSITIVE);
 
     @Override
-    public List<LocalDate> parse(String date) {
+    public String parse(String date, List<? super LocalDate> potentialDates) {
         LocalDate currentDate = LocalDate.now();
         Matcher dateMatcher = pattern.matcher(date);
-        ArrayList<LocalDate> potentialDates = new ArrayList<>();
+
+        StringBuffer strippedInput = new StringBuffer();
 
         while (dateMatcher.find()) {
             DayOfWeek found = DayOfWeek.valueOf(dateMatcher.group(2).toUpperCase());
             int dayDifference = getDayDifference(currentDate, found, dateMatcher);
             potentialDates.add(LocalDate.now().plusDays(dayDifference));
+            dateMatcher.appendReplacement(strippedInput, "");
         }
 
-        return potentialDates;
+        dateMatcher.appendTail(strippedInput);
+
+        return strippedInput.toString();
     }
 
     private static int getDayDifference(

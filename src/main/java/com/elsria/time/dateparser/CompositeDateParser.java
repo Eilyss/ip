@@ -12,10 +12,11 @@ public class CompositeDateParser {
     }
 
     public List<LocalDate> processString(String input) {
-        List<LocalDate> dates = new ArrayList<>();
+        List<LocalDate> potentialDates = new ArrayList<>();
+        String processed = input;
         for (DateParser dp : this.dateParsers) {
-            dates.addAll(dp.parse(input));
+            processed = dp.parse(processed, potentialDates);
         }
-        return dates;
+        return potentialDates;
     }
 }

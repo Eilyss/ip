@@ -1,15 +1,14 @@
 package com.elsria.time.dateparser;
 
+import com.elsria.time.Month;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.elsria.time.Month;
-
-public class FullDateMonthFirstParser extends DateParser {
+public class FullDateMonthFirstNoYearParser extends DateParser {
     private static final String FULL_DATE_MONTH_FIRST_REGEX =
             "(?i)"
                     + "\\b(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|"
@@ -17,8 +16,7 @@ public class FullDateMonthFirstParser extends DateParser {
                     + "aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|"
                     + "nov(?:ember)?|dec(?:ember)?)\\s*"
                     + "(0?[1-9]|[12][0-9]|3[01])\\s*"
-                    + "(?:st|nd|rd|th)?(?:\\s+|,\\s*)"
-                    + "(\\d{4})\\b";
+                    + "(?:st|nd|rd|th)?\\b";
     private static final Pattern pattern =
             Pattern.compile(FULL_DATE_MONTH_FIRST_REGEX, Pattern.CASE_INSENSITIVE);
 
@@ -37,9 +35,7 @@ public class FullDateMonthFirstParser extends DateParser {
             int month = Month.fromAlias(dateMatcher.group(1))
                     .map(Month::getAsNumber)
                     .orElse(currentDate.getMonthValue());
-            int year = dateMatcher.group(3) == null
-                       ? currentDate.getYear()
-                       : Integer.parseInt(dateMatcher.group(3));
+            int year = currentDate.getYear();
 
             try {
                 potentialDates.add(LocalDate.of(year, month, day));
