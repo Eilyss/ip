@@ -24,9 +24,9 @@ NeoKortex.
 
 ## But before we begin...
 Here's a summary of what you need to know to understand this user guide.
-{Type t} - Curly Braces indicates the type of input, the following word will be what we refer to it as.
-\[a/b\] - Square braces with a slash means either a or b
-(n)? - Parenthesis with a question mark indicate optional parameters/ 
+- \{Type t\} - Curly Braces indicates the type of input, the following word will be what we refer to it as.
+- \[a/b\] - Square braces with a slash means either a or b
+- \(n\)\? - Parenthesis with a question mark indicate optional parameters
 
 And... That's it!
 # Let's get started!
@@ -57,7 +57,7 @@ Example: `todo laundry`
 ```
 expected output
 ```
-![todo demonstration!](images/Todo.png)
+![Todo demonstration!](images/Todo.png)
 
 ## Adding Deadline Tasks
 The `deadline` command allows you to add a Deadline Tasks with a given taskDescription and a deadline.
@@ -73,7 +73,7 @@ Example: `deadline homework /by today!!`
 ```
 expected output
 ```
-![deadline demonstration](images/Deadline.png)
+![Deadline demonstration](images/Deadline.png)
 
 ## Adding Event Tasks
 The `event` command allows you to add an Event Tasks with a given taskDescription, a start and 
@@ -88,7 +88,7 @@ Example: `event recess week /from tomorrow homework /to this Friday`
 ```
 expected output
 ```
-![event demonstration](images/Event.png)
+![Event demonstration](images/Event.png)
 
 ## Listing Tasks
 The `list` command will get ACE to recite all the Tasks that you have added so far.

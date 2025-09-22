@@ -54,7 +54,7 @@ public class AddCommand implements Command {
         this.taskList.add(this.task);
 
         try {
-            storage.saveListToStorage(this.taskList);
+            this.storage.saveListToStorage(this.taskList);
         } catch (IOException e) {
             response = new CommandResponse(DialoguePath.ADD_TASK_STORAGE_FAILURE, ResponseStatus.SUCCESS);
             response.attachResults(new String[] {task.getDescription()});
