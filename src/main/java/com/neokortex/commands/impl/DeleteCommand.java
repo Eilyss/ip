@@ -34,14 +34,17 @@ public class DeleteCommand implements Command {
      * The command will attempt to remove the {@link Task} corresponding to the given taskId
      * from the {@link TaskList} and save the altered list to {@link Storage}
      *
-     * @param storage the storage handler of the program
-     * @param taskList the {@link TaskList} to store the task to
-     * @param taskId the {@link Task} to add to the {@link TaskList}
+     * @param storage a reference to the storage to store the new {@link TaskList}
+     * @param taskList a reference to the {@link TaskList} where we will delete the
+     *                 corresponding task
+     * @param taskId the taskNumber as it appears on the list. The user expects
+     *               1-based indexing, but behind the code uses 0-based indexing
+     *               Hence we subtrack taskId by 1 before storing.
      */
     public DeleteCommand(Storage storage, TaskList taskList, int taskId) {
         this.taskList = taskList;
         this.storage = storage;
-        this.taskId = taskId;
+        this.taskId = taskId - 1;
     }
 
     @Override
@@ -50,7 +53,7 @@ public class DeleteCommand implements Command {
 
         if (this.taskId > this.taskList.size()) {
             response = new CommandResponse(DialoguePath.TASK_ID_OOB, ResponseStatus.SUCCESS);
-            response.attachResults(new String[]{Integer.toString(this.taskId)});
+            response.attachResults(new String[]{Integer.toString(this.taskId + 1)});
             return response;
         }
 
