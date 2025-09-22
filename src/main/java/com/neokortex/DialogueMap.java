@@ -9,26 +9,33 @@ public class DialogueMap {
     public DialogueMap() {
         this.dialogueMap = new HashMap<>();
 
-        this.dialogueMap.put(DialoguePath.TOO_MANY_ARGUMENTS, "Woah woah woah, that's too many arguments!");
-        this.dialogueMap.put(DialoguePath.INVALID_ARGUMENTS, "That's not how you use this command!");
+        this.dialogueMap.put(DialoguePath.STARTUP,
+                "Welcome to the NeoKortex! "
+                        + "I'm {name}, and I am your host in this space. "
+                        + "So, what do you wanna do today? "
+        );
+        this.dialogueMap.put(DialoguePath.TOO_MANY_ARGUMENTS, "Woah, that's too many arguments for this command.");
+        this.dialogueMap.put(DialoguePath.INVALID_ARGUMENTS, "That's not how you use this command.");
         this.dialogueMap.put(DialoguePath.GREET,
-                "Heya! It's me, {name}!" + SEP
-                        + "What do you wanna do today?\n"
+                "Hi! I'm {name}, your trusty mechanical companion." + SEP
+                        + "I'm here to walk you through the ins and outs of the NeoKortex."
+                        + "Let me know if you need anything! I'm always happy to help."
         );
         this.dialogueMap.put(DialoguePath.STARTUP_FAILURE,
-                "Heya! It's me, {name}!" + SEP
-                        + "Hmm... there seems to be an error with loading your data." + SEP
-                        + "Could you check it out please?" + SEP
+                "Welcome to the NeoKortex! "
+                        + "I'm {name}, and I am your host in this space. "
+                        + "Hmm... there seems to be an error with loading your data. "
+                        + "Could you please check it out for me? "
                         + "In any case, welcome!"
         );
-        this.dialogueMap.put(DialoguePath.GENERIC_FAILURE, "Sorry wut??");
+        this.dialogueMap.put(DialoguePath.GENERIC_FAILURE, "Sorry wut");
         this.dialogueMap.put(DialoguePath.INVALID_TIME_SPECIFIED, "That's not a valid time :/");
         this.dialogueMap.put(DialoguePath.NO_TASK_SPECIFIED, "Erm... so what task?");
         this.dialogueMap.put(DialoguePath.NO_DEADLINE_SPECIFIED, "But when?");
         this.dialogueMap.put(DialoguePath.NO_START_TIME_SPECIFIED, "But from when?");
         this.dialogueMap.put(DialoguePath.NO_END_TIME_SPECIFIED, "But to when?");
         this.dialogueMap.put(DialoguePath.TOO_MANY_TIMES_SPECIFIED, "Woah that's too many! Which one?");
-        this.dialogueMap.put(DialoguePath.NO_TASK_ID_SPECIFIED, "Wait which Task?");
+        this.dialogueMap.put(DialoguePath.NO_TASK_ID_SPECIFIED, "Wait which task?");
         this.dialogueMap.put(DialoguePath.SUCCESSFULLY_ADDED_TASK,
                 "Added:" + SEP
                         + "{r:0}" + SEP);

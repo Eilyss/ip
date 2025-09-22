@@ -102,7 +102,7 @@ public class Chatbot {
         if (hasLoadError) {
             ui.respond(this.getDialogueFromDirective(DialoguePath.STARTUP_FAILURE));
         } else {
-            ui.respond(this.getDialogueFromDirective(DialoguePath.GREET));
+            ui.respond(this.getDialogueFromDirective(DialoguePath.STARTUP));
         }
     }
 

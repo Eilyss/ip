@@ -6,6 +6,7 @@ public enum DialoguePath {
     TOO_MANY_ARGUMENTS,
     INVALID_ARGUMENTS,
     GREET,
+    STARTUP,
     STARTUP_FAILURE,
     GENERIC_FAILURE,
     NO_TASK_SPECIFIED,
