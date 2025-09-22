@@ -10,8 +10,8 @@ import com.neokortex.commands.parsers.CompleteCommandParser;
 import com.neokortex.core.ApplicationContext;
 import com.neokortex.core.Storage;
 import com.neokortex.task.ListLoadWrapper;
-import com.neokortex.ui.Gui;
-import com.neokortex.ui.MainWindow;
+import com.neokortex.ui.gui.Gui;
+import com.neokortex.ui.gui.MainWindow;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

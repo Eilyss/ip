@@ -1,4 +1,4 @@
-package com.neokortex.ui;
+package com.neokortex.ui.gui;
 
 import java.io.IOException;
 

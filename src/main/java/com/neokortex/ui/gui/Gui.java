@@ -1,5 +1,6 @@
-package com.neokortex.ui;
+package com.neokortex.ui.gui;
 
+import com.neokortex.ui.Ui;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 

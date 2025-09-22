@@ -9,7 +9,7 @@ import com.neokortex.commands.parsers.CompleteCommandParser;
 import com.neokortex.core.ApplicationContext;
 import com.neokortex.core.Storage;
 import com.neokortex.task.ListLoadWrapper;
-import com.neokortex.ui.Cli;
+import com.neokortex.ui.cli.Cli;
 import com.neokortex.ui.Ui;
 
 /**

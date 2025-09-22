@@ -1,4 +1,6 @@
-package com.neokortex.ui;
+package com.neokortex.ui.cli;
+
+import com.neokortex.ui.Ui;
 
 /**
  * To Be Updated...
