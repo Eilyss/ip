@@ -45,11 +45,11 @@ test {
 }
 
 application {
-    mainClass.set("com.elsria.Launcher")
+    mainClass.set("com.neokortex.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "elsria"
+    archiveBaseName = "neokortex"
     archiveClassifier = null
 }
 

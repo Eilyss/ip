@@ -34,7 +34,7 @@ And... That's it!
 The `todo` command allows you to add a ToDo Task with a given taskDescription. A ToDo Task is just a task that needs to be completed at some point
 
 ### Command Format:
-todo {String taskDescription}
+`todo {String taskDescription}`
 
 Example: `todo laundry`
 
@@ -42,7 +42,7 @@ Example: `todo laundry`
 ```
 expected output
 ```
-![todo demonstration!](images/TODO.png)
+![todo demonstration!](images/Todo.png)
 
 ## Adding Deadline Tasks
 The `deadline` command allows you to add a Deadline Tasks with a given taskDescription and a deadline.
@@ -50,7 +50,7 @@ ACE is pretty smart, so you can be pretty lose with what time you specify as a d
 
 
 ### Command Format:
-deadline {String taskDescription} /by {String deadline}
+`deadline {String taskDescription} /by {String deadline}`
 
 Example: `deadline homework /by today!!`
 
@@ -58,20 +58,33 @@ Example: `deadline homework /by today!!`
 ```
 expected output
 ```
-![deadline demonstration](images/Todo.png)
+![deadline demonstration](images/Deadline.png)
 
 ## Adding Event Tasks
 The `event` command allows you to add an Event Tasks with a given taskDescription, a start and 
 an end time.
 
 ### Command Format:
-deadline {String taskDescription} /by {String deadline}
+`event {String taskDescription} /from {String startTime} /to {String endTime}`
 
-Example: `event recess week /from tomorrow homework /by this Friday`
+Example: `event recess week /from tomorrow homework /to this Friday`
 
 
 ```
 expected output
 ```
-![deadline demonstration](images/Event.png)
+![event demonstration](images/Event.png)
 
+## Listing Tasks
+The `list` command will get ACE to recite all the Tasks that you have added so far.
+
+### Command Format:
+`list`
+
+Example: `list`
+
+
+```
+expected output
+```
+![List demonstration](images/List.png)
