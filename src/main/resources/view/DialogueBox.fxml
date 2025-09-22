@@ -21,7 +21,7 @@
                    style="-fx-font-family: Roboto; -fx-font-size: 20px;" text="short" wrapText="true"
                    StackPane.alignment="TOP_LEFT"/>
             <StackPane.margin>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets top="15" right="15" bottom="15" left="15"/>
             </StackPane.margin>
         </StackPane>
 

@@ -1,6 +1,7 @@
 package com.neokortex;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 
 import com.neokortex.commands.CommandHandler;
@@ -17,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
@@ -57,7 +59,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         this.initialise();
-
+        InputStream fontStream = getClass().getResourceAsStream("/fonts/Roboto-Regular.ttf");
+        if (fontStream != null) {
+            Font customFont = Font.loadFont(fontStream, 20);
+        }
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
