@@ -6,6 +6,8 @@ import com.neokortex.core.Storage;
 import com.neokortex.task.Task;
 import com.neokortex.task.TaskList;
 
+import java.io.IOException;
+
 /**
  * Unmarks tasks in the task list.
  * <p>
@@ -85,12 +87,13 @@ public class UnmarkCommand implements Command {
         }
         taskList.markTask(taskId);
 
-        if (!storage.saveListToStorage(taskList)) {
+        try {
+            storage.saveListToStorage(this.taskList);
+        } catch (IOException e) {
             response = new CommandResponse(DialoguePath.UNMARK_TASK_STORAGE_FAILURE, ResponseStatus.SUCCESS);
             response.attachResults(new String[] {task.getDescription()});
             return response;
         }
-
         response = new CommandResponse(DialoguePath.SUCCESSFULLY_UNMARKED_TASK, ResponseStatus.SUCCESS);
         response.attachResults(new String[] {task.getDescription()});
         return response;

@@ -6,6 +6,10 @@ import com.neokortex.core.ApplicationContext;
 import com.neokortex.core.Storage;
 import com.neokortex.task.TaskList;
 
+import java.io.IOException;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
+
 /**
  * Deletes a task from the task list based on their index.
  * <p>
@@ -50,6 +54,7 @@ import com.neokortex.task.TaskList;
 public class SaveCommand implements Command {
     private final TaskList taskList;
     private final Storage storage;
+    private final String path;
 
     /**
      * Constructs a new DeleteCommand with the specified context and request.
@@ -59,16 +64,26 @@ public class SaveCommand implements Command {
      *                Expected to contain a single numeric argument representing the task index.
      * @throws NullPointerException if either context or request is null
      */
-    public SaveCommand(Storage storage, TaskList taskList) {
+    public SaveCommand(Storage storage, TaskList taskList, String path) {
         this.taskList = taskList;
         this.storage = storage;
+        this.path = path;
     }
 
     @Override
     public CommandResponse execute() {
+        if (!this.path.equals("")) {
+            try {
+                storage.setFilePath(Path.of(this.path));
+            } catch (InvalidPathException e) {
+                return new CommandResponse(DialoguePath.INVALID_PATH, ResponseStatus.TOTAL_FAILURE);
+            }
+        }
         CommandResponse response;
 
-        if (!this.storage.saveListToStorage(this.taskList)) {
+        try {
+            this.storage.saveListToStorage(this.taskList);
+        } catch (IOException e) {
             return new CommandResponse(DialoguePath.UNABLE_TO_SAVE_TO_STORAGE, ResponseStatus.SUCCESS);
         }
 

@@ -41,8 +41,8 @@ import com.neokortex.task.TaskList;
  * @see Task#deserialize(String)
  */
 public class Storage {
-    private final Path filePath;
-
+    private Path filePath;
+    private boolean pathSet;
     /**
      * Constructs a new Storage instance with the specified file path.
      *
@@ -51,8 +51,22 @@ public class Storage {
      *                 Cannot be null.
      * @throws NullPointerException if filePath is null
      */
-    public Storage(final Path filePath) {
+    public Storage() {
+        this.filePath = Path.of("");
+    }
+
+    public Storage(Path filePath) {
         this.filePath = filePath;
+        this.pathSet = true;
+    }
+
+    public void setFilePath(Path filePath) {
+        this.filePath = filePath;
+        this.pathSet = true;
+    }
+
+    public boolean isPathSet() {
+        return this.pathSet;
     }
 
     public Path getFilePath() {
@@ -102,7 +116,6 @@ public class Storage {
         } catch (IOException e) {
             return new ListLoadWrapper(list, failedLines);
         }
-
         return new ListLoadWrapper(list, failedLines);
     }
 
@@ -129,24 +142,20 @@ public class Storage {
      *
      * @see Task#serialize()
      */
-    public boolean saveListToStorage(TaskList taskList) {
-        try {
-            Files.createDirectories(filePath.getParent());
+    public void saveListToStorage(TaskList taskList) throws IOException {
+        Files.createDirectories(filePath.getParent());
 
-            if (!Files.exists(filePath)) {
-                Files.createFile(filePath);
+        if (!Files.exists(filePath)) {
+            Files.createFile(filePath);
+        }
+
+        try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
+            for (Task task : taskList) {
+                writer.write(task.serialize());
+                writer.newLine();
             }
-
-            try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
-                for (Task task : taskList) {
-                    writer.write(task.serialize());
-                    writer.newLine();
-                }
-            }
-
-            return true;
         } catch (IOException e) {
-            return false;
+            throw e;
         }
     }
 }

@@ -6,6 +6,8 @@ import com.neokortex.core.Storage;
 import com.neokortex.task.Task;
 import com.neokortex.task.TaskList;
 
+import java.io.IOException;
+
 /**
  * Marks tasks as completed in the task list.
  * <p>
@@ -85,9 +87,11 @@ public class MarkCommand implements Command {
             response.attachResults(new String[]{Integer.toString(this.taskId + 1)});
             return response;
         }
-        taskList.markTask(taskId);
+        this.taskList.markTask(taskId);
 
-        if (!storage.saveListToStorage(taskList)) {
+        try {
+            storage.saveListToStorage(this.taskList);
+        } catch (IOException e) {
             response = new CommandResponse(DialoguePath.MARK_TASK_STORAGE_FAILURE, ResponseStatus.SUCCESS);
             response.attachResults(new String[] {task.getDescription()});
             return response;

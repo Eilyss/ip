@@ -90,9 +90,12 @@ public class DialogueMap {
                         + "Could you run the Save command?"
         );
         this.dialogueMap.put(DialoguePath.SUCCESSFULLY_SAVED_TASK,
-                "Okay! I have saved the current list into storage.");
+                "Okay! I have saved the current list into storage");
         this.dialogueMap.put(DialoguePath.MARK_TASK_STORAGE_FAILURE,
                 "Hmm... I can't seem to save the the list to storage :/"
+        );
+        this.dialogueMap.put(DialoguePath.INVALID_PATH,
+                "That is not a valid path"
         );
     }
 

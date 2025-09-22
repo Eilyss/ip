@@ -6,6 +6,8 @@ import com.neokortex.core.Storage;
 import com.neokortex.task.Task;
 import com.neokortex.task.TaskList;
 
+import java.io.IOException;
+
 /**
  * TODO: Update Documentation
  * Abstract class representing a general Command that adds specific tasks to a list,
@@ -46,9 +48,11 @@ public class AddCommand implements Command {
 
         this.taskList.add(this.task);
 
-        if (!storage.saveListToStorage(taskList)) {
+        try {
+            storage.saveListToStorage(this.taskList);
+        } catch (IOException e) {
             response = new CommandResponse(DialoguePath.ADD_TASK_STORAGE_FAILURE, ResponseStatus.SUCCESS);
-            response.attachResults(new String[] {this.task.toString()});
+            response.attachResults(new String[] {task.getDescription()});
             return response;
         }
 

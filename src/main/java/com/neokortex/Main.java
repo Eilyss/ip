@@ -23,8 +23,8 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-    public static final String LIST_STORAGE_DIRECTORY = "data";
-    public static final String TO_DO_LIST_FILENAME = "ToDoList";
+    public static final String DEFAULT_LIST_STORAGE_DIRECTORY = "data";
+    public static final String DEFAULT_TO_DO_LIST_FILENAME = "ToDoList";
     private static final String NAME = "ACE";
 
     private boolean hasLoadError = false;
@@ -33,8 +33,8 @@ public class Main extends Application {
     private Chatbot chatbot;
 
     public void initialise() {
-        Path path = Path.of(LIST_STORAGE_DIRECTORY,
-                TO_DO_LIST_FILENAME);
+        Path path = Path.of(DEFAULT_LIST_STORAGE_DIRECTORY,
+                DEFAULT_TO_DO_LIST_FILENAME);
 
         Storage storage = new Storage(path);
         ListLoadWrapper wrapper = storage.loadListFromStorage();

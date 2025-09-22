@@ -7,6 +7,8 @@ import com.neokortex.core.Storage;
 import com.neokortex.task.Task;
 import com.neokortex.task.TaskList;
 
+import java.io.IOException;
+
 /**
  * Deletes a task from the task list based on their index.
  * <p>
@@ -80,12 +82,13 @@ public class DeleteCommand implements Command {
         Task task = this.taskList.get(this.taskId);
         taskList.remove(taskId);
 
-        if (!storage.saveListToStorage(taskList)) {
+        try {
+            storage.saveListToStorage(this.taskList);
+        } catch (IOException e) {
             response = new CommandResponse(DialoguePath.DELETE_TASK_STORAGE_FAILURE, ResponseStatus.SUCCESS);
-            response.attachResults(new String[] {task.toString()});
+            response.attachResults(new String[] {task.getDescription()});
             return response;
         }
-
         response = new CommandResponse(DialoguePath.SUCCESSFULLY_DELETED_TASK, ResponseStatus.SUCCESS);
         response.attachResults(new String[] {task.toString()});
         return response;
