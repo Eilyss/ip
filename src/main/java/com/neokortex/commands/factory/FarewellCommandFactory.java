@@ -21,7 +21,7 @@ import com.neokortex.core.ApplicationContext;
 public class FarewellCommandFactory extends CommandFactory {
     @Override
     public FactoryResponse create(ApplicationContext context, CommandRequest request) {
-        Command command = new FarewellCommand(context);
+        Command command = new FarewellCommand();
         FactoryResponse response = new FactoryResponse(DialoguePath.INTERMEDIARY, ResponseStatus.SUCCESS);
         response.setResult(command);
         return response;

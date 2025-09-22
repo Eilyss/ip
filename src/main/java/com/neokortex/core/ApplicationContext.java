@@ -21,7 +21,6 @@ import com.neokortex.task.TaskList;
  * <ul>
  *     <li>{@link #getTaskList()}: Central task storage and management</li>
  *     <li>{@link #getStorage()}: Persistent data storage</li>
- *     <li>{@link #shouldKeepRunning()}: Boolean indicating whether program should keep running</li>
  * </ul>
  *
  * <p><b>Credit: documentation was written with help from generative AI</b></p>
@@ -32,7 +31,6 @@ import com.neokortex.task.TaskList;
 public class ApplicationContext {
     private final TaskList taskList;
     private final Storage storage;
-    private boolean shouldKeepRunning = true;
 
     /**
      * Constructs a new ApplicationContext with the specified components.
@@ -52,13 +50,5 @@ public class ApplicationContext {
 
     public Storage getStorage() {
         return this.storage;
-    }
-
-    public boolean shouldKeepRunning() {
-        return this.shouldKeepRunning;
-    }
-
-    public void stopProgram() {
-        this.shouldKeepRunning = false;
     }
 }

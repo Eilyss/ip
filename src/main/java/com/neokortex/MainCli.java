@@ -57,13 +57,11 @@ public class MainCli {
         elsria.setCommandHandler(handler);
         elsria.displayStartupMessage(!wrapper.getFailedSerializations().isEmpty());
 
-        boolean running = true;
         String prompt;
-        while (running && sc.hasNextLine()) {
+        while (sc.hasNextLine()) {
             prompt = sc.nextLine();
             elsria.interpret(prompt);
             elsria.respond();
-            running = context.shouldKeepRunning();
         }
     }
 }

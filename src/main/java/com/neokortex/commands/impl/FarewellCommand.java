@@ -15,12 +15,9 @@ import com.neokortex.core.ApplicationContext;
  */
 public class FarewellCommand implements Command {
     /**
-     * Constructs a new {@code FarewellCommand} using the specified context
-     *
-     * @param context the {@link ApplicationContext} providing access to shared state and services.
+     * Constructs a new {@code FarewellCommand}
      */
-    public FarewellCommand(ApplicationContext context) {
-        context.stopProgram();
+    public FarewellCommand() {
     }
 
     @Override
