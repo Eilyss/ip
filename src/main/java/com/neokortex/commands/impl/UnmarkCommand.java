@@ -66,7 +66,7 @@ public class UnmarkCommand implements Command {
             response.attachResults(new String[]{Integer.toString(this.taskId + 1)});
             return response;
         }
-        taskList.markTask(taskId);
+        taskList.unmarkTask(taskId);
 
         try {
             storage.saveListToStorage(this.taskList);

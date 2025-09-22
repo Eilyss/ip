@@ -96,6 +96,7 @@ public class DialogueMap {
         this.dialogueMap.put(DialoguePath.FIND_RETURNS_EMPTY_LIST, "Hmm... there are no tasks that match your search");
         this.dialogueMap.put(DialoguePath.FIND_SUCCESSFUL,
                 "Here are all the tasks that contain: \"{r:0}\"" + SEP
+                        + "Here you go!" + SEP
                         + "{r:1}"
         );
         this.dialogueMap.put(DialoguePath.LIST_EMPTY, "Hmm... there's nothing in your list right now.");

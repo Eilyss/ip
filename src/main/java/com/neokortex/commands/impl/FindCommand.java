@@ -59,7 +59,6 @@ public class FindCommand implements Command {
         }
 
         StringBuilder taskListString = new StringBuilder();
-        taskListString.append("Here you go!");
         for (int i = 0; i < uniqueList.size(); i++) {
             taskListString.append(String.format("%d. %s", i + 1, uniqueList.get(i).toString()));
             taskListString.append(System.lineSeparator());

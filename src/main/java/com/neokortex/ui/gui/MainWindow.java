@@ -6,7 +6,7 @@ import com.neokortex.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private VBox dialogueContainer;
     @FXML
-    private TextArea userInput;
+    private TextField userInput;
     @FXML
     private Button sendButton;
 
@@ -62,13 +62,6 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogueContainer.heightProperty());
         dialogueContainer.prefWidthProperty().bind(scrollPane.widthProperty().subtract(20));
-        userInput.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                handleUserInput();
-                event.consume();
-            }
-        });
-
     }
 
     public void setCharacters(Chatbot chatbot, User user) {
