@@ -165,7 +165,7 @@ public class CommandHandler {
             return this.handleTotalFailure(response);
         }
 
-        if (response.getStatus() == ResponseStatus.SUCCESS || response.getStatus() == ResponseStatus.EXIT_PROGRAM) {
+        if (response.getStatus() == ResponseStatus.SUCCESS) {
             this.currentStage = ProcessingStage.IDLE;
             return response;
         }

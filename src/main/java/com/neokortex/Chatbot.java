@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 import com.neokortex.commands.CommandHandler;
 import com.neokortex.commands.Response;
+import com.neokortex.commands.ResponseStatus;
 import com.neokortex.ui.Ui;
 
 import javafx.scene.image.Image;
@@ -33,6 +34,7 @@ public class Chatbot {
     private final String name;
     private CommandHandler handler;
     private Ui ui;
+    private boolean exitProgram = false;
 
     /**
      * ProfilePicture can be null in the event that we are running the CLI version of the program
@@ -128,6 +130,9 @@ public class Chatbot {
         Response handlerResponse = this.handler.interpret(input);
         this.pendingResponses = this.getDialogue(
                 handlerResponse.getDirective(), handlerResponse.getAttachedResults());
+        if (handlerResponse.getStatus() == ResponseStatus.EXIT_PROGRAM) {
+            this.exitProgram = true;
+        }
     }
 
     /**
@@ -136,6 +141,20 @@ public class Chatbot {
     public void respond() {
         this.ui.respond(pendingResponses);
         pendingResponses = null;
+        if (this.exitProgram) {
+            Thread temp = new Thread(() -> {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    System.exit(0);
+                }
+                System.exit(0);
+            });
+
+            temp.start();
+
+        }
     }
 
     /**
