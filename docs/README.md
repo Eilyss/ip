@@ -1,30 +1,77 @@
-# Duke User Guide
 
-// Update the title above to match the actual product name
+# NeoKortex User Guide
 
-// Product screenshot goes here
+![NeoKortex Screenshot](Ui.png)
 
-// Product intro goes here
+![Banner for NeoKortex](images/NeoKortex%20Banner.png)
+# Welcome to the NeoKortex!
+The digital processing unit when your biogical one needs rest.
 
-## Adding deadlines
+__Here in the NeoKortex you can:__
+* Store all your troubles away
+* Make room for new information
+* Talk to your very own friendly and lovable companion
 
-// Describe the action and its outcome.
+### What's not to love?
 
-// Give examples of usage
+Speaking of which...
 
-Example: `keyword (optional arguments)`
+## Meet Ace!
+Your friendly robotic companion that will guide you through the
+NeoKortex.
 
-// A description of the expected outcome goes here
+![It's ACE!](images/ACE_HAPPY.png)
+
+## But before we begin...
+Here's a summary of what you need to know to understand this user guide.
+{Type t} - Curly Braces indicates the type of input, the following word will be what we refer to it as.
+\[a/b\] - Square braces with a slash means either a or b
+
+And... That's it!
+# Let's get started!
+
+## Adding ToDos
+The `todo` command allows you to add a ToDo Task with a given taskDescription. A ToDo Task is just a task that needs to be completed at some point
+
+### Command Format:
+todo {String taskDescription}
+
+Example: `todo laundry`
+
 
 ```
 expected output
 ```
+![todo demonstration!](images/TODO.png)
 
-## Feature ABC
+## Adding Deadline Tasks
+The `deadline` command allows you to add a Deadline Tasks with a given taskDescription and a deadline.
+ACE is pretty smart, so you can be pretty lose with what time you specify as a deadline.
 
-// Feature details
+
+### Command Format:
+deadline {String taskDescription} /by {String deadline}
+
+Example: `deadline homework /by today!!`
 
 
-## Feature XYZ
+```
+expected output
+```
+![deadline demonstration](images/Todo.png)
 
-// Feature details
+## Adding Event Tasks
+The `event` command allows you to add an Event Tasks with a given taskDescription, a start and 
+an end time.
+
+### Command Format:
+deadline {String taskDescription} /by {String deadline}
+
+Example: `event recess week /from tomorrow homework /by this Friday`
+
+
+```
+expected output
+```
+![deadline demonstration](images/Event.png)
+
