@@ -13,8 +13,8 @@ import java.util.List;
  *
  * <p><b>Purpose:</b></p>
  * <ul>
- *   <li>Encapsulate successful task loading results</li>
- *   <li>Track failed lines for error reporting</li>
+ *     <li>Encapsulate successful task loading results</li>
+ *     <li>Track failed lines for error reporting</li>
  * </ul>
  *
  * @see TaskList
@@ -29,7 +29,6 @@ public class ListLoadWrapper {
      *
      * @param taskList the successfully loaded tasks.
      * @param failedSerializations the list of string lines that could not be parsed.
-     * @throws NullPointerException if either parameter is null
      */
     public ListLoadWrapper(TaskList taskList, List<String> failedSerializations) {
         this.taskList = taskList;

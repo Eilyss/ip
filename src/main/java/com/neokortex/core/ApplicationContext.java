@@ -3,7 +3,6 @@ package com.neokortex.core;
 import com.neokortex.task.TaskList;
 
 /**
- * TODO: Make the Chatbot part of context
  * Represents a container class that holds the core application state and components.
  * <p>
  * the {@code ApplicationContext} serves as a central repository for all fundamental
@@ -15,23 +14,22 @@ import com.neokortex.task.TaskList;
  *     <li>Encapsulates the application's state during runtime</li>
  *     <li>Centralizes access to core application components</li>
  *     <li>Provides access to application state</li>
+ *     <li>Hold the condition for the program to keep running</li>
  * </ul>
  *
  * <p><b>Components:</b></p>
  * <ul>
- *     <li>{@link #getName()}: Application identifier for personalization</li>
  *     <li>{@link #getTaskList()}: Central task storage and management</li>
  *     <li>{@link #getStorage()}: Persistent data storage</li>
+ *     <li>{@link #shouldKeepRunning()}: Boolean indicating whether program should keep running</li>
  * </ul>
  *
- * Credit: JavaDoc was written with guidance from generative AI
+ * <p><b>Credit: documentation was written with help from generative AI</b></p>
  *
- * @see UiHandler
  * @see TaskList
  * @see Storage
  */
 public class ApplicationContext {
-    private final String name;
     private final TaskList taskList;
     private final Storage storage;
     private boolean shouldKeepRunning = true;
@@ -39,19 +37,13 @@ public class ApplicationContext {
     /**
      * Constructs a new ApplicationContext with the specified components.
      *
-     * @param name the application name identifier.
      * @param taskList the task list containing application tasks.
      * @param storage the storage component for persistence.
      * @throws NullPointerException if any parameter is null
      */
-    public ApplicationContext(String name, TaskList taskList, Storage storage) {
-        this.name = name;
+    public ApplicationContext(TaskList taskList, Storage storage) {
         this.taskList = taskList;
         this.storage = storage;
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     public TaskList getTaskList() {

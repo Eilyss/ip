@@ -31,7 +31,6 @@ public class EventTask extends Task {
      * @param description the event description.
      * @param startTime the start time of the event.
      * @param endTime the end time of the event.
-     * @throws NullPointerException if startTime or endTime is null.
      */
     public EventTask(String description, Time startTime, Time endTime) {
         super(description);
@@ -48,7 +47,6 @@ public class EventTask extends Task {
      * @param endTime the end time of the event.
      * @param isMarked the initial completion status
      *                 (true for completed, false for incomplete)
-     * @throws NullPointerException if startTime or endTime is null
      */
     public EventTask(String description, Time startTime,
                      Time endTime, boolean isMarked) {

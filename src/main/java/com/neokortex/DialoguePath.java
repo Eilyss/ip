@@ -1,5 +1,17 @@
 package com.neokortex;
 
+/**
+ * An Enum representing all the possible dialogue choices that the Chatbot can handle.
+ *
+ * <p>
+ * The {@code DialoguePath} enum is used by the {@link com.neokortex.commands.Response} class
+ * to indicate to the chatbot which Dialogue should the chatbot respond with.
+ * </p>
+ *
+ * <p>
+ * Each {@code} DialoguePath corresponds to a particular dialogue option in the {@link DialogueMap}
+ * </p>
+ */
 public enum DialoguePath {
     INTERMEDIARY,
     CATASTROPHIC_FAILURE,
@@ -35,5 +47,5 @@ public enum DialoguePath {
     UNMARK_TASK_STORAGE_FAILURE,
     UNABLE_TO_SAVE_TO_STORAGE,
     SUCCESSFULLY_SAVED_TASK,
-    INVALID_PATH;
+    INVALID_PATH
 }

@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Represents the twelve months of the year as an enum with support for multiple
+ * An Enum representing the twelve months of the year as an enum with support for multiple
  * name aliases.
  * <p>
  * The {@code Month} enum provides functionality to convert between month names and
@@ -21,7 +21,7 @@ import java.util.Set;
  *   <li>Case-insensitive alias lookup</li>
  * </ul>
  *
- * Credit: JavaDoc was written with guidance from generative AI
+ * <p><b>Credit: Documentation was written under the guidance of generative AI</b></p>
  */
 public enum Month {
     JANUARY(1, Set.of("jan", "january")),

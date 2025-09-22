@@ -5,6 +5,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a date parser that parses common phrases like the following.
+ *
+ * <p><b>Examples:</b></p>
+ * <ul>
+ *     <li>Today</li>
+ *     <li>Tomorrow</li>
+ *     <li>next week</li>
+ *     <li>following month</li>
+ * </ul>
+ */
 public class PhraseParser extends DateParser {
     private static final String PHRASE_REGEX =
             "(?i)"

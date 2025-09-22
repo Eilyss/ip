@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
 
 import com.neokortex.time.Month;
 
+/**
+ * Represents a date parser that parses based on the format: "day month_name full_year"
+ */
 public class FullDateMonthFirstParser extends DateParser {
     private static final String FULL_DATE_MONTH_FIRST_REGEX =
             "(?i)"
@@ -22,9 +25,9 @@ public class FullDateMonthFirstParser extends DateParser {
             Pattern.compile(FULL_DATE_MONTH_FIRST_REGEX, Pattern.CASE_INSENSITIVE);
 
     @Override
-    public String parse(String date, List<? super LocalDate> potentialDates) {
+    public String parse(String input, List<? super LocalDate> potentialDates) {
         LocalDate currentDate = LocalDate.now();
-        Matcher dateMatcher = pattern.matcher(date);
+        Matcher dateMatcher = pattern.matcher(input);
         boolean error = false;
 
         StringBuffer strippedInput = new StringBuffer();

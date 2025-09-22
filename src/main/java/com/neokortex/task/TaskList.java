@@ -13,11 +13,12 @@ import java.util.ArrayList;
  *
  * <p><b>Key Features:</b></p>
  * <ul>
- *   <li>Bulk task operations (mark/unmark)</li>
- *   <li>Task search based on keyword</li>
- *   <li>Formatted string representation of a list of {@code Task}s</li>
+ *     <li>Bulk task operations (mark/unmark)</li>
+ *    <li>Task search based on keyword</li>
+ *     <li>Formatted string representation of a list of {@code Task}s</li>
  * </ul>
  *
+ * <p><b>Credit: documentation was written with help from generative AI</b></p>
  * @see Task
  * @see ArrayList
  */

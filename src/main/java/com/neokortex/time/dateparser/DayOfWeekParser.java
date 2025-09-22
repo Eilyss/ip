@@ -6,6 +6,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a date parser that parses based on the day of the week specified.
+ *
+ * <p><b>Examples:</b></p>
+ * <ul>
+ *     <li>Monday</li>
+ *     <li>Mon</li>
+ *     <li>Next Tuesday</li>
+ *     <li>the following Thursday</li>
+ * </ul>
+ */
 public class DayOfWeekParser extends DateParser {
     private static final String DAY_REGEX =
             "(?i)"
@@ -17,11 +28,11 @@ public class DayOfWeekParser extends DateParser {
             Pattern.compile(DAY_REGEX, Pattern.CASE_INSENSITIVE);
 
     @Override
-    public String parse(String date, List<? super LocalDate> potentialDates) {
+    public String parse(String input, List<? super LocalDate> potentialDates) {
         LocalDate currentDate = LocalDate.now();
-        Matcher dateMatcher = pattern.matcher(date);
+        Matcher dateMatcher = pattern.matcher(input);
 
-        StringBuffer strippedInput = new StringBuffer();
+        StringBuilder strippedInput = new StringBuilder();
 
         while (dateMatcher.find()) {
             DayOfWeek found = DayOfWeek.valueOf(dateMatcher.group(2).toUpperCase());
@@ -43,9 +54,9 @@ public class DayOfWeekParser extends DateParser {
         if (dateMatcher.group(1) != null) {
             String prefix = dateMatcher.group(1);
             if (prefix.equals("next")) {
-                dayDifference += 7;
+                dayDifference = found.getValue() - today.getValue() + 7;
             } else if (prefix.equals("following")) {
-                dayDifference += 14;
+                dayDifference = found.getValue() - today.getValue() + 14;
             }
         }
 

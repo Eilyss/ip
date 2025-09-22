@@ -14,10 +14,12 @@ import com.neokortex.exceptions.NoSuchTaskException;
  *
  * <p><b>Supported Task Types:</b></p>
  * <ul>
- *   <li>{@code 'T'} - {@link ToDoTask} (To-do tasks)</li>
- *   <li>{@code 'D'} - {@link DeadlineTask} (Tasks with deadlines)</li>
- *   <li>{@code 'E'} - {@link EventTask} (Events with start and end times)</li>
+ *     <li>{@code 'T'} - {@link ToDoTask} (To-do tasks)</li>
+ *     <li>{@code 'D'} - {@link DeadlineTask} (Tasks with deadlines)</li>
+ *     <li>{@code 'E'} - {@link EventTask} (Events with start and end times)</li>
  * </ul>
+ *
+ * <p><b>Credit: documentation was written based on suggestions and recommendations from generative AI</b></p>
  *
  * @see ToDoTask
  * @see DeadlineTask

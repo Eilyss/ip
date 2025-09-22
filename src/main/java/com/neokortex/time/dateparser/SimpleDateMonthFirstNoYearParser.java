@@ -6,6 +6,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a date parser that parses dates in the format: mm/dd
+ * <p>
+ * 'mm' represent numerical month, 'dd' representing day in the month
+ * </p>
+ */
 public class SimpleDateMonthFirstNoYearParser extends DateParser {
     private static final String SIMPLE_DATE_REGEX =
             "(?i)"
@@ -17,9 +23,9 @@ public class SimpleDateMonthFirstNoYearParser extends DateParser {
             Pattern.compile(SIMPLE_DATE_REGEX, Pattern.CASE_INSENSITIVE);
 
     @Override
-    public String parse(String date, List<? super LocalDate> potentialDates) {
+    public String parse(String input, List<? super LocalDate> potentialDates) {
         LocalDate currentDate = LocalDate.now();
-        Matcher dateMatcher = pattern.matcher(date);
+        Matcher dateMatcher = pattern.matcher(input);
         boolean error = false;
 
         StringBuffer strippedInput = new StringBuffer();

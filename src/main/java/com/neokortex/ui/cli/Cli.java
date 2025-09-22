@@ -3,7 +3,18 @@ package com.neokortex.ui.cli;
 import com.neokortex.ui.Ui;
 
 /**
- * To Be Updated...
+ * Represents the Command Line Interface (CLI) version of this program.
+ *
+ * <p>
+ * Aside from providing the implementations as specified in {@link Ui}, the CLI
+ * provides a few extra features specific to it.
+ *
+ * <p><b>Additional Features:</b></p>
+ * <ul>
+ *     <li>Border to indicate the Chatbot's response</li>
+ *     <li>Customizable maximum number of chars per line in the CLI</li>
+ * </ul>
+ * </p>
  */
 public class Cli extends Ui {
     private static final String BORDER =

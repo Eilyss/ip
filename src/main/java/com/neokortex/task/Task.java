@@ -13,9 +13,9 @@ import com.neokortex.time.Time;
  *
  * <p><b>Key Features:</b></p>
  * <ul>
- *   <li>Marking/unmarking completion status</li>
- *   <li>Keyword search</li>
- *   <li>Serialization and deserialization support</li>
+ *     <li>Marking/unmarking completion status</li>
+ *     <li>Keyword search</li>
+ *     <li>Serialization and deserialization support</li>
  * </ul>
  *
  * <p><b>Serialization Format:</b></p>
@@ -23,7 +23,7 @@ import com.neokortex.time.Time;
  * taskType|isMarked|description|[type-specific fields]...
  * </pre>
  *
- * Credit: JavaDoc was written with guidance from generative AI
+ * <p><b>Credit: documentation was written based on suggestions and recommendations from generative AI</b></p>
  *
  * @see ToDoTask
  * @see DeadlineTask

@@ -13,7 +13,8 @@ import com.neokortex.task.Task;
 import com.neokortex.task.TaskList;
 
 /**
- * Handles persistent storage operations for {@link Task}s (for now) by storing it in a file.
+ * Handles persistent storage operations for {@link Task}s by storing it in a file.
+ *
  * <p>
  * The Storage class manages reading from and writing to a persistent file storage.
  * It handles file creation, directory management, and storing and loading data from a directory.
@@ -21,20 +22,23 @@ import com.neokortex.task.TaskList;
  *
  * <p><b>Features:</b></p>
  * <ul>
- *   <li>File-based persistent storage</li>
- *   <li>Automatic directory and file creation</li>
- *   <li>Robust error handling for file operations</li>
- *   <li>Graceful handling of corrupted data</li>
- *   <li>Support for incremental loading with error tracking</li>
+ *     <li>File-based persistent storage</li>
+ *     <li>Automatic directory and file creation</li>
+ *     <li>Error handling for file operations</li>
+ *     <li>Handling of Corrupted data</li>
+ *     <li>Support for incremental loading with error tracking</li>
+ *     <li>Ability to change storage directory</li>
  * </ul>
  *
  * <p><b>Error Handling Strategy:</b></p>
  * <ul>
- *   <li>Continues loading when individual tasks fail deserialization</li>
- *   <li>Returns failed lines for diagnostic purposes</li>
- *   <li>Returns empty list rather than throwing exceptions for I/O errors</li>
- *   <li>Provides boolean success/failure status for save operations</li>
+ *     <li>Continues loading when individual tasks fail deserialization</li>
+ *     <li>Returns failed lines for diagnostic purposes</li>
+ *     <li>Returns empty list rather than throwing exceptions for I/O errors</li>
+ *     <li>Provides boolean success/failure status for save operations</li>
  * </ul>
+ *
+ * <p><b>Credit: documentation was written based on suggestions and recommendations from generative AI</b></p>
  *
  * @see ListLoadWrapper
  * @see Task#serialize()
@@ -43,18 +47,21 @@ import com.neokortex.task.TaskList;
 public class Storage {
     private Path filePath;
     private boolean pathSet;
+
+    /**
+     * Constructs a new Storage instance with the default file path (root directory).
+     */
+    public Storage() {
+        this.filePath = Path.of("");
+    }
+
     /**
      * Constructs a new Storage instance with the specified file path.
      *
      * @param filePath the path to the file used for task storage.
      *                 The parent directories will be created automatically if needed.
      *                 Cannot be null.
-     * @throws NullPointerException if filePath is null
      */
-    public Storage() {
-        this.filePath = Path.of("");
-    }
-
     public Storage(Path filePath) {
         this.filePath = filePath;
         this.pathSet = true;
@@ -75,6 +82,7 @@ public class Storage {
 
     /**
      * Loads tasks from persistent storage into a TaskList.
+     *
      * <p>
      * This method attempts to read the storage file line by line, deserializing
      * each line into a Task object. Lines that cannot be deserialized are collected
@@ -137,8 +145,7 @@ public class Storage {
      * </ol>
      *
      * @param taskList the TaskList containing tasks to be saved. Cannot be null.
-     * @return true if the save operation was successful, false if any IOException occurred
-     * @throws NullPointerException if taskList is null
+     * @throws IOException in the event that the {@link TaskList} Cannot be stored.
      *
      * @see Task#serialize()
      */

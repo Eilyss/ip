@@ -14,6 +14,8 @@ package com.neokortex.task;
  * T|isMarked|description
  * </pre>
  *
+ * <p><b>Credit: documentation was written based on suggestions and recommendations from generative AI</b></p>
+ *
  * @see Task
  */
 public class ToDoTask extends Task {

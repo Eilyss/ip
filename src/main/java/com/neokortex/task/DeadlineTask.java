@@ -28,7 +28,6 @@ public class DeadlineTask extends Task {
      *
      * @param description the task description.
      * @param deadline the deadline for this task.
-     * @throws NullPointerException if deadline is null.
      */
     public DeadlineTask(String description, Time deadline) {
         super(description);
@@ -43,7 +42,6 @@ public class DeadlineTask extends Task {
      * @param deadline the deadline for this task.
      * @param isMarked the completion status,
      *                 (true for completed, false for incomplete)
-     * @throws NullPointerException if deadline is null
      */
     public DeadlineTask(String description, Time deadline, boolean isMarked) {
         super(description, isMarked);

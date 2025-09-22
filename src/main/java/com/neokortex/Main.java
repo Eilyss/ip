@@ -21,7 +21,37 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-
+/**
+ * The entry point for the Graphical version of the program, NeoKortex. makes use of
+ * this class for initialisation. The name of the graphical version of the {@link Chatbot}
+ * is ACE, they facilitate user interaction.
+ *
+ * <p>
+ * The graphical version of the {@code Chatbot} has the following features:
+ * <ul>
+ *     <li>Graphical interface for the user to interact with the {@code Chatbot}</li>
+ *     <li>Adding different types of tasks to a task list</li>
+ *     <li>Persistent Storage of TaskLists</li>
+ *     <li>The ability to process the task list</li>
+ * </ul>
+ * </p>
+ *
+ * <p><b>Credit:</b></p>
+ * <p>
+ * This code and associated FXML heavily references the JavaFX tutorial, without which
+ * I would not have been able to write this class. The tutorial can be found here:
+ * <ul><li>https://se-education.org/guides/tutorials/javaFx.html</li></ul>
+ * </p>
+ *
+ * <p>
+ * Furthermore, this code was written under partial guidance from generative AI.
+ * </p>
+ *
+ * @see ApplicationContext
+ * @see CommandHandler
+ * @see Gui
+ * @see Storage
+ */
 public class Main extends Application {
     public static final String DEFAULT_LIST_STORAGE_DIRECTORY = "data";
     public static final String DEFAULT_TO_DO_LIST_FILENAME = "ToDoList";
@@ -32,7 +62,11 @@ public class Main extends Application {
     private User user;
     private Chatbot chatbot;
 
-    public void initialise() {
+    /**
+     * Initialises all the necessary items to run the program. The initialise function
+     * called by when the program starts.
+     */
+    public void initialize() {
         Path path = Path.of(DEFAULT_LIST_STORAGE_DIRECTORY,
                 DEFAULT_TO_DO_LIST_FILENAME);
 
@@ -40,7 +74,7 @@ public class Main extends Application {
         ListLoadWrapper wrapper = storage.loadListFromStorage();
 
         ApplicationContext context =
-                new ApplicationContext(NAME,
+                new ApplicationContext(
                         wrapper.getTaskList(),
                         storage);
         CompleteCommandParser parser = new CompleteCommandParser();
@@ -48,7 +82,6 @@ public class Main extends Application {
         CommandHandler handler = new CommandHandler(parser, factory);
 
         this.chatbot = new Chatbot(NAME);
-        this.chatbot.setContext(context);
         this.chatbot.setCommandHandler(handler);
 
         this.chatbot.setProfilePicture(new Image(this.getClass().getResourceAsStream("/images/Ace.png")));
@@ -58,7 +91,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
-        this.initialise();
+        this.initialize();
         InputStream fontStream = getClass().getResourceAsStream("/fonts/Roboto-Regular.ttf");
         if (fontStream != null) {
             Font customFont = Font.loadFont(fontStream, 20);

@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a time parser that parses time in the standard 24-hour time format: hhmm
+ *
+ * <p>It is assumed that seconds will not be provided</p>
+ */
 public class TwentyFourHourTimeParser extends TimeParser {
     private static final String TWENTY_FOUR_HOUR_REGEX =
             "(?i)"
@@ -17,8 +22,8 @@ public class TwentyFourHourTimeParser extends TimeParser {
                     Pattern.CASE_INSENSITIVE);
 
     @Override
-    public String parse(String date, List<? super LocalTime> potentialTimes) {
-        Matcher matcher = pattern.matcher(date);
+    public String parse(String input, List<? super LocalTime> potentialTimes) {
+        Matcher matcher = pattern.matcher(input);
         boolean error = false;
 
         StringBuffer strippedInput = new StringBuffer();

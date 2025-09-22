@@ -6,6 +6,19 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Represents a time parser that parses time in the following formats:
+ *
+ * <ul>
+ *     <li>hh:mm?:ss?am/pm</li>
+ *     <li>hh.mm?.ss?am/pm</li>
+ * </ul>
+ *
+ * <p>
+ * Where 'hh' represents 2 digit hour, 'mm' represent 2 digit minutes, 'ss' represent 2 digit seconds. '?' indicates
+ * that the item is optional.
+ * </p>
+ */
 public class TwelveHourTimeParser extends TimeParser {
     private static final String TWELVE_HOUR_REGEX =
             "(?i)"
@@ -18,8 +31,8 @@ public class TwelveHourTimeParser extends TimeParser {
 
 
     @Override
-    public String parse(String date, List<? super LocalTime> potentialTimes) {
-        Matcher matcher = pattern.matcher(date);
+    public String parse(String input, List<? super LocalTime> potentialTimes) {
+        Matcher matcher = pattern.matcher(input);
         boolean invalid = false;
 
         StringBuffer strippedInput = new StringBuffer();

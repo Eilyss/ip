@@ -9,34 +9,30 @@ import com.neokortex.commands.parsers.CompleteCommandParser;
 import com.neokortex.core.ApplicationContext;
 import com.neokortex.core.Storage;
 import com.neokortex.task.ListLoadWrapper;
-import com.neokortex.ui.cli.Cli;
 import com.neokortex.ui.Ui;
+import com.neokortex.ui.cli.Cli;
 
 /**
- * Main entry point and application launcher for the Elsria task management system.
+ * Main entry point for the CLI version of the {@code Chatbot}. Elias it the name of the CLI version of the Chatbot.
+ *
  * <p>
- * Elsria is a chatbot that helps users manage their tasks with persistent storage
- * and a command-line interface for task management.
+ * The CLI version of the {@code Chatbot} has the following features:
+ * <ul>
+ *     <li>Adding different types of tasks to a task list</li>
+ *     <li>Persistent Storage of TaskLists</li>
+ *     <li>The ability to process the task list</li>
+ * </ul>
  * </p>
  *
- * <p><b>Key Features:</b></p>
- * <ul>
- *   <li>Interactive command-based task management</li>
- *   <li>Persistent storage of tasks to local files</li>
- *   <li>Support for different task types (todo, deadline, event)</li>
- *   <li>User-friendly console interface</li>
- * </ul>
- *
- * Credit: JavaDoc was written with guidance from generative AI
- *
  * @see ApplicationContext
- * @see CompleteCommandParser
+ * @see CommandHandler
+ * @see Cli
  * @see Storage
  */
 public class MainCli {
     public static final String LIST_STORAGE_DIRECTORY = "data";
     public static final String TO_DO_LIST_FILENAME = "ToDoList";
-    private static final String NAME = "Elsria";
+    private static final String NAME = "Elias";
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -49,7 +45,7 @@ public class MainCli {
         ListLoadWrapper wrapper = storage.loadListFromStorage();
 
         ApplicationContext context =
-                new ApplicationContext(NAME,
+                new ApplicationContext(
                         wrapper.getTaskList(),
                         storage);
         CompleteCommandParser parser = new CompleteCommandParser();
@@ -57,7 +53,6 @@ public class MainCli {
         CommandHandler handler = new CommandHandler(parser, factory);
 
         Chatbot elsria = new Chatbot(NAME);
-        elsria.setContext(context);
         elsria.setUi(cli);
         elsria.setCommandHandler(handler);
         elsria.displayStartupMessage(!wrapper.getFailedSerializations().isEmpty());

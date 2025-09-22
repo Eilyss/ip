@@ -41,6 +41,8 @@ import com.neokortex.time.timeparser.TimeParser;
  * displayTypeOrdinal,hour:minute:second,day/month/year
  * </pre>
  *
+ * <p><b>Credit: documentation was written based on suggestions and recommendations from generative AI</b></p>
+ *
  * @see LocalDate
  * @see LocalTime
  * @see LocalDateTime
@@ -124,17 +126,19 @@ public class Time {
     }
 
     /**
-     * TODO: Convert return value to Optional
      * Extracts the date and/or time from a string input. It is capable or processing
      * (relatively) natural language.
+     *
      * <p>
      * This method uses a composite parser to extract both date and time components
      * from the input. If no date is found, the current date is used. If no time is found,
      * 23:59pm is used as default.
      * </p>
      * <p></p>
-     * Returns an empty {@link Optional} if neither date nor time can be parsed from the input.
+     * Returns a null if neither date nor time can be parsed from the input.
      * </p>
+     *
+     * <p><b>Credit: documentation was written based on suggestions and recommendations from generative AI</b></p>
      *
      * @param input the string to parse for date and time information.
      * @return an {@link Optional} containing a {@code Time} object representing the parsed

@@ -2,10 +2,42 @@ package com.neokortex;
 
 import java.util.HashMap;
 
+/**
+ * Represents all possible responses that the Chatbot can have. There must be at least
+ * one reponse per {@link DialoguePath} enum.
+ *
+ * <p>
+ * The {@code DialogueMap} enum is used by the {@link Chatbot} to determine what the response
+ * should be based on the given DiloguePath enum.
+ * </p>
+ *
+ * <p>
+ * A special feature that DialogueMap has is a substitution system similar to that of Format
+ * Strings in Python. The rules are as follows:
+ * <ul>
+ *     <li>Substitution is detected by curly braces, and the content within the curly braces
+ *     determines what needs to be substituted into the String</li>
+ *     <li>The list of possible substitutions are as follows:
+ *         <ol>
+ *             <li>{name} -> the name of the Chatbot</li>
+ *             <li>{r:\a} -> where \a is an integer. r indicates the use of the additional results appended to
+ *             the {@link com.neokortex.commands.Response} class. the integer a refers to
+ *             the index of the additional results to use.</li>
+ *         </ol>
+ *     </li>
+ * </ul>
+ * </p>
+ *
+ * @see com.neokortex.commands.Response
+ * @see DialoguePath
+ */
 public class DialogueMap {
     private static final String SEP = System.lineSeparator();
     private final HashMap<DialoguePath, String> dialogueMap;
 
+    /**
+     * Constructs the {@code DialogueMap}
+     */
     public DialogueMap() {
         this.dialogueMap = new HashMap<>();
 

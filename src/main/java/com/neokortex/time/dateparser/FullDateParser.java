@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
 
 import com.neokortex.time.Month;
 
+/**
+ * Represents a date parser that parses based on the format: "day month_name full_year"
+ */
 public class FullDateParser extends DateParser {
     private static final String FULL_DATE_REGEX =
             "(?i)"
