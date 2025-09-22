@@ -26,7 +26,7 @@
         </StackPane>
 
         <Pane prefWidth="60.0" prefHeight="60.0" maxHeight="60" HBox.hgrow="NEVER" fx:id="imageContainer">
-            <ImageView fx:id="displayPicture"/>
+            <ImageView fx:id="displayPicture" fitWidth="60.0" fitHeight="60.0"/>
         </Pane>
     </children>
         <spacing>5.0</spacing>

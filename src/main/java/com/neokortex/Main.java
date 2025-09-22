@@ -49,8 +49,8 @@ public class Main extends Application {
         this.chatbot.setContext(context);
         this.chatbot.setCommandHandler(handler);
 
-        this.chatbot.setProfilePicture(new Image(this.getClass().getResourceAsStream("/images/Black.png")));
-        this.user = new User("User", new Image(this.getClass().getResourceAsStream("/images/Black.png")));
+        this.chatbot.setProfilePicture(new Image(this.getClass().getResourceAsStream("/images/Ace.png")));
+        this.user = new User("User", new Image(this.getClass().getResourceAsStream("/images/Anon.png")));
 
     }
 
