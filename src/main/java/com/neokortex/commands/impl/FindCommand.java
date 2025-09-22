@@ -7,17 +7,13 @@ import com.neokortex.task.TaskList;
 
 /**
  * Command for searching tasks by keyword in their descriptions.
+ *
  * <p>
  * The {@code FindCommand} searches through all tasks in the task list and displays
  * all tasks that contain the specified keyword in their description. The search
  * is not case-sensitive and result is formatted as a {@link TaskList}, similar to
  * in a {@link ListCommand}.
  * </p>
- *
- * <p><b>Command Format:</b></p>
- * <pre>
- * [find/search] [keyword]
- * </pre>
  *
  * <p><b>Search Behavior:</b></p>
  * <ul>

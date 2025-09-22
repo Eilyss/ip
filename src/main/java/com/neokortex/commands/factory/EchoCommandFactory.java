@@ -7,6 +7,17 @@ import com.neokortex.commands.impl.CommandRequest;
 import com.neokortex.commands.impl.EchoCommand;
 import com.neokortex.core.ApplicationContext;
 
+/**
+ * Creates an {@link EchoCommand} based on the given {@link CommandRequest} and {@link ApplicationContext}
+ *
+ * <p>
+ * The result is wrapped in a {@link FactoryResponse}
+ * </p>
+ *
+ * @see EchoCommand
+ * @see ApplicationContext
+ * @see CommandRequest
+ */
 public class EchoCommandFactory extends CommandFactory {
     @Override
     public FactoryResponse create(ApplicationContext context, CommandRequest request) {

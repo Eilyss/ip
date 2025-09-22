@@ -7,6 +7,17 @@ import com.neokortex.commands.impl.CommandRequest;
 import com.neokortex.commands.impl.UnmarkCommand;
 import com.neokortex.core.ApplicationContext;
 
+/**
+ * Creates an {@link UnmarkCommand} based on the given {@link CommandRequest} and {@link ApplicationContext}
+ *
+ * <p>
+ * The result is wrapped in a {@link FactoryResponse}
+ * </p>
+ *
+ * @see UnmarkCommand
+ * @see ApplicationContext
+ * @see CommandRequest
+ */
 public class UnmarkCommandFactory extends CommandFactory {
     @Override
     public FactoryResponse create(ApplicationContext context, CommandRequest request) {

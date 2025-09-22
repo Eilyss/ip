@@ -5,6 +5,19 @@ import com.neokortex.commands.CommandType;
 import com.neokortex.commands.ResponseStatus;
 import com.neokortex.commands.impl.CommandRequest;
 
+/**
+ * Parses an {@code UnmarkCommand}.
+ *
+ * <p>
+ * An unmark Command has the following format:
+ * </p>
+ *
+ * <ul>
+ *     <li>unmark {int taskId}</li>
+ * </ul>
+ *
+ * @see com.neokortex.commands.impl.UnmarkCommand
+ */
 public class UnmarkCommandParser extends CommandParser {
     @Override
     public ParserResponse parse(CommandType commandType, String input) {

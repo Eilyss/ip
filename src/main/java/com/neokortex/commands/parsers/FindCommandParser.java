@@ -5,6 +5,19 @@ import com.neokortex.commands.CommandType;
 import com.neokortex.commands.ResponseStatus;
 import com.neokortex.commands.impl.CommandRequest;
 
+/**
+ * Parses an {@code FindCommand}.
+ *
+ * <p>
+ * A find Command has the following format:
+ * </p>
+ *
+ * <ul>
+ *     <li>find {String keyword}</li>
+ * </ul>
+ *
+ * @see com.neokortex.commands.impl.FindCommand
+ */
 public class FindCommandParser extends CommandParser {
     @Override
     public ParserResponse parse(CommandType commandType, String input) {

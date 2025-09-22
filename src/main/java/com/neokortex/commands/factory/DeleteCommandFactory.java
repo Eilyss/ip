@@ -7,6 +7,17 @@ import com.neokortex.commands.impl.CommandRequest;
 import com.neokortex.commands.impl.DeleteCommand;
 import com.neokortex.core.ApplicationContext;
 
+/**
+ * Creates an {@link DeleteCommand} based on the given {@link CommandRequest} and {@link ApplicationContext}
+ *
+ * <p>
+ * The result is wrapped in a {@link FactoryResponse}
+ * </p>
+ *
+ * @see DeleteCommand
+ * @see ApplicationContext
+ * @see CommandRequest
+ */
 public class DeleteCommandFactory extends CommandFactory {
     @Override
     public FactoryResponse create(ApplicationContext context, CommandRequest request) {

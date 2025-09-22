@@ -5,6 +5,19 @@ import com.neokortex.commands.CommandType;
 import com.neokortex.commands.ResponseStatus;
 import com.neokortex.commands.impl.CommandRequest;
 
+/**
+ * Parses an {@code FarewellCommand}.
+ *
+ * <p>
+ * A farewell Command has the following format:
+ * </p>
+ *
+ * <ul>
+ *     <li>farewell</li>
+ * </ul>
+ *
+ * @see com.neokortex.commands.impl.FarewellCommand
+ */
 public class FarewellCommandParser extends CommandParser {
     @Override
     public ParserResponse parse(CommandType commandType, String input) {

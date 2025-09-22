@@ -5,6 +5,22 @@ import com.neokortex.commands.CommandType;
 import com.neokortex.commands.ResponseStatus;
 import com.neokortex.commands.impl.CommandRequest;
 
+/**
+ * Parses an {@code AddCommand}. An {@code AddCommand} can either result in the creation of a {@code ToDoTask}, a
+ * {@code DeadlineTask} or an {@code EventTask}. The type of task it is parsed into depends on the CommandType.
+ *
+ * <p>
+ * An add Command has the following formats:
+ * </p>
+ *
+ * <ol>
+ *     <li>Todo Format : todo {String taskDescription}</li>
+ *     <li>Deadline Format : deadline {String taskDescription} /by {String time}</li>
+ *     <li>Event Format : event {String taskDescription} /from {String time} /to {String time}</li>
+ * </ol>
+ *
+ * @see com.neokortex.commands.impl.AddCommand
+ */
 public class AddCommandParser extends CommandParser {
     @Override
     public ParserResponse parse(CommandType type, String input) {

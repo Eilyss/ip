@@ -10,21 +10,14 @@ import com.neokortex.core.ApplicationContext;
  * The {@code FarewellCommand} bids farewell to the user
  * </p>
  *
- * <p><b>Command Format:</b></p>
- * <pre>
- * [exit/bye]
- * </pre>
- *
  * @see Command
  * @see ApplicationContext
  */
 public class FarewellCommand implements Command {
     /**
-     * Constructs a new {@code FarewellCommand} with the specified context and request.
+     * Constructs a new {@code FarewellCommand} using the specified context
      *
      * @param context the {@link ApplicationContext} providing access to shared state and services.
-     * @param request the {@link CommandRequest}
-     * @throws NullPointerException if either context or request is null
      */
     public FarewellCommand(ApplicationContext context) {
         context.stopProgram();

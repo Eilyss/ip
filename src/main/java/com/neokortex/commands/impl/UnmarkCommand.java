@@ -1,44 +1,22 @@
 package com.neokortex.commands.impl;
 
+import java.io.IOException;
+
 import com.neokortex.DialoguePath;
 import com.neokortex.commands.ResponseStatus;
 import com.neokortex.core.Storage;
 import com.neokortex.task.Task;
 import com.neokortex.task.TaskList;
 
-import java.io.IOException;
-
 /**
  * Unmarks tasks in the task list.
+ *
  * <p>
  * The {@code UnmarkCommand} allows users to unmark specific tasks as done by their
  * index (which can be checked by calling the {@link ListCommand}). It validates
  * the task ID, updates the task status, and persists the updated list in storage.
  * It acts as the inverse to {@link MarkCommand}.
  * </p>
- *
- * <p><b>Command Format:</b></p>
- * <pre>
- * unmark [taskNumber]
- * </pre>
- *
- * <p><b>Execution Flow:</b></p>
- * <ol>
- *     <li>Validates argument count and format</li>
- *     <li>Parses and validates the task index</li>
- *     <li>Confirms the task exists in the list</li>
- *     <li>Marks the task as completed</li>
- *     <li>Persists changes to storage</li>
- *     <li>Respond to the user</li>
- * </ol>
- *
- * <p><b>Error Handling:</b></p>
- * <ul>
- *   <li>Missing arguments: Prompts user for task number</li>
- *   <li>Too many arguments: Informs user of argument overload</li>
- *   <li>Invalid number format: Requests numeric input</li>
- *   <li>Invalid task ID: Notifies user of non-existent task</li>
- * </ul>
  *
  * <p><b>Visual Change:</b></p>
  * <pre>
@@ -56,12 +34,15 @@ public class UnmarkCommand implements Command {
     private final int taskId;
 
     /**
-     * Constructs a new MarkCommand with the specified context and request.
+     * Constructs a new {@code MarkCommand} with the {@link Storage}, {@link TaskList},
+     * and taskId
      *
-     * @param context the application context providing access to shared state and services.
-     * @param request the command request containing the mark arguments.
-     *                Expected to contain a single numeric argument representing the task index.
-     * @throws NullPointerException if either context or request is null
+     * @param storage a reference to the storage to store the new {@link TaskList}
+     * @param taskList a reference to the {@link TaskList} where we will unmark the
+     *                 corresponding task
+     * @param taskId the taskNumber as it appears on the list. The user expects
+     *               1-based indexing, but behind the code uses 0-based indexing
+     *               Hence we subtrack taskId by 1 before storing.
      */
     public UnmarkCommand(Storage storage, TaskList taskList, int taskId) {
         this.storage = storage;

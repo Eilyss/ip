@@ -7,8 +7,17 @@ import com.neokortex.commands.impl.CommandRequest;
 import com.neokortex.commands.impl.SaveCommand;
 import com.neokortex.core.ApplicationContext;
 
-import java.nio.file.Path;
-
+/**
+ * Creates an {@link SaveCommand} based on the given {@link CommandRequest} and {@link ApplicationContext}
+ *
+ * <p>
+ * The result is wrapped in a {@link FactoryResponse}
+ * </p>
+ *
+ * @see SaveCommand
+ * @see ApplicationContext
+ * @see CommandRequest
+ */
 public class SaveCommandFactory extends CommandFactory {
     @Override
     public FactoryResponse create(ApplicationContext context, CommandRequest request) {

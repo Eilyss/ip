@@ -2,23 +2,15 @@ package com.neokortex.commands.impl;
 
 import com.neokortex.DialoguePath;
 import com.neokortex.commands.ResponseStatus;
-import com.neokortex.core.ApplicationContext;
 
 /**
  * Echoes the user's input text back.
+ *
  * <p>
  * The {@code EchoCommand} takes user input and displays it back to the user.
- * Single and double quotes are automatically stripped.
  * </p>
  *
- * <p><b>Command Format:</b></p>
- * <pre>
- * echo [text]
- * </pre>
- *
  * @see Command
- * @see ApplicationContext
- * @see CommandRequest
  */
 public class EchoCommand implements Command {
     private final String echo;

@@ -1,55 +1,34 @@
 package com.neokortex.commands.impl;
 
-import com.neokortex.DialoguePath;
-import com.neokortex.commands.ResponseStatus;
-import com.neokortex.core.ApplicationContext;
-import com.neokortex.core.Storage;
-import com.neokortex.task.TaskList;
-
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 
+import com.neokortex.DialoguePath;
+import com.neokortex.commands.ResponseStatus;
+import com.neokortex.core.Storage;
+import com.neokortex.task.TaskList;
+
+
+
 /**
- * Deletes a task from the task list based on their index.
+ * Saves the taskList to the directory specified by path.
+ *
  * <p>
- * The {@code DeleteCommand} removes a specific task from the task list based on its
- * position on the list. It prompts the user to try again if the index provided was
- * out-of-bounds. It saves the list to storage after the deletion.
+ * The {@code SaveCommand} attempts to save the current {@link TaskList}
+ * to the location specified by the path via the {@link Storage}. If successful,
+ * the new default path in {@link Storage} will be changed to this path. Failure
+ * just leads to a non-successful {@link ResponseStatus}.
  * </p>
  *
- * <p><b>Command Format:</b></p>
- * <pre>
- * delete [taskNumber]
- * </pre>
- *
- * <p><b>Execution Flow:</b></p>
- * <ol>
- *   <li>Validates argument count and format</li>
- *   <li>Parses and validates the task index</li>
- *   <li>Confirms the task exists in the list</li>
- *   <li>Removes the task from the task list</li>
- *   <li>Persists changes to storage</li>
- *   <li>Provides comprehensive user feedback</li>
- * </ol>
- *
- * <p><b>Error Handling:</b></p>
- * <ul>
- *   <li>Missing arguments: Prompts user for task number</li>
- *   <li>Too many arguments: Informs user of argument overload</li>
- *   <li>Invalid number format: Requests numeric input</li>
- *   <li>Invalid task ID: Notifies user of non-existent task</li>
- *   <li>Storage failures: Alerts user about save issues</li>
- * </ul>
- *
- * Credit: Written with guidance from generative AI
+ * <p>
+ * If the path specified is empty, it will just use the default path within the
+ * {@link Storage}
+ * </p>
  *
  * @see Command
- * @see ApplicationContext
- * @see CommandRequest
- * @see TaskList#remove(int)
- * @see TaskList#checkValidID(int)
- * @see Storage#saveListToStorage(TaskList)
+ * @see Storage
+ * @see TaskList
  */
 public class SaveCommand implements Command {
     private final TaskList taskList;
@@ -57,12 +36,14 @@ public class SaveCommand implements Command {
     private final String path;
 
     /**
-     * Constructs a new DeleteCommand with the specified context and request.
+     * Constructs an Save from the given {@link Storage}, {@link TaskList} and path.
+     * The command will attempt to save the {@link TaskList} to the corresponding to
+     * corresponding path via the {@link Storage}. This also sets the location of the
+     * {@link Storage} to path if successful.
      *
-     * @param context the {@link ApplicationContext} providing access to shared state and services.
-     * @param request the {@link ApplicationContext} containing the deletion arguments.
-     *                Expected to contain a single numeric argument representing the task index.
-     * @throws NullPointerException if either context or request is null
+     * @param storage the storage handler of the program
+     * @param taskList the {@link TaskList} to store
+     * @param path the path to procide the {@link Storage} to save the {@link TaskList}
      */
     public SaveCommand(Storage storage, TaskList taskList, String path) {
         this.taskList = taskList;
@@ -72,14 +53,13 @@ public class SaveCommand implements Command {
 
     @Override
     public CommandResponse execute() {
-        if (!this.path.equals("")) {
+        if (!this.path.isEmpty()) {
             try {
                 storage.setFilePath(Path.of(this.path));
             } catch (InvalidPathException e) {
                 return new CommandResponse(DialoguePath.INVALID_PATH, ResponseStatus.TOTAL_FAILURE);
             }
         }
-        CommandResponse response;
 
         try {
             this.storage.saveListToStorage(this.taskList);

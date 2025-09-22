@@ -1,39 +1,44 @@
 package com.neokortex.commands.impl;
 
+import java.io.IOException;
+
 import com.neokortex.DialoguePath;
 import com.neokortex.commands.ResponseStatus;
 import com.neokortex.core.Storage;
 import com.neokortex.task.Task;
 import com.neokortex.task.TaskList;
 
-import java.io.IOException;
-
 /**
- * TODO: Update Documentation
- * Abstract class representing a general Command that adds specific tasks to a list,
- * which extends from Command
+ * Places the specified {@link Task} into the {@link TaskList}
+ *
  * <p>
- * This class provides a basic structure for commands that interact
- * with the TaskList
+ * The {@link AddCommand} attempts to add a {@link Task} into the {@link TaskList}. The command
+ * then attempts to save the new {@link TaskList} to {@link Storage}.
+ * </p>
+ *
+ * <p>
+ * Failure to save to Storage will result in the command entering a failed execution state, indicated
+ * by {@link ResponseStatus}
+ * </p>
+ *
+ * @see TaskList
+ * @see Storage
+ * @see Task
+ * @see Command
  */
 public class AddCommand implements Command {
-    /**
-     * Error message to run in case of failure
-     */
-    protected String errorMessage;
     private final TaskList taskList;
     private final Storage storage;
     private Task task;
 
 
     /**
-     * Default constructor for all AddToListCommands
-     * It uses the exact same parameters as the default constructor for Command,
-     * but it provides default implementation for extracting necessary items from
-     * context and request.
+     * Constructs an AddCommand from the given {@link Storage}, {@link TaskList} and {@link Task}.
+     * The command will attempt to add the {@link Task} to the {@link TaskList} and save to {@link Storage}
      *
-     * @param context The application context for the command
-     * @param request The command data parsed from user input
+     * @param storage the storage handler of the program
+     * @param taskList the {@link TaskList} to store the task to
+     * @param task the {@link Task} to add to the {@link TaskList}
      */
     public AddCommand(Storage storage, TaskList taskList, Task task) {
         this.storage = storage;

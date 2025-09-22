@@ -1,13 +1,26 @@
 package com.neokortex.commands.parsers;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.neokortex.DialoguePath;
 import com.neokortex.commands.CommandType;
 import com.neokortex.commands.ResponseStatus;
 import com.neokortex.commands.impl.CommandRequest;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+/**
+ * Parses an {@code SaveCommand}.
+ *
+ * <p>
+ * A save Command has the following format:
+ * </p>
+ *
+ * <ul>
+ *     <li>save {String path}</li>
+ * </ul>
+ *
+ * @see com.neokortex.commands.impl.SaveCommand
+ */
 public class SaveCommandParser extends CommandParser {
     @Override
     public ParserResponse parse(CommandType commandType, String input) {

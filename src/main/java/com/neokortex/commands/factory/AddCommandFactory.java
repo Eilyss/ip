@@ -12,6 +12,21 @@ import com.neokortex.task.Task;
 import com.neokortex.task.ToDoTask;
 import com.neokortex.time.Time;
 
+/**
+ * Creates an {@link AddCommand} based on the given {@link CommandRequest} and {@link ApplicationContext}
+ * <p>
+ * An AddCommand can either create a {@code ToDoTask}, {@code DeadlineTask} or {@code EventTask}
+ * This parser handles that accordingly.
+ * </p>
+ *
+ * <p>
+ * The result is wrapped in a {@link FactoryResponse}
+ * </p>
+ *
+ * @see AddCommand
+ * @see ApplicationContext
+ * @see CommandRequest
+ */
 public class AddCommandFactory extends CommandFactory {
     @Override
     public FactoryResponse create(ApplicationContext context, CommandRequest request) {

@@ -29,45 +29,46 @@ import com.neokortex.commands.parsers.UnmarkCommandParser;
 import com.neokortex.core.ApplicationContext;
 
 /**
- * Represents all available {@link Command}s as an enum with support for multiple
- * name aliases, and links each enum to the constructor of each {@link Command}.
+ * Represents all available {@code Command}s as an enum with support for multiple name aliases,
+ * and links each enum to their respective {@link CommandParser} and {@link CommandFactory}
+ *
  * <p>
- * The {@code CommandType} enum serves as a central {@link Command} registry that
- * maps command keywords to their respective {@link Command}. This provides a
- * unified interface for command instantiation.
+ * The {@code CommandType} enum serves as a central {@code Command}, providing a unified interface
+ * for complex handling of {@code Command}s.
  * </p>
  *
  * <p><b>Responsibilities:</b></p>
  * <ul>
- *   <li>Maps command keywords and command implementation</li>
- *   <li>Facilitate command creation</li>
- *   <li>Handles case-insensitive command lookup</li>
- *   <li>Returns {@link #INVALID} for unrecognized commands</li>
- *   <li>Supports multiple aliases for each command type</li>
+ *     <li>Maps command keywords to respective Parser and Factory (may be refactored in the future)</li>
+ *     <li>Handles case-insensitive command lookup</li>
+ *     <li>Returns {@link #INVALID} for unrecognized commands</li>
+ *     <li>Supports multiple aliases for each command type</li>
  * </ul>
  *
  * <p><b>Supported Commands:</b></p>
  * <ul>
- *   <li>{@code GREET} - Greeting commands: "hello", "hi"</li>
- *   <li>{@code ECHO} - Echo commands: "echo"</li>
- *   <li>{@code TODO} - Todo task commands: "todo"</li>
- *   <li>{@code DEADLINE} - Deadline task commands: "deadline"</li>
- *   <li>{@code EVENT} - Event task commands: "event"</li>
- *   <li>{@code DELETE} - Task deletion commands: "delete", "remove"</li>
- *   <li>{@code LIST} - List display commands: "list"</li>
- *   <li>{@code FIND} - Search commands: "find", "search"</li>
- *   <li>{@code MARK} - Task completion marking: "mark"</li>
- *   <li>{@code UNMARK} - Task unmarking: "unmark"</li>
- *   <li>{@code FAREWELL} - Exit commands: "bye", "farewell", "goodbye", "exit", "quit"</li>
+ *   <li>{@code GREET} - Greets the user: hello/hi</li>
+ *   <li>{@code ECHO} - Echoes text provided by user: echo {String text}</li>
+ *   <li>{@code TODO} - Add {@code ToDoTask} to {@code TaskList}: todo {String taskDescription}</li>
+ *   <li>{@code DEADLINE} - Add {@code DeadlineTask} to {@code TaskList}:
+ *       deadline {String taskDescription} /by {String Deadline}</li>
+ *   <li>{@code EVENT} - Add {@code EventTask} to {@code TaskList}:
+ *       event {String taskDescription} /from {String startTime} /to /from {String endTime}</li>
+ *   <li>{@code DELETE} - Delete {@code Task} from {@code TaskList}: delete/remove {int taskId}</li>
+ *   <li>{@code LIST} - Displays (@code TaskList)s: list</li>
+ *   <li>{@code SAVE} - Saves current {@code TaskList} to specified path: save {String path}</li>
+ *   <li>{@code FIND} - Search for {@code Task}s with the specified keyword:
+ *       find/search {}String keyword}</li>
+ *   <li>{@code MARK} - Mark {@code Task} as complete: mark {int taskId}</li>
+ *   <li>{@code UNMARK} - Unmark marked {@code Task}: unmark {int taskId}</li>
+ *   <li>{@code FAREWELL} - Bid user farewell and quits the program: farewell/goodbye/exit/quit</li>
  *   <li>{@code INVALID} - Fallback for unrecognized commands</li>
  * </ul>
  *
- * Credit: JavaDoc was written with guidance from generative AI
+ * <p><b>Credit: documentation was adapted from discussion with generative AI</b></p>
  *
- * @see Command
  * @see CommandFactory
  * @see ApplicationContext
- * @see CommandRequest
  */
 public enum CommandType {
     GREET(Set.of("hello", "hi", "greet"), new GreetCommandParser(), new GreetCommandFactory()),
