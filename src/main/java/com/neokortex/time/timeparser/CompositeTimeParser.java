@@ -30,7 +30,7 @@ public class CompositeTimeParser {
      * @return a {@link List} of potential {@link LocalTime}s that can be extracted from the input.
      */
     public List<LocalTime> processString(String input) {
-        List<LocalTime> potentialTimes = new ArrayList<>();
+        ArrayList<LocalTime> potentialTimes = new ArrayList<>();
         String processed = input;
         for (TimeParser tp : this.timeParsers) {
             processed = tp.parse(processed, potentialTimes);

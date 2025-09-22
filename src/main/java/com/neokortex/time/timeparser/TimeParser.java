@@ -1,6 +1,7 @@
 package com.neokortex.time.timeparser;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  * attempting to extract a {@link LocalTime} from it.
  * </p>
  *
- * Each child class must implement a {@link #parse(String, List)} method.
+ * Each child class must implement a {@link #parse(String, ArrayList)} method.
  *
  * @see CompositeTimeParser
  */
@@ -41,5 +42,5 @@ public abstract class TimeParser {
      * @return the input string but with the part of the String that matches the {@code TimeParser}'s format
      *         extracted to prevent repeat detections.
      */
-    public abstract String parse(String input, List<? super LocalTime> potentialTimes);
+    public abstract String parse(String input, ArrayList<LocalTime> potentialTimes);
 }

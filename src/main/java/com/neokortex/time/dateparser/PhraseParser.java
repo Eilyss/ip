@@ -1,7 +1,7 @@
 package com.neokortex.time.dateparser;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,7 +27,7 @@ public class PhraseParser extends DateParser {
             Pattern.compile(PHRASE_REGEX, Pattern.CASE_INSENSITIVE);
 
     @Override
-    public String parse(String input, List<? super LocalDate> potentialDates) {
+    public String parse(String input, ArrayList<LocalDate> potentialDates) {
         LocalDate currentDate = LocalDate.now();
         Matcher matcher = pattern.matcher(input);
 

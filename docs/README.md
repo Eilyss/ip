@@ -192,3 +192,27 @@ I hope you enjoyed reading this User Guide. Now what are you waiting for?
 ACE is excited to meet you! You wouldn't leave them hanging would you?
 
 # Thank you for reading!
+
+# Acknowledgements
+
+## FXML
+This code and associated FXML heavily references the JavaFX tutorial. I used the result of following the tutorial
+as my base, and with without it I would not have been able to write this class. 
+
+The tutorial can be found here:
+https://se-education.org/guides/tutorials/javaFx.html
+
+
+## Documentation
+In the beginning, I wasn't really sure how to write good documentation. As such, I consulted
+generative AIs like ChatGPT and DeepSeek for help. I would attempt to write documentation for
+my classes, then I would copy paste my attempt into these AI, and seek improvements. Needless
+to say, I learned a lot regarding techniques to write better documentation. And while I
+definitely have a long way to go with regards to writing better documentation, I can safely say
+I no longer rely on AI to write my docs. However, the inspriation from AI definitely seeps
+through, as I reference some of my past documentation sometimes to get inspiration for what to
+write. For most of the more recent additions, like the CommandParsers and CommandFactories, I
+did not rely on AI at all. However some of the older classes that were created near the start
+of the Semester, heavily rely an AI. So I would say that there is a blend of original writing
+as well as writing influenced by AI. More details in the AI.md file.
+

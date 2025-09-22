@@ -1,6 +1,7 @@
 package com.neokortex.time.dateparser;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  * attempting to extract a {@link LocalDate} from it.
  * </p>
  *
- * Each child class must implement a {@link #parse(String, List)} method.
+ * Each child class must implement a {@link #parse(String, ArrayList)} method.
  *
  * @see CompositeDateParser
  */
@@ -52,5 +53,5 @@ public abstract class DateParser {
      * @return the input string but with the part of the String that matches the {@code DateParser}'s format
      *         extracted to prevent repeat detections.
      */
-    public abstract String parse(String input, List<? super LocalDate> potentialDates);
+    public abstract String parse(String input, ArrayList<LocalDate> potentialDates);
 }

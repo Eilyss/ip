@@ -26,6 +26,7 @@ import javafx.scene.image.Image;
  *   <li>Help remember information between interpretation</li>
  * </ul>
  *
+ * <p><b>Credit: documentation was written based on suggestions and recommendations from generative AI</b></p>
  * @see Ui
  * @see CommandHandler
  * @see DialogueMap

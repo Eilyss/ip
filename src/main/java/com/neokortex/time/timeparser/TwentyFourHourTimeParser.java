@@ -2,7 +2,7 @@ package com.neokortex.time.timeparser;
 
 import java.time.DateTimeException;
 import java.time.LocalTime;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +22,7 @@ public class TwentyFourHourTimeParser extends TimeParser {
                     Pattern.CASE_INSENSITIVE);
 
     @Override
-    public String parse(String input, List<? super LocalTime> potentialTimes) {
+    public String parse(String input, ArrayList<LocalTime> potentialTimes) {
         Matcher matcher = pattern.matcher(input);
         boolean error = false;
 

@@ -31,7 +31,7 @@ public class CompositeDateParser {
      * @return a {@link List} of potential {@link LocalTime}s that can be extracted from the input.
      */
     public List<LocalDate> processString(String input) {
-        List<LocalDate> potentialDates = new ArrayList<>();
+        ArrayList<LocalDate> potentialDates = new ArrayList<>();
         String processed = input;
         for (DateParser dp : this.dateParsers) {
             processed = dp.parse(processed, potentialDates);

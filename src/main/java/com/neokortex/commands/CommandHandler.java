@@ -35,7 +35,7 @@ import com.neokortex.commands.parsers.ParserResponse;
  * </p>
  *
  * <p>
- * At each stage, the hanlder also passes around a Response, such that when the process is terminated
+ * At each stage, the handler also passes around a Response, such that when the process is terminated
  * at any point, a {@link Response} can be returned to handle it.
  * </p>
  * <p>

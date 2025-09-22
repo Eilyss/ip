@@ -2,7 +2,7 @@ package com.neokortex.time.dateparser;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +28,7 @@ public class DayOfWeekParser extends DateParser {
             Pattern.compile(DAY_REGEX, Pattern.CASE_INSENSITIVE);
 
     @Override
-    public String parse(String input, List<? super LocalDate> potentialDates) {
+    public String parse(String input, ArrayList<LocalDate> potentialDates) {
         LocalDate currentDate = LocalDate.now();
         Matcher dateMatcher = pattern.matcher(input);
 
