@@ -72,6 +72,7 @@ public class Main extends Application {
             this.chatbot.setUi(gui);
             this.chatbot.displayStartupMessage(this.hasLoadError);
             stage.setTitle("NeoKortex");
+            stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/NeoKortex Icon.png")));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
