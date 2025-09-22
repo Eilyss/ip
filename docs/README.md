@@ -26,9 +26,24 @@ NeoKortex.
 Here's a summary of what you need to know to understand this user guide.
 {Type t} - Curly Braces indicates the type of input, the following word will be what we refer to it as.
 \[a/b\] - Square braces with a slash means either a or b
+(n)? - Parenthesis with a question mark indicate optional parameters/ 
 
 And... That's it!
 # Let's get started!
+
+## Greeting Ace
+The `greet` command will get ACE to introduce themselves. Say hi!
+
+### Command Format:
+`greet`
+
+Example: `greet`
+
+
+```
+expected output
+```
+![Greet demonstration](images/Greet.png)
 
 ## Adding ToDos
 The `todo` command allows you to add a ToDo Task with a given taskDescription. A ToDo Task is just a task that needs to be completed at some point
@@ -88,3 +103,92 @@ Example: `list`
 expected output
 ```
 ![List demonstration](images/List.png)
+
+## Deleting a Task
+The `delete` command will get ACE to delete the Tasks that corresponds to the number that you specify.
+
+### Command Format:
+`delete {int taskId}`
+
+Example: `delete 1`
+
+
+```
+expected output
+```
+![Delete demonstration](images/Delete.png)
+
+## Saving the TaskList
+The `save` command will get ACE to save the TaskList. You can your saved TaskList in the directory ./data/ToDoList
+This TaskList will now persist across instances. The next time you enter the NeoKortex, Ace will remember the TaskList
+from the previous time you saved!
+
+If you don't lilke the default save location, you can actually specify one yourself!
+Just write the desired path after save.
+
+### Command Format:
+`save {String path}`
+
+Example: `save`
+
+
+```
+expected output
+```
+![Save demonstration](images/Save.png)
+
+## Mark a Task as done
+The `mark` command will mark the Task corresponding to the TaskId provided as done.
+
+### Command Format:
+`mark {int taskId}`
+
+Example: `mark 1`
+
+
+```
+expected output
+```
+Before:
+![Mark demonstration](images/Mark_1.png)
+After:
+![Mark demonstration](images/Mark_2.png)
+
+## Unmarking a Task
+The `unmark` command will unmark the Task corresponding to the TaskId provided.
+
+### Command Format:
+`unmark {int taskId}`
+
+Example: `mark 1`
+
+
+```
+expected output
+```
+Before:
+![Mark demonstration](images/Unmark_1.png)
+After:
+![Mark demonstration](images/Unmark_2.png)
+
+## Leaving the NeoKortex
+The `quit` command will allow you to quit the program. ACE will even send you off with a message!
+_I mean you can just exit by clicking the X icon but where's the fun in that?_
+
+### Command Format:
+`quit`
+
+Example: `quit`
+
+
+```
+expected output
+```
+![Quit demonstration](images/Quit.png)
+
+# That's All Folks!
+
+I hope you enjoyed reading this User Guide. Now what are you waiting for? 
+ACE is excited to meet you! You wouldn't leave them hanging would you?
+
+# Thank you for reading!
